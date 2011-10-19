@@ -42,7 +42,18 @@
                 <input id="TimDiaDiemMoi" class="button" onclick="btnDiaDiemMoi_Click()" type="button" value="Tìm địa điểm theo tọa độ" />
                 <input id="setMarker2" class="button" onclick="setMarker()" type="button" value="Set marker" />
             </p>
-            <div id="diadiempanel"></div>
+            <div id="searchresult"></div>
+            <div id="myplacenavigation">
+                <asp:TreeView ID="MyLocationTreeView" runat="server" Font-Bold="False" 
+        ImageSet="XPFileExplorer" ShowLines="True" ToolTip="Choose Your Location!">
+                    <Nodes>
+                        <asp:TreeNode Text="New Node" Value="New Node">
+                            <asp:TreeNode Text="New Node" Value="New Node"></asp:TreeNode>
+                            <asp:TreeNode Text="New Node" Value="New Node"></asp:TreeNode>
+                        </asp:TreeNode>
+                    </Nodes>
+                </asp:TreeView>
+            </div>
             <div id="map"></div>
         </LoggedInTemplate>
     </asp:LoginView>
