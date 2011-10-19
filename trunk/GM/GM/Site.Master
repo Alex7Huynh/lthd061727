@@ -8,7 +8,7 @@
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body id="pageBody" runat="server">
     <form runat="server">
     <div class="page">
         <div class="header">
