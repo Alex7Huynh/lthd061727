@@ -8,6 +8,7 @@ using System.Web.UI.HtmlControls;
 using System.Net;
 using System.IO;
 using System.Xml.Linq;
+using System.Web.Security;
 
 namespace GM
 {
@@ -17,6 +18,52 @@ namespace GM
         {
             HtmlGenericControl body = (HtmlGenericControl)Master.FindControl("pageBody");
             body.Attributes.Add("onload", "initialize()");
+
+            LoadUserLocation();
+        }
+
+        private void LoadUserLocation()
+        {
+            // Get a reference to the currently logged on user 
+            MembershipUser currentUser = Membership.GetUser(); 
+            // Determine the currently logged on user's UserId value 
+            Guid currentUserId = (Guid)currentUser.ProviderUserKey;
+            TreeNode root = new TreeNode("My Locations", "");
+
+            DataClasses1DataContext context = new DataClasses1DataContext();
+            foreach (LocationCategory category in context.LocationCategories)
+            {
+                if (category.UserID == currentUserId)
+                {
+                    TreeNode sub = new TreeNode(category.Name, category.CategoryID.ToString());
+                    LoadTreeViewLoop(sub, category, context);
+                    root.ChildNodes.Add(sub);
+                }
+            }
+
+            
+            TreeView myLocation = (TreeView)LoginView1.FindControl("MyLocationTreeView");
+            myLocation.Nodes.Clear();
+            myLocation.Nodes.Add(root);
+        }
+
+        private void LoadTreeViewLoop(TreeNode parent, LocationCategory categoryParent, DataClasses1DataContext context)
+        {
+            foreach (Location location in context.Locations)
+            {
+                if (location.CategoryID == categoryParent.CategoryID)
+                {
+                    TreeNode leaf = new TreeNode(location.Name, location.LocationID.ToString());
+                    parent.ChildNodes.Add(leaf);
+                }
+            }
+
+            foreach (LocationCategory category in categoryParent.LocationCategories)
+            {
+                TreeNode children = new TreeNode(category.Name, category.CategoryID.ToString());
+                parent.ChildNodes.Add(children);
+                LoadTreeViewLoop(children, category, context);
+            }
         }
 
         protected void setMarker1_Click(object sender, EventArgs e)
