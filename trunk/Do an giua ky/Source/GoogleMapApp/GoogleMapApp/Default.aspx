@@ -8,17 +8,30 @@
     <link type="text/css" href="Styles/MyStyle.css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="Scripts/gears_init.js"></script>
     <script type="text/javascript" src="Scripts/MyGoogleMap.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
     <script type="text/javascript" src="Scripts/google-maps-3-vs-1-0.js" ></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=vi"></script>
+    <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=vi"></script>-->
     <style type="text/css">
         #DiaDiem
         {
             width: 461px;
         }
     </style>
+    <script src="Scripts/maps.js" type="text/javascript"></script><script src="Scripts/main.js" type="text/javascript"></script><style type="text/css">@media print{.gmnoprint{display:none}}@media screen{.gmnoscreen{display:none}}</style>
+    <script src="//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function initialize() {
+            if (GBrowserIsCompatible()) {
+                var map = new GMap2(document.getElementById("map"));
+                map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+                map.setUIToDefault();
+            }
+        }
+
+    </script>
 </head>
-<body onload="initialize()">
+<body onload="initialize()"  onunload="GUnload()>
     <form id="form1" runat="server">
     <h1>
         ỨNG DỤNG Google API V3</h1>
