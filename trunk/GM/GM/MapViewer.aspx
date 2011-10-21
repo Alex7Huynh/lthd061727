@@ -21,17 +21,8 @@
             <h1>
                 ỨNG DỤNG Google API V3</h1>
             <p>
-                <asp:TextBox ID="txtAddress" runat="server" value="Nguyễn Văn Cừ"></asp:TextBox>
-                <asp:Button id="btnFind" runat="server" Text="Find Location" onclick="btnFind_Click"/>
-                <asp:Button ID="setMarker1" runat="server" Text="Set marker" onclick="setMarker1_Click" />
-                <asp:Button ID="setLocation" runat="server" Text="Set Location" onclick="setLocation_Click" />
-                <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button" value="Tìm vi tri cua minh" />
-            </p>
-            <p>
-                Vĩ độ: <asp:TextBox ID="viDo" runat="server" value="10.75918"></asp:TextBox>        
-                Kinh độ: <asp:TextBox ID="kinhDo" runat="server" value="106.662498"></asp:TextBox>        
-                <input id="TimDiaDiemMoi" class="button" onclick="btnDiaDiemMoi_Click()" type="button" value="Tìm địa điểm theo tọa độ" />
-                <input id="setMarker2" class="button" onclick="setMarker()" type="button" value="Set marker" />
+                <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
+                <asp:Button id="btnFind" runat="server" Text="Find Address" onclick="btnFind_Click"/>
             </p>
             <table class="style1">
                 <tr>
@@ -47,7 +38,7 @@
                         </asp:TreeView>
                     </td>
                     <td class="style2">
-                        <cc1:GMap ID="GMap1" runat="server" />
+                        <cc1:GMap ID="GMap1" runat="server" Height="500px" Width="800px" />
                     </td>
                 </tr>
             </table>
