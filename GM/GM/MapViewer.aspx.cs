@@ -16,17 +16,13 @@ namespace GM
 {
     public partial class MapViewer : System.Web.UI.Page
     {
+        GMarkerOptions mOpts = new GMarkerOptions();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Page.IsPostBack == false)
             {
                 LoadUserLocation();
-
-                GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
-                if (GMap1 != null)
-                {
-                    GMap1.setCenter(new GLatLng(20, 15), 16, Subgurim.Controles.GMapType.GTypes.Normal);
-                }
             }
         }
 
@@ -88,12 +84,92 @@ namespace GM
             geocode = GMap1.getGeoCodeRequest(fulladdress);
             var glatlng = new Subgurim.Controles.GLatLng(geocode.Placemark.coordinates.lat, geocode.Placemark.coordinates.lng);
             GMap1.setCenter(glatlng, 16, Subgurim.Controles.GMapType.GTypes.Normal);
-            var oMarker = new Subgurim.Controles.GMarker(glatlng);
-            GMap1.addGMarker(oMarker);
+
+            GMarker mkr = new GMarker();
+
+            mOpts.draggable = true;
+
+            mkr.point = glatlng;
+            mkr.options = mOpts;
+            GMap1.addGMarker(mkr);
         }
 
-        protected void btnFindByLatLng_Click(object sender, EventArgs e)
+        protected void btnAddLocation_Click(object sender, EventArgs e)
+        {
+            Location location = new Location();
+        }
+
+        protected void btnAddCategory_Click(object sender, EventArgs e)
         {
         }
+
+        protected string GMap1_MapLoad(object s, GAjaxServerEventArgs e)
+        {
+            GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
+            if (GMap1 != null)
+            {
+                GMap1.setCenter(new GLatLng(12.6844893, 108.0859396), 16, Subgurim.Controles.GMapType.GTypes.Normal);
+            }
+            return "";
+        }
+
+        protected string GMap1_Click(object s, GAjaxServerEventArgs e)
+        {
+            GMarker marker = new GMarker(e.point);
+
+            mOpts.draggable = true;
+            marker.options = mOpts;
+
+            GInfoWindow window = new GInfoWindow(marker,
+                string.Format(@"
+                            <b>GLatLngBounds</b><br />
+                            SW = {0}<br/>
+                            NE = {1}
+                            ",
+                e.bounds.getSouthWest().ToString(),
+                e.bounds.getNorthEast().ToString())
+            , true);
+
+            return window.ToString(e.map);
+        }
+
+        protected string GMap1_MarkerClick(object s, GAjaxServerEventArgs e)
+        {
+            return string.Format("alert('MarkerClick: {0} - {1}')", e.point.ToString(), DateTime.Now);
+        }
+
+        protected string GMap1_MoveStart(object s, GAjaxServerEventArgs e)
+        {
+            return "document.getElementById('messages1').innerHTML= 'MoveStart at " + e.point.ToString() + " - " + DateTime.Now.ToString() + "';";
+        }
+
+        protected string GMap1_MoveEnd(object s, GAjaxServerEventArgs e)
+        {
+            return "document.getElementById('messages2').innerHTML= 'MoveEnd at " + e.point.ToString() + " - " + DateTime.Now.ToString() + "';";
+        }
+
+        protected string GMap1_DragStart(object s, GAjaxServerEventArgs e)
+        {
+            GMarker marker = new GMarker(e.point);
+            GInfoWindow window = new GInfoWindow(marker, "DragStart - " + DateTime.Now.ToString(), false);
+            return window.ToString(e.map);
+        }
+
+        protected string GMap1_DragEnd(object s, GAjaxServerEventArgs e)
+        {
+            GMarker marker = new GMarker(e.point);
+            GInfoWindow window = new GInfoWindow(marker, "DragEnd - " + DateTime.Now.ToString(), false);
+            return window.ToString(e.map);
+        }
+
+        protected string GMap1_ZoomEnd(object s, GAjaxServerEventZoomArgs e)
+        {
+            return string.Format("alert('oldLevel/newLevel: {0}/{1} - {2}')", e.oldLevel, e.newLevel, DateTime.Now);
+        }
+
+        protected string GMap1_MapTypeChanged(object s, GAjaxServerEventMapArgs e)
+        {
+            return string.Format("alert('{0}')", e.mapType.ToString());
+        } 
     }
 }
