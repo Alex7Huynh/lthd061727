@@ -76,6 +76,7 @@ namespace GM
 
         protected void btnFind_Click(object sender, EventArgs e)
         {
+            //Find and add new location
             GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
             TextBox txtAddress = (TextBox)LoginView1.FindControl("txtAddress");
             string fulladdress = string.Format("{0}", txtAddress.Text);
@@ -96,60 +97,24 @@ namespace GM
 
         protected void btnAddLocation_Click(object sender, EventArgs e)
         {
+            //Add new location
             Location location = new Location();
         }
 
         protected void btnAddCategory_Click(object sender, EventArgs e)
         {
-        }
-
-        protected string GMap1_MapLoad(object s, GAjaxServerEventArgs e)
-        {
-            GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
-            if (GMap1 != null)
-            {
-                GMap1.setCenter(new GLatLng(12.6844893, 108.0859396), 16, Subgurim.Controles.GMapType.GTypes.Normal);
-            }
-            return "";
-        }
-
-        protected string GMap1_Click(object s, GAjaxServerEventArgs e)
-        {
-            GMarker marker = new GMarker(e.point);
-
-            mOpts.draggable = true;
-            marker.options = mOpts;
-
-            GInfoWindow window = new GInfoWindow(marker,
-                string.Format(@"
-                            <b>GLatLngBounds</b><br />
-                            SW = {0}<br/>
-                            NE = {1}
-                            ",
-                e.bounds.getSouthWest().ToString(),
-                e.bounds.getNorthEast().ToString())
-            , true);
-
-            return window.ToString(e.map);
+            //Add category
         }
 
         protected string GMap1_MarkerClick(object s, GAjaxServerEventArgs e)
         {
+            //Set current location
             return string.Format("alert('MarkerClick: {0} - {1}')", e.point.ToString(), DateTime.Now);
-        }
-
-        protected string GMap1_MoveStart(object s, GAjaxServerEventArgs e)
-        {
-            return "document.getElementById('messages1').innerHTML= 'MoveStart at " + e.point.ToString() + " - " + DateTime.Now.ToString() + "';";
-        }
-
-        protected string GMap1_MoveEnd(object s, GAjaxServerEventArgs e)
-        {
-            return "document.getElementById('messages2').innerHTML= 'MoveEnd at " + e.point.ToString() + " - " + DateTime.Now.ToString() + "';";
         }
 
         protected string GMap1_DragStart(object s, GAjaxServerEventArgs e)
         {
+            //Set current location
             GMarker marker = new GMarker(e.point);
             GInfoWindow window = new GInfoWindow(marker, "DragStart - " + DateTime.Now.ToString(), false);
             return window.ToString(e.map);
@@ -157,19 +122,10 @@ namespace GM
 
         protected string GMap1_DragEnd(object s, GAjaxServerEventArgs e)
         {
+            //save new position (point)
             GMarker marker = new GMarker(e.point);
             GInfoWindow window = new GInfoWindow(marker, "DragEnd - " + DateTime.Now.ToString(), false);
             return window.ToString(e.map);
         }
-
-        protected string GMap1_ZoomEnd(object s, GAjaxServerEventZoomArgs e)
-        {
-            return string.Format("alert('oldLevel/newLevel: {0}/{1} - {2}')", e.oldLevel, e.newLevel, DateTime.Now);
-        }
-
-        protected string GMap1_MapTypeChanged(object s, GAjaxServerEventMapArgs e)
-        {
-            return string.Format("alert('{0}')", e.mapType.ToString());
-        } 
     }
 }

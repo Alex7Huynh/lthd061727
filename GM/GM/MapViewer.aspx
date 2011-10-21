@@ -36,7 +36,14 @@
             </p>
             <p>
                 <asp:Button id="btnAddLocation" runat="server" Text="Add Location" onclick="btnAddLocation_Click"/>
+                <asp:Button id="btnRemoveCurrentLocation" runat="server" Text="Remove Current Location" onclick="btnRemoveCurrentLocation_Click"/>
                 <asp:Button id="btnAddCategory" runat="server" Text="Add Category" onclick="btnAddCategory_Click"/>
+            </p>
+            <p>
+                <asp:Label ID="lblCurrentLocation" runat="server"></asp:Label>
+                <br/>
+                <asp:Button id="btnUpdateMovementCurrentLocation" runat="server" Text="Update Movement Current Location" onclick="btnUpdateMovementCurrentLocation_Click"/>
+                <asp:Button id="btnCancelMovementCurrentLocation" runat="server" Text="Cancel Movement Current Location" onclick="btnCancelMovementCurrentLocation_Click"/>
             </p>
             <table class="style1">
                 <tr>
@@ -54,14 +61,8 @@
                     <td class="style2">
                         <cc1:GMap ID="GMap1" runat="server" Height="500px" Width="800px" enableServerEvents="true" 
                         OnMarkerClick="GMap1_MarkerClick"
-                        OnZoomEnd="GMap1_ZoomEnd"
-                        OnMapTypeChanged="GMap1_MapTypeChanged"
-                        OnClick="GMap1_Click"
                         OnDragEnd="GMap1_DragEnd"
-                        OnDragStart="GMap1_DragStart"
-                        OnMoveEnd="GMap1_MoveEnd"
-                        OnMoveStart="GMap1_MoveStart" 
-                        onmapload="GMap1_MapLoad"/>
+                        OnDragStart="GMap1_DragStart"/>
                     </td>
                 </tr>
             </table>
