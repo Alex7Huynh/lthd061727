@@ -15,20 +15,35 @@ namespace GoogleMapApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (!IsPostBack)
-            {
-                string ten = Request.QueryString["ten"].ToString();
-                float viDo = float.Parse(Request.QueryString["lat"].ToString());
-                float kinhDo = float.Parse(Request.QueryString["lgn"].ToString());
-                
-                MyClass.ds.Add(new DiaDiemDTO(ten, viDo, kinhDo));
-                foreach (DiaDiemDTO d in MyClass.ds)
-                {
-                    general.Text += d.tenDiaDiem + "  " + d.viDo + "   " + d.kinhDo + "\n";
-                }
-            }*/
+            //Kiểm tra đăng nhập
+            if (Session["User"] == null)
+                Response.Redirect("Default.aspx");
+
             if (!IsPostBack)
+            {
+                //Xử lý từ url
+                if (Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"].ToString() == "Xoa")
+                    {
+                        DiaDiemDTO diaDiem = new DiaDiemDTO();
+                        DanhMucDTO danhMuc = new DanhMucDTO();
+                        danhMuc.NguoiDung = (NguoiDungDTO)Session["User"];
+                        diaDiem.DanhMuc = danhMuc;
+                        diaDiem.TenDiaDiem = Request.QueryString["ten"].ToString();
+                        if (DiaDiemDAO.XoaDiaDiem(diaDiem))
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Xóa thành công" + "');", true);
+                        else
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "thất bại" + "');", true);
+                    }
+                    else if (Request.QueryString["action"].ToString() == "TimKiem")
+                    {
+
+                    }
+                }
+                //Nạp treeview
                 LoadTreeView();
+            }
         }
         private void LoadTreeView()
         {
@@ -50,6 +65,7 @@ namespace GoogleMapApp
                         for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
                         {
                             TreeNode diaDiemTreeNode = new TreeNode(nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
+                            diaDiemTreeNode.NavigateUrl = "index.aspx?action=TimKiem&ten=" + diaDiemTreeNode.Value;
                             danhMucTreeNode.ChildNodes.Add(diaDiemTreeNode);
                         }
                         nguoiDungTreeNode.ChildNodes.Add(danhMucTreeNode);
@@ -105,6 +121,18 @@ namespace GoogleMapApp
         {
             TreeView t = (TreeView)(sender);
             DiaDiem.Text = t.SelectedNode.Value;
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + t.SelectedNode.Value + "');", true);
+        }
+
+        protected void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            Session["User"] = null;
+            Response.Redirect("Default.aspx");
+        }
+
+        protected void btnChiaSeDiaDiem_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ChiaSeDiaDiem.aspx");
         }
     }
 }

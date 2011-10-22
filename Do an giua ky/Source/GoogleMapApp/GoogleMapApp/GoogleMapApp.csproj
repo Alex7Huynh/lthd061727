@@ -68,6 +68,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Default.aspx" />
+    <Content Include="XuLy.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChiaSeDiaDiem.aspx.cs">
@@ -98,6 +99,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="XuLy.aspx.cs">
+      <DependentUpon>XuLy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="XuLy.aspx.designer.cs">
+      <DependentUpon>XuLy.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

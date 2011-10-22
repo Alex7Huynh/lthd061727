@@ -37,5 +37,21 @@ namespace GoogleMapApp
 
             return true;
         }
+
+        public static DanhMucDTO TimDanhMuc(string tenDanhMuc, NguoiDungDTO nguoiDung)
+        {
+            DanhMucDTO danhMuc = null;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Util.FileName);
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + nguoiDung.Username + "']//DANHMUC[@tendanhmuc='" + tenDanhMuc + "']");
+            if (list.Count == 0)
+                return danhMuc;
+            danhMuc = new DanhMucDTO();
+            danhMuc.NguoiDung = new NguoiDungDTO();
+            danhMuc.NguoiDung = nguoiDung;
+            danhMuc.TenDanhMuc = tenDanhMuc;
+
+            return danhMuc;
+        }
     }
 }
