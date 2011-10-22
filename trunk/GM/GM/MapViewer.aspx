@@ -14,7 +14,9 @@
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
     <script type="text/javascript">
         var map;
+        var marker;
         var geocoder;
+        var option;
         function initialize() {
             if (GBrowserIsCompatible()) {
                 map = new GMap2(document.getElementById("map"));
@@ -38,10 +40,7 @@
                     }
                     else {
                         map.setCenter(point, 15);
-                        var marker = new GMarker(point, { draggable: true });
-                        map.addOverlay(marker);
-                        marker.openInfoWindow(address);
-                        GEvent.addListener(marker, "dblclick", function call() { gmarkerdblclick() });
+                        add(point);
                     }
                 }
             );
@@ -50,20 +49,35 @@
 
         function addMarker() {
             var center = map.getCenter();
-            var marker = new GMarker(center, { draggable: true });
-            map.addOverlay(marker);
-            marker.openInfoWindow("Drag the marker to a specific position");
-
-            GEvent.addListener(marker, "dblclick", function call() { gmarkerdblclick() });
+            add(center);
         }
 
-        function gmarkerdblclick() {
-            alert("Hello this is an Alert");
-            var confirm = confirm('Are you want to add this location?');
+        function add(point) {
+            var marker = new GMarker(point, { draggable: true });
+            map.addOverlay(marker);
+
+            GEvent.addListener(marker, "dblclick", function() {
+                var hdnLat = document.getElementById("<%=hdnLat.ClientID %>");
+                var hdnLng = document.getElementById("<%=hdnLng.ClientID %>");
+
+                hdnLat.value = this.getLatLng().lat();
+                hdnLng.value = this.getLatLng().lng();
+
+                marker.openInfoWindow("New position has been set");
+                alert("Hello this is an Alert");
+                PageMethods.AddLocation(this.getLatLng().lng(), this.getLatLng().lat());
+            });
+        }
+
+        function deleteAllMarker() {
+            map.clearOverlays();
         }
     </script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
+    <asp:HiddenField ID="hdnLat" runat="server" />
+    <asp:HiddenField ID="hdnLng" runat="server" />
     <asp:LoginView ID="LoginView1" runat="server">
         <AnonymousTemplate>
             You need to login to view this page!
@@ -77,7 +91,7 @@
             </p>
             <p>
                 <input type="button" id="btnAddMarker" value="Add marker" onclick="addMarker();" />
-                <input type="button" id="btnDeleteAllMarker" value="Delete all marker" onclick="deleteAllMarker()" />
+                <input type="button" id="btnDeleteAllMarker" value="Delete all marker" onclick="deleteAllMarker();" />
                 <asp:Button id="btnAddCategory" runat="server" Text="Add Category" onclick="btnAddCategory_Click"/>
             </p>
             <p>

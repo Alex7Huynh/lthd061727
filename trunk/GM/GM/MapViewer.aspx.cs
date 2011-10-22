@@ -10,15 +10,11 @@ using System.Xml.Linq;
 using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
-using Subgurim.Controles;
 
 namespace GM
 {
     public partial class MapViewer : System.Web.UI.Page
     {
-        GMarkerOptions mOpts = new GMarkerOptions();
-        GListener dblclickListener;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -97,10 +93,16 @@ namespace GM
 
         }
 
-        protected void btnGMKDblclickHandler_Click(object sender, EventArgs e)
+        [System.Web.Services.WebMethod()]
+        [System.Web.Script.Services.ScriptMethod()]
+        protected static void AddLocation(float lng, float lat)
         {
             Location location = new Location();
-            int i = 0;
+            location.Longitude = lng;
+            location.Latitude = lat;
+
+            DataClasses1DataContext context = new DataClasses1DataContext();
+            context.Locations.InsertOnSubmit(location);
         }
     }
 }
