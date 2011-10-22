@@ -29,21 +29,24 @@
         function showAddress() {
             var ispostback = "<%=Page.IsPostBack %>";
             if (ispostback) {
-                var txtAddress = document.getElementById("<%=((TextBox)LoginView1.FindControl("txtAddress")).ClientID%>");
-                var address = txtAddress.value;
+                var control = "<%=((TextBox)LoginView1.FindControl("txtAddress"))%>";
+                if (control != null) {
+                    var txtAddress = document.getElementById("<%=((TextBox)LoginView1.FindControl("txtAddress")).ClientID%>");
+                    var address = txtAddress.value;
 
-                geocoder.getLatLng(
-                address,
-                function (point) {
-                    if (!point) {
-                        alert(address + " not found");
+                    geocoder.getLatLng(
+                    address,
+                    function (point) {
+                        if (!point) {
+                            alert(address + " not found");
+                        }
+                        else {
+                            map.setCenter(point, 15);
+                            add(point);
+                        }
                     }
-                    else {
-                        map.setCenter(point, 15);
-                        add(point);
-                    }
+                    );
                 }
-            );
             }
         }
 
@@ -65,8 +68,18 @@
 
                 marker.openInfoWindow("New position has been set");
                 alert("Hello this is an Alert");
-                PageMethods.AddLocation(this.getLatLng().lng(), this.getLatLng().lat());
+
+                var arg = this.getLatLng().lng().toString() + ";" + this.getLatLng().lat().toString();
+                var context = "";
+                CallServer(arg, context);
             });
+        }
+
+        function ReceiveServerData(rValue)
+        {
+        }
+
+        function OnAddLocationComplete() {
         }
 
         function deleteAllMarker() {

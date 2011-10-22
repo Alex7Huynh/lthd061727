@@ -13,10 +13,19 @@ using System.Configuration;
 
 namespace GM
 {
-    public partial class MapViewer : System.Web.UI.Page
+    public partial class MapViewer : System.Web.UI.Page, ICallbackEventHandler
     {
+        protected String returnValue;
         protected void Page_Load(object sender, EventArgs e)
         {
+            String cbReference = ClientScript.GetCallbackEventReference(this, "arg", "ReceiveServerData", "context");
+            String callbackScript;
+            callbackScript = "function CallServer(arg, context)" +
+                "{ " + cbReference + ";}";
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+                            "CallServer", callbackScript, true);
+
             if (!Page.IsPostBack)
             {
                 HtmlGenericControl body = (HtmlGenericControl)Master.FindControl("pageBody");
@@ -93,16 +102,29 @@ namespace GM
 
         }
 
-        [System.Web.Services.WebMethod()]
-        [System.Web.Script.Services.ScriptMethod()]
-        protected static void AddLocation(float lng, float lat)
+        public String GetCallbackResult()
         {
-            Location location = new Location();
-            location.Longitude = lng;
-            location.Latitude = lat;
+            return returnValue;
+        }
 
-            DataClasses1DataContext context = new DataClasses1DataContext();
-            context.Locations.InsertOnSubmit(location);
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            try
+            {
+                string[] strSplit = eventArgument.Split(';');
+                double lng = double.Parse(strSplit[0]);
+                double lat = double.Parse(strSplit[1]);
+                Location location = new Location();
+                location.Longitude = lng;
+                location.Latitude = lat;
+
+                DataClasses1DataContext context = new DataClasses1DataContext();
+                context.Locations.InsertOnSubmit(location);
+            }
+            catch (Exception ex)
+            {
+                returnValue = string.Empty;
+            }
         }
     }
 }
