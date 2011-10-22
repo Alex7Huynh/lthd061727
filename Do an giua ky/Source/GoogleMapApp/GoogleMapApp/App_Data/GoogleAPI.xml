@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GOOGLEAPI>
+  <NGUOIDUNG username="alice" password="alice">
+    <DANHMUC tendanhmuc="Trường">
+      <DIADIEM tendiadiem="Trường Đại Học Khoa Học Tự Nhiên" diachi="227 nguyễn văn cừ hồ chí minh" vido="10.756449" kinhdo="106.6851667" deleted="false" ghichu="siêu" />
+      <DIADIEM tendiadiem="University of Technology HCMC" diachi="268 lý thường kiệt hồ chí minh" vido="10.8907463" kinhdo="106.6009641" deleted="false" ghichu="khá siêu" />
+    </DANHMUC>
+    <DANHMUC tendanhmuc="Ngân hàng">
+      <DIADIEM tendiadiem="Sacombank" diachi="401 3 tháng 2 hồ chí minh" vido="10.7774124" kinhdo="106.6811256" deleted="false" ghichu="cùi bắp" />
+      <DIADIEM tendiadiem="Asia Commercial Bank" diachi="442 nguyễn thị minh khai" vido="10.0254634" kinhdo="105.7775473" deleted="false" ghichú="cùi bắp" />
+    </DANHMUC>
+    <DANHMUC tendanhmuc="Sân bay">
+      <DIADIEM tendiadiem="abc" diachi="123 def" vido="10.0123" kinhdo="106.456" deleted="false" ghichu="BMVNAH AAA" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="bill" password="bill">
+    <DANHMUC tendanhmuc="Trường">
+      <DIADIEM tendiadiem="Trung Tâm Ngoại Ngữ Trường Đh Nông Lâm" diachi="11 bác ái hồ chí minh" vido="10.790836" kinhdo="106.63021" deleted="false" ghichu="tạm" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="cain" password="cain" />
+</GOOGLEAPI>

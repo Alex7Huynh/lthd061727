@@ -10,15 +10,16 @@ body {
 	background: #fff;
 }
 #map {
-	width: 80%;
-	height: 700px;
+	width: 43800%;
+	height: 540px;
 	float: right;
 	border: 1px solid #000;
+    margin-left: 0px;
 }
 #diadiempanel
 {
-	width: 19%;
-	height: 699px;
+	width: 18%;
+	height: 327px;
 	overflow: scroll;
 	float: left;
 	border: 1px solid #000;
