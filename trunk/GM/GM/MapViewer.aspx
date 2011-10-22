@@ -12,17 +12,21 @@
         }
     </style>
     <script type="text/javascript">
-        function alertdragend() {
-            alert('Drag Ended');
-        }
-    </script> 
-    <script type="text/javascript">
-        function dblclick() {
-            alert('Location Added');
+        function gmarkerdblclick()
+        {
+            var button = document.getElementByID("btnGMKDblclickHandler.ClientID");
+            alert("Hello this is an Alert");
+            var confirm = confirm('Are you want to add this location?');
+            button.click();
         }
     </script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="display: none;">
+       <asp:Button ID="btnGMKDblclickHandler" runat="server" 
+            OnClick="btnGMKDblclickHandler_Click" />
+    </div>
+
     <asp:LoginView ID="LoginView1" runat="server">
         <AnonymousTemplate>
             You need to login to view this page!
@@ -35,8 +39,8 @@
                 <asp:Button id="btnFind" runat="server" Text="Find Address" onclick="btnFind_Click"/>
             </p>
             <p>
-                <asp:Button id="btnAddLocation" runat="server" Text="Add Location" onclick="btnAddLocation_Click"/>
-                <asp:Button id="btnRemoveCurrentLocation" runat="server" Text="Remove Current Location" onclick="btnRemoveCurrentLocation_Click"/>
+                <input type="button" id="btnAddMarker" value="Add marker" onclick="addMarker()" />
+                <input type="button" id="btnDeleteAllMarker" value="Delete all marker" onclick="deleteAllMarker()" />
                 <asp:Button id="btnAddCategory" runat="server" Text="Add Category" onclick="btnAddCategory_Click"/>
             </p>
             <p>
@@ -59,10 +63,7 @@
                         </asp:TreeView>
                     </td>
                     <td class="style2">
-                        <cc1:GMap ID="GMap1" runat="server" Height="500px" Width="800px" enableServerEvents="true" 
-                        OnMarkerClick="GMap1_MarkerClick"
-                        OnDragEnd="GMap1_DragEnd"
-                        OnDragStart="GMap1_DragStart"/>
+                        <cc1:GMap ID="GMap1" runat="server" Height="500px" Width="800px"/>
                     </td>
                 </tr>
             </table>
