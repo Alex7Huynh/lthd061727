@@ -17,36 +17,36 @@
   </NGUOIDUNG>
   <NGUOIDUNG username="thuan" password="thuan">
     <DANHMUC tendanhmuc="Cafe">
-      <DIADIEM tendiadiem="Quán cafe Duy" diachi="3051 Phạm Thế Hiển phường 7 quận 8 Hồ Chí Minh" vido="10.425443" kinhdo="106.375227" deleted="false"/>
-      <DIADIEM tendiadiem="Cafe phố đông" diachi="365 Hưng Phú phường 9 quận 8 Hồ Chí Minh" vido="10.445294 " kinhdo="106.403154" deleted="false"/>
-	  <DIADIEM tendiadiem="Cafe sao" diachi="5 Phạm Ngọc Thạch phường 6 quận 3 Hồ Chí Minh" vido="10.445294 " kinhdo="106.403154" deleted="false"/>
+      <DIADIEM tendiadiem="Quán cafe Duy" diachi="3051 Phạm Thế Hiển Hồ Chí Minh" vido="10.425443" kinhdo="106.375227" deleted="false"/>
+      <DIADIEM tendiadiem="Cafe phố đông" diachi="365 Hưng Phú Hồ Chí Minh" vido="10.445294 " kinhdo="106.403154" deleted="false"/>
+	  <DIADIEM tendiadiem="Cafe sao" diachi="5 Phạm Ngọc Thạch Hồ Chí Minh" vido="10.445294 " kinhdo="106.403154" deleted="false"/>
     </DANHMUC>
     <DANHMUC tendanhmuc="ATM">
-      <DIADIEM tendiadiem="Vietinbank" diachi="196 Hưng Phú phường 8 quận 8 Hồ Chí Minh" vido="10.445987" kinhdo="106.404384" deleted="false"/>
-      <DIADIEM tendiadiem="Eximbank" diachi="721 Phạm Thế Hiển phường 4 quận 8 Hồ Chí Minh" vido="10.444066" kinhdo="106.403005" deleted="false"/>
-	  <DIADIEM tendiadiem="Incombank" diachi="196-202 Hưng Phú phường 8 quận 8 Hồ Chí Minh" vido="10.450011" kinhdo="106.404392" deleted="false"/>
+      <DIADIEM tendiadiem="Vietinbank" diachi="196 Hưng Phú Hồ Chí Minh" vido="10.445987" kinhdo="106.404384" deleted="false"/>
+      <DIADIEM tendiadiem="Eximbank" diachi="721 Phạm Thế Hiển Hồ Chí Minh" vido="10.444066" kinhdo="106.403005" deleted="false"/>
+	  <DIADIEM tendiadiem="Incombank" diachi="196-202 Hưng Phú Hồ Chí Minh" vido="10.450011" kinhdo="106.404392" deleted="false"/>
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="tien" password="tien">
     <DANHMUC tendanhmuc="Bệnh viện">
-      <DIADIEM tendiadiem="Bệnh viện chợ Quán" diachi="179 Bến Hàm Tử Đông-Tây phường 1 quận 5 Hồ Chí Minh" vido="10.450969" kinhdo="106.404684" deleted="false"/>
-      <DIADIEM tendiadiem="Bệnh viện chấn thương chỉnh hình" diachi="929 Trần Hưng Đạo phường 1 quận 5 Hồ Chí Minh" vido="10.450969 " kinhdo="106.404684" deleted="false"/>
-	  <DIADIEM tendiadiem="Bệnh viện Nhi khoa Nancy" diachi="615A Trần Hưng Đạo phường 1 quận 5 Hồ Chí Minh" vido="10.452193 " kinhdo="106.410624" deleted="false"/>
+      <DIADIEM tendiadiem="Bệnh viện chợ Quán" diachi="179 Bến Hàm Tử Đông-Tây Hồ Chí Minh" vido="10.450969" kinhdo="106.404684" deleted="false"/>
+      <DIADIEM tendiadiem="Bệnh viện chấn thương chỉnh hình" diachi="929 Trần Hưng Đạo Hồ Chí Minh" vido="10.450969 " kinhdo="106.404684" deleted="false"/>
+	  <DIADIEM tendiadiem="Bệnh viện Nhi khoa Nancy" diachi="615A Trần Hưng Đạo Hồ Chí Minh" vido="10.452193 " kinhdo="106.410624" deleted="false"/>
     </DANHMUC>
     <DANHMUC tendanhmuc="Chợ">
-      <DIADIEM tendiadiem="Chợ P.Cầu Kho" diachi="26A Nguyễn Văn Cừ phường Cầu Kho quận 1 Hồ Chí Minh" vido="10.451958" kinhdo="106.410875" deleted="false"/>
+      <DIADIEM tendiadiem="Chợ P.Cầu Kho" diachi="26A Nguyễn Văn Cừ Hồ Chí Minh" vido="10.451958" kinhdo="106.410875" deleted="false"/>
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="toan" password="toan">
     <DANHMUC tendanhmuc="Công Ty">
-      <DIADIEM tendiadiem="Công ty cổ phần tin học Lạc Việt" diachi="191A Hoàng Văn Thụ phường 8 quận Phú Nhuận Hồ Chí Minh" vido="10.475843" kinhdo="106.402517" deleted="false"/>
-      <DIADIEM tendiadiem="Cty cổ phần công nghệ mạng QtNET" diachi="354/72 Lý Thường Kiệt phường 14 quận 10 Hồ Chí Minh" vido="10.463342 " kinhdo="106.393074" deleted="false"/>
-	  <DIADIEM tendiadiem="Cty tnhh gameloft" diachi="364 Cộng Hoà phường 13 quận Tân Bình Hồ Chí Minh" vido="10.480786 " kinhdo="106.384121" deleted="false"/>
+      <DIADIEM tendiadiem="Công ty cổ phần tin học Lạc Việt" diachi="191A Hoàng Văn Thụ Hồ Chí Minh" vido="10.475843" kinhdo="106.402517" deleted="false"/>
+      <DIADIEM tendiadiem="Cty cổ phần công nghệ mạng QtNET" diachi="354/72 Lý Thường Kiệt Hồ Chí Minh" vido="10.463342 " kinhdo="106.393074" deleted="false"/>
+	  <DIADIEM tendiadiem="Cty tnhh gameloft" diachi="364 Cộng Hoà Hồ Chí Minh" vido="10.480786 " kinhdo="106.384121" deleted="false"/>
     </DANHMUC>
     <DANHMUC tendanhmuc="Hớt Tóc">
-      <DIADIEM tendiadiem="Tiệm hớt tóc Hồng Vân" diachi="245C Huỳnh Văn Bánh phường 12 quận Phú Nhuận Hồ Chí Minh" vido="10.472984" kinhdo="106.403569" deleted="false"/>
-      <DIADIEM tendiadiem="Tiện hớt tóc Thanh Hằng" diachi="221 Đinh Tiên Hoàng phường Tân Định quận 1 Hồ Chí Minh" vido="10.473255" kinhdo="106.414537" deleted="false"/>
-	  <DIADIEM tendiadiem="Tiệm hớt tóc Minh Tuấn" diachi="841 Khan Vạn Cân phường Linh Tây quận Thủ Đức Hồ Chí Minh" vido="10.512806" kinhdo="106.452722" deleted="false"/>
+      <DIADIEM tendiadiem="Tiệm hớt tóc Hồng Vân" diachi="245C Huỳnh Văn Bánh Hồ Chí Minh" vido="10.472984" kinhdo="106.403569" deleted="false"/>
+      <DIADIEM tendiadiem="Tiện hớt tóc Thanh Hằng" diachi="221 Đinh Tiên Hoàng Hồ Chí Minh" vido="10.473255" kinhdo="106.414537" deleted="false"/>
+	  <DIADIEM tendiadiem="Tiệm hớt tóc Minh Tuấn" diachi="841 Khan Vạn Cân Hồ Chí Minh" vido="10.512806" kinhdo="106.452722" deleted="false"/>
     </DANHMUC>
   </NGUOIDUNG>
 </GOOGLEAPI>
