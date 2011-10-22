@@ -32,25 +32,32 @@ namespace GoogleMapApp
         }
         private void LoadTreeView()
         {
+            NguoiDungDTO nguoiDung = (NguoiDungDTO)Session["User"];
             TreeView1.Nodes.Clear();
             XmlDocument doc = new XmlDocument();
             string path = Server.MapPath("~/App_Data/GoogleAPI.xml");
             doc.Load(path);
-            XmlNode nguoiDung = doc.DocumentElement.ChildNodes[0];
-            TreeNode user = new TreeNode(nguoiDung.Attributes[0].Value);
-
-            for (int i = 0; i < nguoiDung.ChildNodes.Count; ++i)
+            for (int k = 0; k < doc.DocumentElement.ChildNodes.Count; ++k)
             {
-                TreeNode danhMuc = new TreeNode(nguoiDung.ChildNodes[i].Attributes[0].Value);
-                for (int j = 0; j < nguoiDung.ChildNodes[i].ChildNodes.Count; ++j)
+                if (doc.DocumentElement.ChildNodes[k].Attributes[0].Value == nguoiDung.Username)
                 {
-                    TreeNode diaDiem = new TreeNode(nguoiDung.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
-                    danhMuc.ChildNodes.Add(diaDiem);
+                    XmlNode nguoiDungNode = doc.DocumentElement.ChildNodes[k];
+                    TreeNode nguoiDungTreeNode = new TreeNode(nguoiDungNode.Attributes[0].Value);
+
+                    for (int i = 0; i < nguoiDungNode.ChildNodes.Count; ++i)
+                    {
+                        TreeNode danhMucTreeNode = new TreeNode(nguoiDungNode.ChildNodes[i].Attributes[0].Value);
+                        for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
+                        {
+                            TreeNode diaDiemTreeNode = new TreeNode(nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
+                            danhMucTreeNode.ChildNodes.Add(diaDiemTreeNode);
+                        }
+                        nguoiDungTreeNode.ChildNodes.Add(danhMucTreeNode);
+                        //TreeView1.Nodes.Add(danhMuc);
+                    }
+                    TreeView1.Nodes.Add(nguoiDungTreeNode);
                 }
-                user.ChildNodes.Add(danhMuc);
-                //TreeView1.Nodes.Add(danhMuc);
             }
-            TreeView1.Nodes.Add(user);
             doc.Save(path);
         }
         protected void setMarker1_Click(object sender, EventArgs e)

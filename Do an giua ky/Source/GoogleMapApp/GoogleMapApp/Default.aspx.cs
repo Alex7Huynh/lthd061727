@@ -22,7 +22,10 @@ namespace GoogleMapApp
             string password = tbPassword.Text;
             NguoiDungDTO nguoiDung = NguoiDungDAO.DangNhap(username, password);
             if (nguoiDung != null)
-                Response.Redirect("index.aspx");
+            {
+                Session.Add("User", nguoiDung);
+                Response.Redirect("index.aspx");                
+            }
         }
 
         protected void btnDangKy_Click(object sender, EventArgs e)
@@ -31,7 +34,10 @@ namespace GoogleMapApp
             string password = tbPassword.Text;
             NguoiDungDTO nguoiDung = NguoiDungDAO.DangKy(username, password);
             if (nguoiDung != null)
-                Response.Redirect("index.aspx");
+            {
+                Session.Add("User", nguoiDung);
+                Response.Redirect("index.aspx");                
+            }
         }
     }
 }
