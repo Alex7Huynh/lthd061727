@@ -107,11 +107,10 @@ function findLocation(address, flag) {
             var content = '<strong>' + results[0].formatted_address + '</strong></br>';
             content += 'Vĩ độ:' + results[0].geometry.location.lat() + '</br>';
             content += 'Kinh độ:' + results[0].geometry.location.lng() + '</br></br></br>';
-            content += '<a href="XuLy.aspx?action=Them&ten=' + results[0].formatted_address
+            content += '<a href="index.aspx?action=Them&ten=' + results[0].formatted_address
                 + '&lat=' + results[0].geometry.location.lat()
                 + '&lgn=' + results[0].geometry.location.lng() + '">Thêm</a>&nbsp&nbsp';
-            content += '<a href="XuLy.aspx?action=Xoa">Xóa</a>&nbsp&nbsp';
-            content += '<a href="XuLy.aspx?action=CapNhat">Cập nhật</a>&nbsp&nbsp';
+            content += '<a href="index.aspx?action=Xoa">Xóa</a>&nbsp&nbsp';            
             infowindow.setContent(content);
             infowindow.open(map, marker);
             if (flag == true) {
@@ -248,4 +247,9 @@ function setMarker() {
     var y = parseFloat(document.getElementById("kinhDo").value);
     alert(x.toString() + " - " + y.toString());
     marker = new google.maps.Marker({ position: new google.maps.LatLng(x, y), map: map });
+}
+
+function myFunc() {
+    var x = document.getElementById("TreeView1").value;
+    alert(x.toString());
 }
