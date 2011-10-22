@@ -107,10 +107,10 @@ function findLocation(address, flag) {
             var content = '<strong>' + results[0].formatted_address + '</strong></br>';
             content += 'Vĩ độ:' + results[0].geometry.location.lat() + '</br>';
             content += 'Kinh độ:' + results[0].geometry.location.lng() + '</br></br></br>';
-            content += '<a href="index.aspx?action=Them&ten=' + results[0].formatted_address
+            content += '<a href="XuLy.aspx?action=Them&ten=' + results[0].formatted_address
                 + '&lat=' + results[0].geometry.location.lat()
                 + '&lgn=' + results[0].geometry.location.lng() + '">Thêm</a>&nbsp&nbsp';
-            content += '<a href="index.aspx?action=Xoa">Xóa</a>&nbsp&nbsp';            
+            content += '<a href="index.aspx?action=Xoa&ten=' + results[0].formatted_address + '">Xóa</a>&nbsp&nbsp';            
             infowindow.setContent(content);
             infowindow.open(map, marker);
             if (flag == true) {

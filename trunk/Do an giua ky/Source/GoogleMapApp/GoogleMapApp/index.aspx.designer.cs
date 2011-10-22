@@ -67,13 +67,22 @@ namespace GoogleMapApp {
         protected global::System.Web.UI.WebControls.TextBox kinhDo;
         
         /// <summary>
-        /// HyperLink1 control.
+        /// btnDangXuat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Button btnDangXuat;
+        
+        /// <summary>
+        /// btnChiaSeDiaDiem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnChiaSeDiaDiem;
         
         /// <summary>
         /// TreeView1 control.

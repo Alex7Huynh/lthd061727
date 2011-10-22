@@ -33,12 +33,17 @@ namespace GoogleMapApp
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(Util.FileName);
-            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
-                + diaDiem.DanhMuc.TenDanhMuc + "']//DIADIEM[@tendiadiem='" +  diaDiem.TenDiaDiem + "']");
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']");
             if (list.Count == 0)
                 return false;
 
-            list[0].ParentNode.RemoveChild(list[0]);
+            foreach (XmlNode node in list[0].ChildNodes)
+            {
+                foreach (XmlNode n in node.ChildNodes)
+                    if (n.Attributes["tendiadiem"].Value == diaDiem.TenDiaDiem)
+                        n.ParentNode.RemoveChild(n);
+            }
+            
             doc.Save(Util.FileName);
 
             return true;
@@ -57,5 +62,20 @@ namespace GoogleMapApp
 
             return true;
         }
+        //public static bool XoaDiaDiem(DiaDiemDTO diaDiem)
+        //{
+        //    XmlDocument doc = new XmlDocument();
+        //    doc.Load(Util.FileName);
+        //    XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
+        //        + diaDiem.DanhMuc.TenDanhMuc + "']//DIADIEM[@tendiadiem='" + diaDiem.TenDiaDiem + "']");
+
+        //    if (list.Count == 0)
+        //        return false;
+
+        //    list[0].ParentNode.RemoveChild(list[0]);
+        //    doc.Save(Util.FileName);
+
+        //    return true;
+        //}
     }
 }

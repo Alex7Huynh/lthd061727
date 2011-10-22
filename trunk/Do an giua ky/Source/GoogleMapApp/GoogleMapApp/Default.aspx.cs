@@ -13,9 +13,6 @@ namespace GoogleMapApp
         {
             
         }
-
-        
-
         protected void btnDangNhap_Click(object sender, EventArgs e)
         {
             string username = tbUsername.Text;
@@ -26,6 +23,8 @@ namespace GoogleMapApp
                 Session.Add("User", nguoiDung);
                 Response.Redirect("index.aspx");                
             }
+            string myStringVariable = "Đăng nhập thất bại! Vui lòng thử lại. :)";
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
         }
 
         protected void btnDangKy_Click(object sender, EventArgs e)
@@ -38,6 +37,8 @@ namespace GoogleMapApp
                 Session.Add("User", nguoiDung);
                 Response.Redirect("index.aspx");                
             }
+            string myStringVariable = "Đăng ký thất bại! Vui lòng thử lại. :)";
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
         }
     }
 }
