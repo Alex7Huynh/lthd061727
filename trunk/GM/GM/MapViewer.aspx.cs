@@ -21,60 +21,12 @@ namespace GM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            mOpts.draggable = true;
             if (!Page.IsPostBack)
             {
+                HtmlGenericControl body = (HtmlGenericControl)Master.FindControl("pageBody");
+                body.Attributes.Add("onload", "initialize()");
+
                 LoadUserLocation();
-                InitMap();
-            }
-            else
-            {
-                Find();
-            }
-        }
-
-        private void Find()
-        {
-            //Find and add new location
-            GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
-            TextBox txtAddress = (TextBox)LoginView1.FindControl("txtAddress");
-
-            GeoCode geocode;
-            geocode = GMap1.getGeoCodeRequest(txtAddress.Text);
-            var glatlng = new Subgurim.Controles.GLatLng(geocode.Placemark.coordinates.lat, geocode.Placemark.coordinates.lng);
-            GMap1.setCenter(glatlng, 16, Subgurim.Controles.GMapType.GTypes.Normal);
-
-            GMarker mkr = new GMarker();
-            dblclickListener = new GListener(mkr.ID, GListener.Event.dblclick, "gmarkerdblclick()");
-            GMap1.addListener(dblclickListener);
-            mkr.point = glatlng;
-            mkr.options = mOpts;
-            GMap1.addGMarker(mkr);
-        }
-
-        private void InitMap()
-        {
-            GMap GMap1 = (GMap)LoginView1.FindControl("GMap1");
-
-            if (GMap1 != null)
-            {
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                sb.Append("function addMarker()");
-                sb.Append("{");
-                GMarker marker = new GMarker(GMap1.GMap_Id + ".getCenter()");
-                marker.options = mOpts;
-                dblclickListener = new GListener(marker.ID, GListener.Event.dblclick, "gmarkerdblclick()");
-                GMap1.addListener(dblclickListener);
-                sb.Append(marker.ToString(GMap1.GMap_Id));
-                sb.Append("}");
-
-                sb.Append("function deleteAllMarker()");
-                sb.Append("{");
-                sb.AppendFormat("{0}.clearOverlays();", GMap1.GMap_Id);
-                sb.Append("}");
-
-                GMap1.Add(sb.ToString());
             }
         }
 
@@ -124,11 +76,6 @@ namespace GM
                 parent.ChildNodes.Add(children);
                 LoadTreeViewLoop(children, category, context);
             }
-        }
-
-        protected void btnFind_Click(object sender, EventArgs e)
-        {
-            Find();
         }
 
         /// <summary>
