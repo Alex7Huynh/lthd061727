@@ -61,8 +61,7 @@
     <Content Include="App_Data\ASPNETDB_log.ldf">
       <DependentUpon>ASPNETDB.MDF</DependentUpon>
     </Content>
-    <Content Include="Scripts\main.js" />
-    <Content Include="Scripts\maps.js" />
+    <Content Include="Scripts\MyScript.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />

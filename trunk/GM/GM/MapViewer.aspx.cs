@@ -92,16 +92,6 @@ namespace GM
         {
         }
 
-        protected void btnUpdateMovementCurrentLocation_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnCancelMovementCurrentLocation_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public String GetCallbackResult()
         {
             return returnValue;
