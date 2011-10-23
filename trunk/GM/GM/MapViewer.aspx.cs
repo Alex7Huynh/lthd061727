@@ -26,13 +26,10 @@ namespace GM
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
                             "CallServer", callbackScript, true);
 
-            if (!Page.IsPostBack)
-            {
-                HtmlGenericControl body = (HtmlGenericControl)Master.FindControl("pageBody");
-                body.Attributes.Add("onload", "initialize()");
+            HtmlGenericControl body = (HtmlGenericControl)Master.FindControl("pageBody");
+            body.Attributes.Add("onload", "initialize()");
 
-                LoadUserLocation();
-            }
+            LoadUserLocation();
         }
 
         private void LoadUserLocation()
