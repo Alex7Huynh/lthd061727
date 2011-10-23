@@ -49,7 +49,9 @@
   <ItemGroup>
     <Content Include="App_Data\GoogleAPI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
+    <Content Include="CapNhatDiaDiem.aspx" />
     <Content Include="ChiaSeDiaDiem.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Scripts\gears_init.js" />
@@ -68,9 +70,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Default.aspx" />
-    <Content Include="XuLy.aspx" />
+    <Content Include="ThemDiaDiem.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CapNhatDiaDiem.aspx.cs">
+      <DependentUpon>CapNhatDiaDiem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CapNhatDiaDiem.aspx.designer.cs">
+      <DependentUpon>CapNhatDiaDiem.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ChiaSeDiaDiem.aspx.cs">
       <DependentUpon>ChiaSeDiaDiem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -100,12 +109,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="XuLy.aspx.cs">
-      <DependentUpon>XuLy.aspx</DependentUpon>
+    <Compile Include="ThemDiaDiem.aspx.cs">
+      <DependentUpon>ThemDiaDiem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="XuLy.aspx.designer.cs">
-      <DependentUpon>XuLy.aspx</DependentUpon>
+    <Compile Include="ThemDiaDiem.aspx.designer.cs">
+      <DependentUpon>ThemDiaDiem.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

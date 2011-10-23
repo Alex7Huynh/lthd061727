@@ -16,7 +16,8 @@
     <table align="center">
         <tr>
             <td class="style1" colspan="2" align="center">
-                <asp:Label ID="Label2" runat="server" Text="ĐĂNG NHẬP"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="ĐĂNG NHẬP" Font-Bold="True" 
+                    Font-Size="20px" ForeColor="#0000CC" Width="221px"></asp:Label>
             </td>
         </tr>
         <tr>

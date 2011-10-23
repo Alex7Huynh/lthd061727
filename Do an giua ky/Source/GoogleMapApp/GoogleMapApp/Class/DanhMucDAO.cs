@@ -37,7 +37,6 @@ namespace GoogleMapApp
 
             return true;
         }
-
         public static DanhMucDTO TimDanhMuc(string tenDanhMuc, NguoiDungDTO nguoiDung)
         {
             DanhMucDTO danhMuc = null;
