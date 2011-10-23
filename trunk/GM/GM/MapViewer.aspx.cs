@@ -120,6 +120,7 @@ namespace GM
 
                 DataClasses1DataContext context = new DataClasses1DataContext();
                 context.Locations.InsertOnSubmit(location);
+                context.SubmitChanges();
             }
             catch (Exception ex)
             {

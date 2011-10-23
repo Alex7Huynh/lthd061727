@@ -33,10 +33,13 @@ namespace GM
     partial void InsertLocationCategory(LocationCategory instance);
     partial void UpdateLocationCategory(LocationCategory instance);
     partial void DeleteLocationCategory(LocationCategory instance);
+    partial void InsertLocation(Location instance);
+    partial void UpdateLocation(Location instance);
+    partial void DeleteLocation(Location instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ASPNETDBConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ASPNETDBConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -65,14 +68,6 @@ namespace GM
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Location> Locations
-		{
-			get
-			{
-				return this.GetTable<Location>();
-			}
-		}
-		
 		public System.Data.Linq.Table<LocationCategory> LocationCategories
 		{
 			get
@@ -80,139 +75,12 @@ namespace GM
 				return this.GetTable<LocationCategory>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Location")]
-	public partial class Location
-	{
 		
-		private System.Guid _LocationID;
-		
-		private string _Name;
-		
-		private string _Location1;
-		
-		private System.Nullable<double> _Longitude;
-		
-		private System.Nullable<double> _Latitude;
-		
-		private string _Note;
-		
-		private System.Nullable<System.Guid> _CategoryID;
-		
-		public Location()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid LocationID
+		public System.Data.Linq.Table<Location> Locations
 		{
 			get
 			{
-				return this._LocationID;
-			}
-			set
-			{
-				if ((this._LocationID != value))
-				{
-					this._LocationID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Location", Storage="_Location1", DbType="NVarChar(MAX)")]
-		public string Location1
-		{
-			get
-			{
-				return this._Location1;
-			}
-			set
-			{
-				if ((this._Location1 != value))
-				{
-					this._Location1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float")]
-		public System.Nullable<double> Longitude
-		{
-			get
-			{
-				return this._Longitude;
-			}
-			set
-			{
-				if ((this._Longitude != value))
-				{
-					this._Longitude = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float")]
-		public System.Nullable<double> Latitude
-		{
-			get
-			{
-				return this._Latitude;
-			}
-			set
-			{
-				if ((this._Latitude != value))
-				{
-					this._Latitude = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(MAX)")]
-		public string Note
-		{
-			get
-			{
-				return this._Note;
-			}
-			set
-			{
-				if ((this._Note != value))
-				{
-					this._Note = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> CategoryID
-		{
-			get
-			{
-				return this._CategoryID;
-			}
-			set
-			{
-				if ((this._CategoryID != value))
-				{
-					this._CategoryID = value;
-				}
+				return this.GetTable<Location>();
 			}
 		}
 	}
@@ -233,6 +101,8 @@ namespace GM
 		
 		private EntitySet<LocationCategory> _LocationCategories;
 		
+		private EntitySet<Location> _Locations;
+		
 		private EntityRef<LocationCategory> _LocationCategory1;
 		
     #region Extensibility Method Definitions
@@ -252,6 +122,7 @@ namespace GM
 		public LocationCategory()
 		{
 			this._LocationCategories = new EntitySet<LocationCategory>(new Action<LocationCategory>(this.attach_LocationCategories), new Action<LocationCategory>(this.detach_LocationCategories));
+			this._Locations = new EntitySet<Location>(new Action<Location>(this.attach_Locations), new Action<Location>(this.detach_Locations));
 			this._LocationCategory1 = default(EntityRef<LocationCategory>);
 			OnCreated();
 		}
@@ -353,6 +224,19 @@ namespace GM
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LocationCategory_Location", Storage="_Locations", ThisKey="CategoryID", OtherKey="CategoryID")]
+		public EntitySet<Location> Locations
+		{
+			get
+			{
+				return this._Locations;
+			}
+			set
+			{
+				this._Locations.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LocationCategory_LocationCategory", Storage="_LocationCategory1", ThisKey="ParentCategoryID", OtherKey="CategoryID", IsForeignKey=true)]
 		public LocationCategory LocationCategory1
 		{
@@ -417,6 +301,265 @@ namespace GM
 		{
 			this.SendPropertyChanging();
 			entity.LocationCategory1 = null;
+		}
+		
+		private void attach_Locations(Location entity)
+		{
+			this.SendPropertyChanging();
+			entity.LocationCategory = this;
+		}
+		
+		private void detach_Locations(Location entity)
+		{
+			this.SendPropertyChanging();
+			entity.LocationCategory = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Location")]
+	public partial class Location : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _LocationID;
+		
+		private string _Name;
+		
+		private string _Location1;
+		
+		private System.Nullable<double> _Longitude;
+		
+		private System.Nullable<double> _Latitude;
+		
+		private string _Note;
+		
+		private System.Nullable<System.Guid> _CategoryID;
+		
+		private EntityRef<LocationCategory> _LocationCategory;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLocationIDChanging(System.Guid value);
+    partial void OnLocationIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnLocation1Changing(string value);
+    partial void OnLocation1Changed();
+    partial void OnLongitudeChanging(System.Nullable<double> value);
+    partial void OnLongitudeChanged();
+    partial void OnLatitudeChanging(System.Nullable<double> value);
+    partial void OnLatitudeChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    partial void OnCategoryIDChanging(System.Nullable<System.Guid> value);
+    partial void OnCategoryIDChanged();
+    #endregion
+		
+		public Location()
+		{
+			this._LocationCategory = default(EntityRef<LocationCategory>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid LocationID
+		{
+			get
+			{
+				return this._LocationID;
+			}
+			set
+			{
+				if ((this._LocationID != value))
+				{
+					this.OnLocationIDChanging(value);
+					this.SendPropertyChanging();
+					this._LocationID = value;
+					this.SendPropertyChanged("LocationID");
+					this.OnLocationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Location", Storage="_Location1", DbType="NVarChar(MAX)")]
+		public string Location1
+		{
+			get
+			{
+				return this._Location1;
+			}
+			set
+			{
+				if ((this._Location1 != value))
+				{
+					this.OnLocation1Changing(value);
+					this.SendPropertyChanging();
+					this._Location1 = value;
+					this.SendPropertyChanged("Location1");
+					this.OnLocation1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Float")]
+		public System.Nullable<double> Longitude
+		{
+			get
+			{
+				return this._Longitude;
+			}
+			set
+			{
+				if ((this._Longitude != value))
+				{
+					this.OnLongitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Longitude = value;
+					this.SendPropertyChanged("Longitude");
+					this.OnLongitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Float")]
+		public System.Nullable<double> Latitude
+		{
+			get
+			{
+				return this._Latitude;
+			}
+			set
+			{
+				if ((this._Latitude != value))
+				{
+					this.OnLatitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Latitude = value;
+					this.SendPropertyChanged("Latitude");
+					this.OnLatitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(MAX)")]
+		public string Note
+		{
+			get
+			{
+				return this._Note;
+			}
+			set
+			{
+				if ((this._Note != value))
+				{
+					this.OnNoteChanging(value);
+					this.SendPropertyChanging();
+					this._Note = value;
+					this.SendPropertyChanged("Note");
+					this.OnNoteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> CategoryID
+		{
+			get
+			{
+				return this._CategoryID;
+			}
+			set
+			{
+				if ((this._CategoryID != value))
+				{
+					if (this._LocationCategory.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCategoryIDChanging(value);
+					this.SendPropertyChanging();
+					this._CategoryID = value;
+					this.SendPropertyChanged("CategoryID");
+					this.OnCategoryIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LocationCategory_Location", Storage="_LocationCategory", ThisKey="CategoryID", OtherKey="CategoryID", IsForeignKey=true, DeleteRule="CASCADE")]
+		public LocationCategory LocationCategory
+		{
+			get
+			{
+				return this._LocationCategory.Entity;
+			}
+			set
+			{
+				LocationCategory previousValue = this._LocationCategory.Entity;
+				if (((previousValue != value) 
+							|| (this._LocationCategory.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._LocationCategory.Entity = null;
+						previousValue.Locations.Remove(this);
+					}
+					this._LocationCategory.Entity = value;
+					if ((value != null))
+					{
+						value.Locations.Add(this);
+						this._CategoryID = value.CategoryID;
+					}
+					else
+					{
+						this._CategoryID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("LocationCategory");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
