@@ -45,7 +45,8 @@
         <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" 
             onclick="btnDangXuat_Click" />
         <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" 
-            onclick="btnChiaSeDiaDiem_Click" />
+            OnClientClick="window.open('ChiaSeDiaDiem.aspx')" CausesValidation="False" 
+            UseSubmitBehavior="False" e/>
     </p>
     <div id="map" style="position: absolute; top: 172px; left: 330px; width: 745px; height: 500px;">
     </div>

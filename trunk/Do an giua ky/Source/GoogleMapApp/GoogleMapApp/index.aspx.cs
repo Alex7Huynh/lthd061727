@@ -65,7 +65,8 @@ namespace GoogleMapApp
                         for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
                         {
                             TreeNode diaDiemTreeNode = new TreeNode(nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
-                            diaDiemTreeNode.NavigateUrl = "index.aspx?action=TimKiem&ten=" + diaDiemTreeNode.Value;
+                            //diaDiemTreeNode.NavigateUrl = "index.aspx?action=TimKiem&ten=" + diaDiemTreeNode.Value;
+                            diaDiemTreeNode.NavigateUrl = "javascript:(findLocation('" + diaDiemTreeNode.Value + "', false))";
                             danhMucTreeNode.ChildNodes.Add(diaDiemTreeNode);
                         }
                         nguoiDungTreeNode.ChildNodes.Add(danhMucTreeNode);
@@ -128,11 +129,6 @@ namespace GoogleMapApp
         {
             Session["User"] = null;
             Response.Redirect("Default.aspx");
-        }
-
-        protected void btnChiaSeDiaDiem_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ChiaSeDiaDiem.aspx");
         }
     }
 }
