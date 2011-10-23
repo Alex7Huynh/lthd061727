@@ -35,7 +35,7 @@ namespace GoogleMapApp
             if (nguoiDung != null)
             {
                 Session.Add("User", nguoiDung);
-                Response.Redirect("index.aspx");                
+                Response.Redirect("index.aspx");
             }
             string myStringVariable = "Đăng ký thất bại! Vui lòng thử lại. :)";
             ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);

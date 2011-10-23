@@ -12,7 +12,7 @@ namespace GoogleMapApp
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(Util.FileName);
-            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='" 
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
                 + diaDiem.DanhMuc.TenDanhMuc + "']");
             if (list.Count == 0)
                 return false;
@@ -43,7 +43,7 @@ namespace GoogleMapApp
                     if (n.Attributes["tendiadiem"].Value == diaDiem.TenDiaDiem)
                         n.ParentNode.RemoveChild(n);
             }
-            
+
             doc.Save(Util.FileName);
 
             return true;
@@ -52,16 +52,53 @@ namespace GoogleMapApp
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(Util.FileName);
-            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
-                + diaDiem.DanhMuc.TenDanhMuc + "']//DIADIEM[@tendiadiem='" + diaDiem.TenDiaDiem + "']");
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']");
             if (list.Count == 0)
                 return false;
 
-            list[0].Attributes["ghichu"].Value = diaDiem.GhiChu;
-            doc.Save(Util.FileName);
+            foreach (XmlNode node in list[0].ChildNodes)
+            {
+                foreach (XmlNode n in node.ChildNodes)
+                    if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    {                        
+                        n.Attributes["tendiadiem"].Value = diaDiem.TenDiaDiem;
+                        n.Attributes["vido"].Value = diaDiem.ViDo.ToString();
+                        n.Attributes["kinhdo"].Value = diaDiem.KinhDo.ToString();
+                        n.Attributes["ghichu"].Value = diaDiem.GhiChu;
 
-            return true;
+                        doc.Save(Util.FileName);
+                        return true;
+                    }
+            }
+
+            return false;
         }
+        public static DiaDiemDTO TimDiaDiem(DiaDiemDTO diaDiem)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Util.FileName);
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']");
+            if (list.Count == 0)
+                return null;
+
+            foreach (XmlNode node in list[0].ChildNodes)
+            {
+                foreach (XmlNode n in node.ChildNodes)
+                    if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    {
+                        diaDiem = new DiaDiemDTO();
+                        diaDiem.TenDiaDiem = n.Attributes["tendiadiem"].Value;
+                        diaDiem.ViDo = float.Parse(n.Attributes["vido"].Value);
+                        diaDiem.KinhDo = float.Parse(n.Attributes["kinhdo"].Value);
+                        diaDiem.GhiChu = n.Attributes["ghichu"].Value;
+
+                        return diaDiem;
+                    }
+            }
+
+            return null;
+        }
+
         //public static bool XoaDiaDiem(DiaDiemDTO diaDiem)
         //{
         //    XmlDocument doc = new XmlDocument();
@@ -73,6 +110,20 @@ namespace GoogleMapApp
         //        return false;
 
         //    list[0].ParentNode.RemoveChild(list[0]);
+        //    doc.Save(Util.FileName);
+
+        //    return true;
+        //}
+        //public static bool CapNhatDiaDiem(DiaDiemDTO diaDiem)
+        //{
+        //    XmlDocument doc = new XmlDocument();
+        //    doc.Load(Util.FileName);
+        //    XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + diaDiem.DanhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
+        //        + diaDiem.DanhMuc.TenDanhMuc + "']//DIADIEM[@tendiadiem='" + diaDiem.TenDiaDiem + "']");
+        //    if (list.Count == 0)
+        //        return false;
+
+        //    list[0].Attributes["ghichu"].Value = diaDiem.GhiChu;
         //    doc.Save(Util.FileName);
 
         //    return true;

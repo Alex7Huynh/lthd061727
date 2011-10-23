@@ -11,7 +11,7 @@ namespace GoogleMapApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            tbTenDiaDiem.Text = Request.QueryString["ten"].ToString();
         }
 
         protected void btThemDiaDiem_Click(object sender, EventArgs e)
@@ -30,21 +30,22 @@ namespace GoogleMapApp
             diaDiem.TenDiaDiem = ten;
             diaDiem.ViDo = viDo;
             diaDiem.KinhDo = kinhDo;
+            diaDiem.GhiChu = tbGhiChu.Text;
             if (DanhMucDAO.TimDanhMuc(tbTenDanhMuc.Text, nguoiDung) == null)
             {
                 if (DanhMucDAO.ThemDanhMuc(danhMuc))
                 {
                     //Thông báo thất bại                    
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);                    
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
                 }
             }
             if (DiaDiemDAO.ThemDiaDiem(diaDiem))
             {
-                //Thông báo thành công
+                //Thêm thành công
                 Response.Redirect("index.aspx");
             }
             //Thông báo thất bại            
-            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);                    
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
         }
     }
 }

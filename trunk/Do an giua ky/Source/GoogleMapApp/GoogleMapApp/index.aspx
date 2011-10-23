@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="GoogleMapApp._Default" EnableEventValidation="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="GoogleMapApp._Default"
+    EnableEventValidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,7 +21,7 @@
             width: 181px;
             height: 285px;
         }
-        </style>
+    </style>
 </head>
 <body onload="initialize()">
     <form id="form1" runat="server">
@@ -28,7 +29,8 @@
         ỨNG DỤNG Google API V3</h1>
     <p>
         <asp:TextBox ID="DiaDiem" runat="server"></asp:TextBox>
-        <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
+        <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button"
+            value="Tìm địa điểm" />
         <asp:Button ID="setMarker1" runat="server" Text="Set marker" OnClick="setMarker1_Click" />
         <asp:Button ID="setLocation" runat="server" Text="Set Location" OnClick="setLocation_Click" />
         <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button"
@@ -42,19 +44,17 @@
         <input id="TimDiaDiemMoi" class="button" onclick="btnDiaDiemMoi_Click()" type="button"
             value="Tìm địa điểm theo tọa độ" />
         <input id="setMarker2" class="button" onclick="setMarker()" type="button" value="Set marker" />
-        <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" 
-            onclick="btnDangXuat_Click" />
-        <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" 
-            OnClientClick="window.open('ChiaSeDiaDiem.aspx')" CausesValidation="False" 
-            UseSubmitBehavior="False" e/>
+        <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" OnClick="btnDangXuat_Click" />
+        <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')"
+            CausesValidation="False" UseSubmitBehavior="False" e />
     </p>
     <div id="map" style="position: absolute; top: 172px; left: 330px; width: 745px; height: 500px;">
     </div>
     <div id="diadiempanel" style="position: absolute; top: 170px; left: 10; width: 300px;
         height: 250px;">
     </div>
-    <div id="CayDiaDiem" 
-        style="border-width: thin; border-color: inherit; border-style: solid; position: absolute; top: 430px; left: 10; width: 300px; height: 250px;">
+    <div id="CayDiaDiem" style="border-width: thin; border-color: inherit; border-style: solid;
+        position: absolute; top: 430px; left: 10; width: 300px; height: 250px;">
         <asp:TreeView runat="server" ID="TreeView1" Height="171px" OnTreeNodeCheckChanged="TreeView1_TreeNodeCheckChanged"
             Width="123px">
         </asp:TreeView>

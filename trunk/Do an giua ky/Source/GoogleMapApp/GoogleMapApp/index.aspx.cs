@@ -66,7 +66,9 @@ namespace GoogleMapApp
                         {
                             TreeNode diaDiemTreeNode = new TreeNode(nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
                             //diaDiemTreeNode.NavigateUrl = "index.aspx?action=TimKiem&ten=" + diaDiemTreeNode.Value;
-                            diaDiemTreeNode.NavigateUrl = "javascript:(findLocation('" + diaDiemTreeNode.Value + "', false))";
+                            diaDiemTreeNode.NavigateUrl = "javascript:(findMyLocation('" + diaDiemTreeNode.Value 
+                                + "', false, '"
+                                + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["ghichu"].Value + "'))";
                             danhMucTreeNode.ChildNodes.Add(diaDiemTreeNode);
                         }
                         nguoiDungTreeNode.ChildNodes.Add(danhMucTreeNode);

@@ -8,15 +8,13 @@ namespace GoogleMapApp
     public class DanhMucDTO
     {
         private string tenDanhMuc;
+        NguoiDungDTO nguoiDung;
 
         public string TenDanhMuc
         {
             get { return tenDanhMuc; }
             set { tenDanhMuc = value; }
         }
-
-        NguoiDungDTO nguoiDung;
-
         public NguoiDungDTO NguoiDung
         {
             get { return nguoiDung; }

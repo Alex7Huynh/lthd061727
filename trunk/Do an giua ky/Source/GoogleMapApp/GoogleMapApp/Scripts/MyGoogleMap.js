@@ -105,12 +105,11 @@ function findLocation(address, flag) {
             document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
             var content = '<strong>' + results[0].formatted_address + '</strong></br>';
-            content += 'Vĩ độ:' + results[0].geometry.location.lat() + '</br>';
-            content += 'Kinh độ:' + results[0].geometry.location.lng() + '</br></br></br>';
-            content += '<a href="XuLy.aspx?action=Them&ten=' + results[0].formatted_address
+            content += 'Vĩ độ: ' + results[0].geometry.location.lat() + '</br>';
+            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '</br></br></br>';
+            content += '<a href="ThemDiaDiem.aspx?action=Them&ten=' + results[0].formatted_address
                 + '&lat=' + results[0].geometry.location.lat()
-                + '&lgn=' + results[0].geometry.location.lng() + '">Thêm</a>&nbsp&nbsp';
-            content += '<a href="index.aspx?action=Xoa&ten=' + results[0].formatted_address + '">Xóa</a>&nbsp&nbsp';            
+                + '&lgn=' + results[0].geometry.location.lng() + '">Thêm</a>&nbsp&nbsp';            
             infowindow.setContent(content);
             infowindow.open(map, marker);
             if (flag == true) {
@@ -249,7 +248,47 @@ function setMarker() {
     marker = new google.maps.Marker({ position: new google.maps.LatLng(x, y), map: map });
 }
 
-function myFunc() {
-    var x = document.getElementById("TreeView1").value;
-    alert(x.toString());
+
+function findMyLocation(address, flag, note) {
+    if (!geocoder) {
+        geocoder = new google.maps.Geocoder();
+    }
+    var geocoderRequest = { address: address };
+    geocoder.geocode(geocoderRequest, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (!marker) {
+                marker = new google.maps.Marker({ map: map });
+            }
+            marker.setPosition(results[0].geometry.location);
+            if (!infowindow) {
+                infowindow = new google.maps.InfoWindow();
+            }
+            document.getElementById("DiaDiem").value = results[0].formatted_address;
+            document.getElementById("viDo").value = results[0].geometry.location.lat();
+            document.getElementById("kinhDo").value = results[0].geometry.location.lng();
+
+            var content = '<strong>' + results[0].formatted_address + '</strong><br/>';
+            content += 'Ghi chú: ' + note + '<br/>';
+            content += 'Vĩ độ: ' + results[0].geometry.location.lat() + '<br/>';
+            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '<br/><br/><br/>';            
+            content += '<a href="index.aspx?action=Xoa&ten=' + results[0].formatted_address + '">Xóa</a>&nbsp&nbsp';
+            content += '<a href="CapNhatDiaDiem.aspx?action=CapNhat&ten=' + results[0].formatted_address + '">Cập nhật</a>';
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+            if (flag == true) {
+                var panel = document.getElementById("diadiempanel");
+                var panelContent = "<strong>Các kết quả tìm được:</strong></br>";
+                for (var i in results) {
+                    panelContent += "<a href='javascript:void(0);' name='" + results[i].formatted_address + "' onclick=linkDiaDiem_Click(this)>" + results[i].formatted_address + "</a>" + "</br></br>";
+                }
+                panel.innerHTML = panelContent;
+            }
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+        else {
+            alert('Không tìm thấy địa chỉ cần tìm');
+        }
+    });
 }

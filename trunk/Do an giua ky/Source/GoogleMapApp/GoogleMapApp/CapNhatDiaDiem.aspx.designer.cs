@@ -10,7 +10,7 @@
 namespace GoogleMapApp {
     
     
-    public partial class XyLy {
+    public partial class CapNhatDiaDiem {
         
         /// <summary>
         /// form1 control.
@@ -22,30 +22,48 @@ namespace GoogleMapApp {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Label1 control.
+        /// tbTenDiaDiem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.TextBox tbTenDiaDiem;
         
         /// <summary>
-        /// tbTenDanhMuc control.
+        /// tbViDo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTenDanhMuc;
+        protected global::System.Web.UI.WebControls.TextBox tbViDo;
         
         /// <summary>
-        /// btThemDiaDiem control.
+        /// tbKinhDo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btThemDiaDiem;
+        protected global::System.Web.UI.WebControls.TextBox tbKinhDo;
+        
+        /// <summary>
+        /// tbGhiChu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGhiChu;
+        
+        /// <summary>
+        /// tbCapNhat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button tbCapNhat;
     }
 }
