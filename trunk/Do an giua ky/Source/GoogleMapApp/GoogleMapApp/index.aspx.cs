@@ -79,10 +79,6 @@ namespace GoogleMapApp
             }
             doc.Save(path);
         }
-        protected void setMarker1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         protected void setLocation_Click(object sender, EventArgs e)
         {
