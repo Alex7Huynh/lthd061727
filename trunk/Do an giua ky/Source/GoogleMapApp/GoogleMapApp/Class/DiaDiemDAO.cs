@@ -40,8 +40,10 @@ namespace GoogleMapApp
             foreach (XmlNode node in list[0].ChildNodes)
             {
                 foreach (XmlNode n in node.ChildNodes)
-                    if (n.Attributes["tendiadiem"].Value == diaDiem.TenDiaDiem)
+                    if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    {
                         n.ParentNode.RemoveChild(n);
+                    }
             }
 
             doc.Save(Util.FileName);
