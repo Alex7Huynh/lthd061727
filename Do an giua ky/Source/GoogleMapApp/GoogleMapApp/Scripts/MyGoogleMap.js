@@ -11,7 +11,6 @@ var longitude;
 var clickedPixel;
 var contextmenu;
 
-
 //ham xu ly khong dinh vi duoc
 function handleNoGeolocation(errorFlag) {
     if (errorFlag == true) {
@@ -32,20 +31,7 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    map = new google.maps.Map(document.getElementById("map"), myOptions);
-
-    /*contextmenu = document.createElement("div");
-    contextmenu.style.visibility = "hidden";
-    contextmenu.style.background = "#ffffff";
-    contextmenu.style.border = "1px solid #8888FF";
-
-    contextmenu.innerHTML = '<a href="zoomIn()"><div class="context">&nbsp;&nbsp;Zoom in&nbsp;&nbsp;<\/div><\/a>'
-                            + '<a href="zoomOut()"><div class="context">&nbsp;&nbsp;Zoom out&nbsp;&nbsp;<\/div><\/a>'
-                            + '<a href="zoomInHere()"><div class="context">&nbsp;&nbsp;Zoom in here&nbsp;&nbsp;<\/div><\/a>'
-                            + '<a href="zoomOutHere()"><div class="context">&nbsp;&nbsp;Zoom out here&nbsp;&nbsp;<\/div><\/a>'
-                            + '<a href="centreMapHere()"><div class="context">&nbsp;&nbsp;Centre map here&nbsp;&nbsp;<\/div><\/a>';
-                            */
-    
+    map = new google.maps.Map(document.getElementById("map"), myOptions);   
 
     // Try W3C Geolocation (Preferred)
     if (navigator.geolocation) {
@@ -123,16 +109,6 @@ function findLocation(address, flag) {
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.open(map, marker);
             });
-            /*google.maps.event.addListener(marker, 'singlerightclick', function (pixel, tile) {
-            clickedPixel = pixel;
-            var x = pixel.x;
-            var y = pixel.y;
-            if (x > map.getSize().width - 120) { x = map.getSize().width - 120 }
-            if (y > map.getSize().height - 100) { y = map.getSize().height - 100 }
-            var pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(x, y));
-            pos.apply(contextmenu);
-            contextmenu.style.visibility = "visible";
-            });*/
         }
         else {
             alert('Không tìm thấy địa chỉ cần tìm');
@@ -176,44 +152,6 @@ function btnMyLocation_Click() {
     infoWindow.open(map, marker);
 
 }
-
-////Tim dia diem theo vi do kinh do
-//function findLocation(viDo, kinhDo, flag) {
-//    if (!geocoder) {
-//        geocoder = new google.maps.Geocoder();
-//    }
-//    var geocoderRequest = { address: address };
-//    geocoder.geocode(geocoderRequest, function (results, status) {
-//        if (status == google.maps.GeocoderStatus.OK) {
-//            if (!marker) {
-//                marker = new google.maps.Marker({ map: map });
-//            }
-//            marker.setPosition(results[0].geometry.location);
-//            if (!infowindow) {
-//                infowindow = new google.maps.InfoWindow();
-//            }
-//            var content = '<strong>' + results[0].formatted_address + '</strong></br>';
-//            content += 'Vĩ độ:' + results[0].geometry.location.lat() + '</br>';
-//            content += 'Kinh độ:' + results[0].geometry.location.lng() + '</br></br></br>';
-//            infowindow.setContent(content);
-//            infowindow.open(map, marker);
-//            if (flag == true) {
-//                var panel = document.getElementById("diadiempanel");
-//                var panelContent = "<strong>Các kết quả tìm được:</strong></br>";
-//                for (var i in results) {
-//                    panelContent += "<a href='javascript:void(0);' name='" + results[i].formatted_address + "' onclick=linkDiaDiem_Click(this)>" + results[i].formatted_address + "</a>" + "</br></br>";
-//                }
-//                panel.innerHTML = panelContent;
-//            }
-//            google.maps.event.addListener(marker, 'rightclick', function () {
-//                infowindow.open(map, marker);
-//            });
-//        }
-//        else {
-//            alert('Không tìm thấy địa chỉ cần tìm');
-//        }
-//    });
-//}
 
 function zoomIn() {    
     map.zoomIn();    
@@ -260,6 +198,7 @@ function findMyLocation(address, flag, note) {
                 marker = new google.maps.Marker({ map: map });
             }
             marker.setPosition(results[0].geometry.location);
+                        
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
@@ -270,7 +209,7 @@ function findMyLocation(address, flag, note) {
             var content = '<strong>' + results[0].formatted_address + '</strong><br/>';
             content += 'Ghi chú: ' + note + '<br/>';
             content += 'Vĩ độ: ' + results[0].geometry.location.lat() + '<br/>';
-            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '<br/><br/><br/>';            
+            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '<br/><br/><br/>';
             content += '<a href="index.aspx?action=Xoa&ten=' + results[0].formatted_address + '">Xóa</a>&nbsp&nbsp';
             content += '<a href="CapNhatDiaDiem.aspx?action=CapNhat&ten=' + results[0].formatted_address + '">Cập nhật</a>';
             infowindow.setContent(content);
