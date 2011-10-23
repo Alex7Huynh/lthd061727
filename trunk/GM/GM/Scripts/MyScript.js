@@ -1,8 +1,6 @@
 ﻿var map;
-var marker;
 var geocoder;
 var option;
-var infowindow;
 var latitude;
 var longitude;
 var browserSupportFlag;
@@ -21,7 +19,6 @@ function initialize() {
     map = new google.maps.Map(document.getElementById("map"),
         myOptions);
     geocoder = new google.maps.Geocoder();
-    marker = new google.maps.Marker({ map: map });
 
     // Try W3C Geolocation (Preferred)
     if (navigator.geolocation) {
@@ -87,22 +84,10 @@ function findLocation(address, flag) {
     var geocoderRequest = { address: address };
     geocoder.geocode(geocoderRequest, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            if (!marker) {
-                marker = new google.maps.Marker({ map: map });
-            }
-            marker.setPosition(results[0].geometry.location);
-            if (!infowindow) {
-                infowindow = new google.maps.InfoWindow();
-            }
-            document.getElementById("address").value = results[0].formatted_address;
-            latitude = results[0].geometry.location.lat();
-            longitude = results[0].geometry.location.lng();
+            add(results[0].formatted_address, results[0].geometry.location);
 
-            var content = '<strong>' + results[0].formatted_address + '</strong></br>';
-            content += 'Latitude:' + results[0].geometry.location.lat() + '</br>';
-            content += 'Longitude:' + results[0].geometry.location.lng() + '</br></br></br>';
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
+            document.getElementById("address").value = results[0].formatted_address;
+
             if (flag == true) {
                 var panel = document.getElementById("listaddress");
                 var panelContent = "<strong>Similar address:</strong></br>";
@@ -111,9 +96,6 @@ function findLocation(address, flag) {
                 }
                 panel.innerHTML = panelContent;
             }
-            google.maps.event.addListener(marker, 'click', function () {
-                infowindow.open(map, marker);
-            });
         }
         else {
             alert('address not found!');
@@ -121,34 +103,51 @@ function findLocation(address, flag) {
     });
 }
 
-function addMarker() {
-    var center = map.getCenter();
-    add(center);
+function addLocation(address, lat, lng) {
+    var arg = "add" + ";" + address + ";" + lng + ";" + lat;
+    var context = "";
+    CallServer(arg, context);
 }
 
-function add(point) {
-    marker = new google.maps.Marker({
-        position: point, 
-        map: map,
-        draggable: true
-    });
+function removeLocation(address, lat, lng) {
+    var arg = "remove" + ";" + address + ";" + lng + ";" + lat;
+    var context = "";
+    CallServer(arg, context);
+}
 
-    google.maps.event.addListener(marker, 'dblclick', function() {
-        var hdnLat = document.getElementById("hdnLat");
-        var hdnLng = document.getElementById("hdnLng");
+function updateLocation(address, lat, lng) {
+    var arg = "update" + ";" + address + ";" + lng + ";" + lat;
+    var context = "";
+    CallServer(arg, context);
+}
 
-        hdnLat.value = this.getLatLng().lat();
-        hdnLng.value = this.getLatLng().lng();
+function addMarker() {
+    var center = map.getCenter();
+    add("", center);
+}
 
-        var arg = this.getLatLng().lng().toString() + ";" + this.getLatLng().lat().toString();
-        var context = "";
-        CallServer(arg, context);
+function add(address, point) {
+    var marker = new google.maps.Marker({ position: point, map: map, draggable: true });
+
+    
+    var infowindow = new google.maps.InfoWindow();
+
+    var content = '<strong>' + address + '</strong></br>';
+    content += 'Latitude:' + point.lat() + '</br>';
+    content += 'Longitude:' + point.lng() + '</br></br>';
+    content += '<a href="javascript:void(null);" onclick="addLocation(' + address + ',' + point.lng() + ',' + point.lat() + ');">Add this location to your list</a></br>';
+    content += '<a href="javascript:void(null);" onclick="removeLocation(' + address + ',' + point.lng() + ',' + point.lat() + ');">remove this location from your list</a></br>';
+    content += '<a href="javascript:void(null);" onclick="updateLocation(' + address + ',' + point.lng() + ',' + point.lat() + ');">Update position for this location</a>';
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.open(map, marker);
     });
 }
 
 function ReceiveServerData(rValue) {
     if (rValue) {
-        marker.openInfoWindow("New position has been added!");
     }
 }
 
