@@ -1,24 +1,26 @@
 ﻿<%@ Page Title="Map Viewer" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MapViewer.aspx.cs" Inherits="GM.MapViewer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <script type="text/javascript" src="Scripts/MyScript.js"/>
+    <script type="text/javascript" src="Scripts/MyScript.js">
+    </script>
     <script type="text/javascript" src="Scripts/gears_init.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"/>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
-    <input id="hdnLat" type="hidden" />
-    <input id="hdnLng" type="hidden" />
     <asp:LoginView ID="LoginView1" runat="server">
         <AnonymousTemplate>
-            You need to login to view this page!
+            You need 
+            [ <a href="~/Account/Login.aspx" ID="A1" runat="server">log In</a> ]
+            to view this page!
+            [ <a href="~/Account/Register.aspx" ID="A2" runat="server">Register</a> ] if you don't have an account.
         </AnonymousTemplate>
         <LoggedInTemplate>
-            <h1>Google API V3</h1>
+            <h1>Your Address</h1>
             <p>
                 <input id="address" type="text" />
                 <input type="button" value="Find" onclick="showAddress();" />
-            </p>
-            <p>
                 <input type="button" id="btnAddMarker" value="Add marker" onclick="addMarker();" />
                 <input type="button" id="btnDeleteAllMarker" value="Delete all marker" onclick="deleteAllMarker();" />
                 <asp:Button id="btnAddCategory" runat="server" Text="Add Category" onclick="btnAddCategory_Click"/>
