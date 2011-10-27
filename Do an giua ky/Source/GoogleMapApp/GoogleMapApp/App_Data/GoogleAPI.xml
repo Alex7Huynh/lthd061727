@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GOOGLEAPI>
+  <NGUOIDUNG username="alice" password="alice">
+    <DANHMUC tendanhmuc="Trường">
+      <DIADIEM tendiadiem="Trường ĐH Khoa học Tự nhiên" diachi="227 nguyễn văn cừ hồ chí minh" vido="10.76241" kinhdo="106.6819" deleted="false" ghichu="cool" />
+      <DIADIEM tendiadiem="Đại học Bách Khoa" diachi="268 lý thường kiệt hồ chí minh" vido="10.7730163" kinhdo="106.6593421" deleted="false" ghichu="good" />
+    </DANHMUC>
+    <DANHMUC tendanhmuc="Bệnh viện">
+      <DIADIEM tendiadiem="Bệnh viện Chợ Rẫy" diachi="phường 12, Quận 5, Hồ Chí Minh, Việt Nam" vido="10.7578584" kinhdo="106.65943689999995" deleted="false" ghichu="fare" />
+      <DIADIEM tendiadiem="Bệnh viện Từ Dũ" diachi="Cống Quỳnh, Quận 1, Hồ Chí Minh" vido="10.7686486" kinhdo="106.68531519999999" deleted="false" ghichu="fare" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="bill" password="bill">
+    <DANHMUC tendanhmuc="Trường">
+      <DIADIEM tendiadiem="Trường Đại Học Luật Tp. Hcm" diachi="Quốc lộ 13, Hiệp Bình Chánh, Thủ Đức, Hồ Chí Minh" vido="10.8299264" kinhdo="106.71369090000007" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="thuan" password="thuan">
+    <DANHMUC tendanhmuc="Công An">
+      <DIADIEM tendiadiem="Công AN Quận 4" diachi="Phường 12 Quận 4 Hồ Chí Minh" vido="10.7667587" kinhdo="106.70579550000002" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Công An Quận 2" diachi="Bình An Hồ Chí Minh" vido="10.7834892" kinhdo="106.72604360000003" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Công An Quận 7" diachi="Phú Mỹ Hồ Chí Minh" vido="10.7111125" kinhdo="106.73654850000003" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="tien" password="tien">
+    <DANHMUC tendanhmuc="Bệnh viện">
+      <DIADIEM tendiadiem="Bệnh viện mắt Tp.HCM" diachi="280 Điện Biên Phủ Hồ Chí Minh" vido="10.7786902" kinhdo="106.68493680000006" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Bệnh viện Q.3" diachi="Trần Quốc Thảo Hồ Chí Minh" vido="10.7845602 " kinhdo="106.68391399999996" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Bệnh viện FV" diachi="6 Nguyễn Lương Bằng Hồ Chí Minh" vido="10.7324149" kinhdo="106.71799829999998" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+    <DANHMUC tendanhmuc="Chung  Cư">
+      <DIADIEM tendiadiem="Chung cư Nguyễn Kiệm" diachi="675 Nguyễn Kiệm Hồ Chí Minh" vido="10.8100776" kinhdo="106.67800009999996" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Chung cư Nguyễn Du" diachi="89 Nguyễn Du Hồ Chí Minh" vido="10.7771479" kinhdo="106.69854580000003" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+  </NGUOIDUNG>
+  <NGUOIDUNG username="toan" password="toan">
+    <DANHMUC tendanhmuc="Công Viên">
+      <DIADIEM tendiadiem="Công Viên Lê Văn Huân" diachi="Lê Văn Huân Hồ Chí Minh" vido="10.805078" kinhdo="106.64115449999997" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Công Viên An Phú" diachi="An Phú Hồ Chí Minh" vido="10.7988756" kinhdo="106.7412481" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+    <DANHMUC tendanhmuc="Cầu">
+      <DIADIEM tendiadiem="Cầu Tân Kiên" diachi="Tân Kiên Hồ Chí Minh" vido="10.7295056" kinhdo="106.58174600000007" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Cầu Hiệp Phước" diachi="Hiệp Phước Hồ Chí Minh" vido="10.6427043" kinhdo="106.74308900000005" deleted="false" ghichu="no ideal" />
+      <DIADIEM tendiadiem="Cầu Long Hậu" diachi="Long Hậu Hồ Chí Minh" vido="10.6396807" kinhdo="106.69466970000008" deleted="false" ghichu="no ideal" />
+    </DANHMUC>
+  </NGUOIDUNG>
+</GOOGLEAPI>
