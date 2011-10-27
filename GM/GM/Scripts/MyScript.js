@@ -104,6 +104,7 @@ Menu.prototype.open = function (event) {
 
 // close the menu
 Menu.prototype.close = function () {
+    alert('close');
     this.clearTs();
     $map.gmap3({ action: 'clear', name: 'overlay' });
 }
