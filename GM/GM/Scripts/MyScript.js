@@ -22,9 +22,10 @@ function Menu() {
     $map = $('#map');
     this.items = [];
 
-    // create an item using a new closure 
+    // create an item using a new closure
     this.create = function (item) {
         var $item = $('<div class="item ' + item.cl + '">' + item.label + '</div>');
+        alert(item.cl);
         $item
         // bind click on item
             .click(function () {
@@ -133,14 +134,14 @@ function initialize() {
     // MENU : ITEM 1
     menuMap.add('Add To My Location', 'addToMyLocation',
           function () {
-              //menuMap.close();
+              menuMap.close();
               //addLocation(false);
           });
 
     // MENU : ITEM 2
     menuMap.add('Add Mark Here', 'addMarkHere',
           function () {
-              //menuMap.close();
+              menuMap.close();
               //addMarker(true);
           })
 
@@ -148,35 +149,35 @@ function initialize() {
     menuMap.add('Delete This Mark', 'deleteThisMark',
           function () {
               //map.setZoom(map.getZoom() + 1);
-              //menuMap.close();
+              menuMap.close();
           });
 
     // MENU : ITEM 4
     menuMap.add('Delete This Location', 'deleteThisLocation',
           function () {
               //map.setZoom(map.getZoom() - 1);
-              //menu.close();
+              menu.close();
           });
 
     // MENU : ITEM 5
     menuMap.add('Update Movement', 'updateMovement',
           function () {
               //map.setCenter(current.latLng);
-              //menuMap.close();
+              menuMap.close();
           });
 
     // MENU : ITEM 6
     menuMap.add('Cancel Movement', 'cancelMovement',
           function () {
               //map.setCenter(current.latLng);
-              //menuMap.close();
+              menuMap.close();
           });
 
     // MENU : ITEM 7
     menuMap.add('Rename', 'rename',
         function () {
             //map.setCenter(current.latLng);
-            //menuMap.close();
+            menuMap.close();
         });
 
     google.maps.event.addListener(map, 'rightclick', function (event) {

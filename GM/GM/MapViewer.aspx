@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="Map Viewer" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MapViewer.aspx.cs" Inherits="GM.MapViewer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <link href="Styles/MyStyle.css" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript" src="Scripts/gears_init.js"></script>
     <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>  
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
