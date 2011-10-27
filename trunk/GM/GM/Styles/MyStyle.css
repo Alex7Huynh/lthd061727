@@ -23,25 +23,25 @@ background-repeat: no-repeat;
 background-position: 4px center;
 }
 #menu .item.addToMyLocation{
-background-image: url(images/add.png);
+background-image: url(../images/add.png);
 }
 #menu .item.addMarkHere{
-background-image: url(images/add.png);
+background-image: url(../images/add.png);
 }
 #menu .item.deleteThisMark{
-background-image: url(images/delete.png);
+background-image: url(../images/delete.png);
 }
 #menu .item.deleteThisLocation{
-background-image: url(images/delete.png);
+background-image: url(../images/delete.png);
 }
 #menu .item.updateMovement{
-background-image: url(images/update.png);
+background-image: url(../images/update.png);
 }
 #menu .item.cancelMovement{
-background-image: url(images/cancel.png);
+background-image: url(../images/cancel.png);
 }
 #menu .item.rename{
-background-image: url(images/edit.png);
+background-image: url(../images/edit.png);
 }
 #menu .item.hover{
 background-color: #d6e9f8;
