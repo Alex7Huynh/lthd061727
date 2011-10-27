@@ -1,0 +1,26 @@
+﻿/*--------------------------------------
+Author: Gabriel Svennerberg
+Email: gabriel@svennerberg.com
+Created: 2010-03-17
+Description: Stylesheet for example 1
+----------------------------------------*/
+body {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: small;
+	background: #fff;
+}
+#map {
+	width: 43800%;
+	height: 540px;
+	float: right;
+	border: 1px solid #000;
+    margin-left: 0px;
+}
+#diadiempanel
+{
+	width: 18%;
+	height: 327px;
+	overflow: scroll;
+	float: left;
+	border: 1px solid #000;
+}
