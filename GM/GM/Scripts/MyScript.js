@@ -25,7 +25,6 @@ function Menu() {
     // create an item using a new closure
     this.create = function (item) {
         var $item = $('<div class="item ' + item.cl + '">' + item.label + '</div>');
-        alert(item.cl);
         $item
         // bind click on item
             .click(function () {
@@ -62,7 +61,7 @@ Menu.prototype.add = function (label, cl, fnc) {
 
 // close previous and open a new menu
 Menu.prototype.open = function (event) {
-    //this.close();
+    this.close();
     var k,
             that = this,
             offset = {
