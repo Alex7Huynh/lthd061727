@@ -6,6 +6,111 @@ var longitude;
 var browserSupportFlag;
 var initLocation;
 var vietnam;
+var menuMap;
+var menuMark;
+var current;
+var overlay;
+var $map;
+
+/**************************************************
+*                      Menu
+**************************************************/
+
+function Menu() {
+    var that = this,
+            ts = null;
+    $map = $('#map');
+    this.items = [];
+
+    // create an item using a new closure 
+    this.create = function (item) {
+        var $item = $('<div class="item ' + item.cl + '">' + item.label + '</div>');
+        $item
+        // bind click on item
+            .click(function () {
+                if (typeof (item.fnc) === 'function') {
+                    item.fnc.apply($(this), []);
+                }
+            })
+        // manage mouse over coloration
+            .hover(
+              function () { $(this).addClass('hover'); },
+              function () { $(this).removeClass('hover'); }
+            );
+        return $item;
+    };
+    this.clearTs = function () {
+        if (ts) {
+            clearTimeout(ts);
+            ts = null;
+        }
+    };
+    this.initTs = function (t) {
+        ts = setTimeout(function () { that.close() }, t);
+    };
+}
+
+// add item
+Menu.prototype.add = function (label, cl, fnc) {
+    this.items.push({
+        label: label,
+        fnc: fnc,
+        cl: cl
+    });
+}
+
+// close previous and open a new menu
+Menu.prototype.open = function (event) {
+    //this.close();
+    var k,
+            that = this,
+            offset = {
+                x: 0,
+                y: 0
+            },
+            $menu = $('<div id="menu"></div>');
+
+    // add items in menu
+    for (k in this.items) {
+        $menu.append(this.create(this.items[k]));
+    }
+
+    // manage auto-close menu on mouse hover / out
+    $menu.hover(
+          function () { that.clearTs(); },
+          function () { that.initTs(3000); }
+        );
+
+    var containerPixel = overlay.getProjection().fromLatLngToContainerPixel(event.latLng);
+    // change the offset to get the menu visible (#menu width & height must be defined in CSS to use this simple code)
+    if (containerPixel.y + $menu.height() > $map.height()) {
+        offset.y = -$menu.height();
+    }
+    if (containerPixel.x + $menu.width() > $map.width()) {
+        offset.x = -$menu.width();
+    }
+
+    // use menu as overlay
+    $map.gmap3({
+        action: 'addOverlay',
+        latLng: event.latLng,
+        content: $menu,
+        offset: offset
+    });
+
+    // start auto-close
+    this.initTs(5000);
+}
+
+// close the menu
+Menu.prototype.close = function () {
+    this.clearTs();
+    $map.gmap3({ action: 'clear', name: 'overlay' });
+}
+
+/**************************************************
+*                      Main
+**************************************************/
 
 function initialize() {
     vietnam = new google.maps.LatLng(14.058324, 108.277199);
@@ -18,6 +123,75 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById("map"),
         myOptions);
+
+    overlay = new google.maps.OverlayView();
+    overlay.draw = function () { };
+    overlay.setMap(map);
+
+    menuMap = new Menu();
+
+    // MENU : ITEM 1
+    menuMap.add('Add To My Location', 'addToMyLocation',
+          function () {
+              //menuMap.close();
+              //addLocation(false);
+          });
+
+    // MENU : ITEM 2
+    menuMap.add('Add Mark Here', 'addMarkHere',
+          function () {
+              //menuMap.close();
+              //addMarker(true);
+          })
+
+    // MENU : ITEM 3
+    menuMap.add('Delete This Mark', 'deleteThisMark',
+          function () {
+              //map.setZoom(map.getZoom() + 1);
+              //menuMap.close();
+          });
+
+    // MENU : ITEM 4
+    menuMap.add('Delete This Location', 'deleteThisLocation',
+          function () {
+              //map.setZoom(map.getZoom() - 1);
+              //menu.close();
+          });
+
+    // MENU : ITEM 5
+    menuMap.add('Update Movement', 'updateMovement',
+          function () {
+              //map.setCenter(current.latLng);
+              //menuMap.close();
+          });
+
+    // MENU : ITEM 6
+    menuMap.add('Cancel Movement', 'cancelMovement',
+          function () {
+              //map.setCenter(current.latLng);
+              //menuMap.close();
+          });
+
+    // MENU : ITEM 7
+    menuMap.add('Rename', 'rename',
+        function () {
+            //map.setCenter(current.latLng);
+            //menuMap.close();
+        });
+
+    google.maps.event.addListener(map, 'rightclick', function (event) {
+        current = event;
+        menuMap.open(current);
+    });
+    google.maps.event.addListener(map, 'click', function (event) {
+        menuMap.close();
+    });
+    google.maps.event.addListener(map, 'dragstart', function () {
+        menuMap.close();
+    });
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+        menuMap.close();
+    });
     geocoder = new google.maps.Geocoder();
 
     // Try W3C Geolocation (Preferred)
