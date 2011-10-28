@@ -145,5 +145,61 @@ namespace GoogleMapApp
                 throw ex;
             }
         }
+
+        [System.Web.Services.WebMethod]
+        public static bool ThemDiaDiem(string tenDiaDiem,string diaChi,float viDo,float kinhDo,string ghiChu)
+        {
+            try
+            {
+                DiaDiemDTO diaDiem = new DiaDiemDTO();
+                diaDiem.TenDiaDiem = tenDiaDiem;
+                diaDiem.DiaChi = diaChi;
+                diaDiem.ViDo = viDo;
+                diaDiem.KinhDo = kinhDo;
+                diaDiem.Deleted = false;
+                DiaDiemDAO.ThemDiaDiem(diaDiem);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [System.Web.Services.WebMethod]
+        public static bool CapNhatDiaDiem(string tenDiaDiem, string diaChi, float viDo, float kinhDo, string ghiChu)
+        {
+            try
+            {
+                DiaDiemDTO diaDiem = new DiaDiemDTO();
+                diaDiem.TenDiaDiem = tenDiaDiem;
+                diaDiem.DiaChi = diaChi;
+                diaDiem.ViDo = viDo;
+                diaDiem.KinhDo = kinhDo;
+                diaDiem.Deleted = false;
+                DiaDiemDAO.CapNhatDiaDiem(diaDiem);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [System.Web.Services.WebMethod]
+        public static bool XoaDiaDiem(string tenDiaDiem)
+        {
+            try
+            {
+                DiaDiemDTO diaDiem = new DiaDiemDTO();
+                diaDiem.TenDiaDiem = tenDiaDiem;
+                DiaDiemDAO.XoaDiaDiem(diaDiem);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
