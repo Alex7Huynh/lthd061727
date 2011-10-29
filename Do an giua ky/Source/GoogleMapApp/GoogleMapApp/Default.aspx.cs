@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace GoogleMapApp
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace GoogleMapApp
             if (nguoiDung != null)
             {
                 Session.Add("User", nguoiDung);
-                Response.Redirect("index.aspx");                
+                Response.Redirect("index.aspx");
             }
             string myStringVariable = "Đăng nhập thất bại! Vui lòng thử lại. :)";
             ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);

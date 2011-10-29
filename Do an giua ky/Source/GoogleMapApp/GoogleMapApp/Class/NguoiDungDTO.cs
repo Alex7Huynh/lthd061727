@@ -31,5 +31,10 @@ namespace GoogleMapApp
             username = ten;
             password = matKhau;
         }
+        public NguoiDungDTO(NguoiDungDTO user)
+        {
+            username = user.Username;
+            password = user.Password;
+        }
     }
 }

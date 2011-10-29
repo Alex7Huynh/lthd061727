@@ -20,5 +20,22 @@ namespace GoogleMapApp
             get { return nguoiDung; }
             set { nguoiDung = value; }
         }
+
+        public DanhMucDTO()
+        {
+            tenDanhMuc = "";
+            nguoiDung = new NguoiDungDTO();
+        }
+        public DanhMucDTO(string name, NguoiDungDTO user)
+        {
+            tenDanhMuc = name;
+            nguoiDung = user;
+        }
+        public DanhMucDTO(DanhMucDTO dm)
+        {
+            tenDanhMuc = dm.TenDanhMuc;
+            nguoiDung = new NguoiDungDTO(dm.NguoiDung);
+        }
+    
     }
 }

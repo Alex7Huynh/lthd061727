@@ -18,11 +18,9 @@ namespace GoogleMapApp
                 return false;
 
             XmlElement child = doc.CreateElement("DIADIEM");
-            child.SetAttribute("tendiadiem", diaDiem.TenDiaDiem);
-            child.SetAttribute("diachi", diaDiem.DiaChi);
+            child.SetAttribute("tendiadiem", diaDiem.TenDiaDiem);            
             child.SetAttribute("vido", diaDiem.ViDo.ToString());
-            child.SetAttribute("kinhdo", diaDiem.KinhDo.ToString());
-            child.SetAttribute("deleted", "false");
+            child.SetAttribute("kinhdo", diaDiem.KinhDo.ToString());            
             child.SetAttribute("ghichu", diaDiem.GhiChu);
             list[0].AppendChild(child);
             doc.Save(Util.FileName);

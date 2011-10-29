@@ -87,18 +87,15 @@ function findLocation(address, flag) {
                 infowindow = new google.maps.InfoWindow();
             }
             document.getElementById("DiaDiem").value = results[0].formatted_address;
-            document.getElementById("viDo").value = results[0].geometry.location.lat();
-            document.getElementById("kinhDo").value = results[0].geometry.location.lng();
+            //document.getElementById("viDo").value = results[0].geometry.location.lat();
+            //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
                         
-            var content = "<strong><input type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
-            content += 'Vĩ độ: ' + results[0].geometry.location.lat() + '<br/>';
-            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '<br/>';
-            content += 'Ghi chú: <input type=text /><br/><br/><br/>';
-            //            content += '<a href="ThemDiaDiem.aspx?action=Them&ten=' + results[0].formatted_address
-            //                + '&lat=' + results[0].geometry.location.lat()
-            //                + '&lgn=' + results[0].geometry.location.lng() + '">Thêm</a>&nbsp&nbsp';            
-            content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=themDiaDiem(this)>Thêm</a>";
-
+            var content = "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
+            content += "Vĩ độ: <input id='ViDo' type=text  value='" + results[0].geometry.location.lat() + "' /><br/>";
+            content += "Kinh độ: <input id='KinhDo' type=text  value='" + results[0].geometry.location.lng() + "' /><br/>";
+            content += "Danh mục: <input id='TenDanhMuc' type=text /><br/>";
+            content += "Ghi chú: <input id='GhiChu' type=text /><br/><br/><br/>";            
+            content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=themDiaDiem()>Thêm</a>";
 
             infowindow.setContent(content);
             infowindow.open(map, marker);
@@ -207,15 +204,17 @@ function findMyLocation(address, flag, note) {
                 infowindow = new google.maps.InfoWindow();
             }
             document.getElementById("DiaDiem").value = results[0].formatted_address;
-            document.getElementById("viDo").value = results[0].geometry.location.lat();
-            document.getElementById("kinhDo").value = results[0].geometry.location.lng();
+            //document.getElementById("viDo").value = results[0].geometry.location.lat();
+            //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
-            var content = '<strong>' + results[0].formatted_address + '</strong><br/>';
-            content += 'Ghi chú: ' + note + '<br/>';
-            content += 'Vĩ độ: ' + results[0].geometry.location.lat() + '<br/>';
-            content += 'Kinh độ: ' + results[0].geometry.location.lng() + '<br/><br/><br/>';
-            content += '<a href="index.aspx?action=Xoa&ten=' + results[0].formatted_address + '">Xóa</a>&nbsp&nbsp';
-            content += '<a href="CapNhatDiaDiem.aspx?action=CapNhat&ten=' + results[0].formatted_address + '">Cập nhật</a>';
+
+            var content = "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
+            content += "Vĩ độ: <input id='ViDo' type=text  value='" + results[0].geometry.location.lat() + "' /><br/>";
+            content += "Kinh độ: <input id='KinhDo' type=text  value='" + results[0].geometry.location.lng() + "' /><br/>";            
+            content += "Ghi chú: <input id='GhiChu' type=text value='" + note + "' /><br/><br/><br/>";
+            content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=xoaDiaDiem()>Xóa</a>&nbsp&nbsp";
+            content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=capNhatDiaDiem()>Cập nhật</a>";
+            
             infowindow.setContent(content);
             infowindow.open(map, marker);
             if (flag == true) {
@@ -236,27 +235,56 @@ function findMyLocation(address, flag, note) {
     });
 }
 
-function themDiaDiem(ten) {
-    alert(ten.name);
-    var txt1 = $get("viDo");
-    var txt2 = $get("kinhDo");
-    var txtresult = $get("DiaDiem");
-
-    //Call server side function
-    PageMethods.Sum(txt1.value, txt2.value, OnCallSumComplete, OnCallSumError, txtresult);
+//Them dia diem
+function themDiaDiem() {    
+    var tenDiaDiem = $get("TenDiaDiem").value;
+    var viDo = $get("ViDo").value;
+    var kinhDo = $get("KinhDo").value;
+    var tenDanhMuc = $get("TenDanhMuc").value;
+    var ghiChu = $get("GhiChu").value;
+    
+    PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
+
+//Xoa dia diem
 function xoaDiaDiem() {
+    var tenDiaDiem = $get("TenDiaDiem").value;
 
+    PageMethods.XoaDiaDiem(tenDiaDiem, OnCallXoaDiaDiemComplete, OnFailed);
 }
+
+//Cap nhat dia diem
 function capNhatDiaDiem() {
+    var tenDiaDiem = $get("TenDiaDiem").value;
+    var viDo = $get("ViDo").value;
+    var kinhDo = $get("KinhDo").value;
+    var ghiChu = $get("GhiChu").value;
+    var treeView = $get("TreeView1");
+    //var treeView = document.getElementById("TreeView1");
+    PageMethods.CapNhatDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, OnCallCapNhatDiaDiemComplete, OnFailed);
+    //PageMethods.LoadTreeView(treeView, OnCallCapNhatDiaDiemComplete, OnFailed);
+}
 
+//Hoan thanh them dia diem
+function OnCallThemDiaDiemComplete() {
+    alert('Thêm thành công!');
 }
-function OnCallSumComplete(result, txtresult, methodName) {
-    //Show the result in txtresult
-    txtresult.value = result;
+
+//Hoan thanh xoa dia diem
+function OnCallXoaDiaDiemComplete() {
+    alert('Xóa thành công!');
 }
-function OnCallSumError(error, userContext, methodName) {
+
+//Hoan thanh cap nhat dia diem
+function OnCallCapNhatDiaDiemComplete() {
+    alert('Cập nhật thành công!');
+}
+function OnFailed(error) {
     if (error !== null) {
         alert(error.get_message());
     }
 }
+
+//function OnCallSumComplete(result, txtresult, methodName) {
+//    txtresult.value = result;
+//}

@@ -13,6 +13,7 @@
     <RootNamespace>GoogleMapApp</RootNamespace>
     <AssemblyName>GoogleMapApp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +52,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="CapNhatDiaDiem.aspx" />
     <Content Include="ChiaSeDiaDiem.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Scripts\gears_init.js" />
@@ -70,16 +70,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Default.aspx" />
-    <Content Include="ThemDiaDiem.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapNhatDiaDiem.aspx.cs">
-      <DependentUpon>CapNhatDiaDiem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CapNhatDiaDiem.aspx.designer.cs">
-      <DependentUpon>CapNhatDiaDiem.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ChiaSeDiaDiem.aspx.cs">
       <DependentUpon>ChiaSeDiaDiem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -108,13 +100,6 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ThemDiaDiem.aspx.cs">
-      <DependentUpon>ThemDiaDiem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ThemDiaDiem.aspx.designer.cs">
-      <DependentUpon>ThemDiaDiem.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
