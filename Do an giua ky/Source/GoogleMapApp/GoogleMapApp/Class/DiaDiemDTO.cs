@@ -7,12 +7,18 @@ namespace GoogleMapApp
 {
     public class DiaDiemDTO
     {
+        private int maDiaDiem;        
         private string tenDiaDiem;
         private float viDo;
         private float kinhDo;
         private string ghiChu;
         private DanhMucDTO danhMuc;
 
+        public int MaDiaDiem
+        {
+            get { return maDiaDiem; }
+            set { maDiaDiem = value; }
+        }
         public string TenDiaDiem
         {
             get { return tenDiaDiem; }
@@ -43,8 +49,9 @@ namespace GoogleMapApp
         {
             tenDiaDiem = String.Empty;
         }
-        public DiaDiemDTO(string name, float lat, float lgn, string note, DanhMucDTO dm)
+        public DiaDiemDTO(int ma, string name, float lat, float lgn, string note, DanhMucDTO dm)
         {
+            maDiaDiem = ma;
             tenDiaDiem = name;
             ViDo = lat;
             kinhDo = lgn;

@@ -1,49 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GOOGLEAPI>
   <NGUOIDUNG username="alice" password="alice">
-    <DANHMUC tendanhmuc="Trường">
-      <DIADIEM tendiadiem="Trường ĐH Khoa học Tự nhiên" vido="10.76241" kinhdo="106.6819" ghichu="cool" />
-      <DIADIEM tendiadiem="Đại học Bách Khoa" vido="10.7730163" kinhdo="106.6593421" ghichu="good" />
-      <DIADIEM tendiadiem="Đại học Stanford, Board of Trustees-Stanford, 450 Serra Mall, Stanford, California 94305-2004, Hoa Kỳ" vido="37.42315" kinhdo="-122.1766" ghichu="super schoolsss" />
-      <DIADIEM tendiadiem="Trường Đại Học Luật Tp. Hcm, Quốc lộ 13, Hiệp Bình Chánh, Thủ Đức, Hồ Chí Minh, Việt Nam" vido="10.82993" kinhdo="106.7137" ghichu="cool" />
+    <DANHMUC madanhmuc="1" tendanhmuc="Trường">
+      <DIADIEM madiadiem="1" tendiadiem="Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam" vido="10.76241" kinhdo="106.6819" ghichu="cool" />
+      <DIADIEM madiadiem="2" tendiadiem="Đại học Bách Khoa" vido="10.7730163" kinhdo="106.6593421" ghichu="good" />
+      <DIADIEM madiadiem="3" tendiadiem="Đại học Stanford, Board of Trustees-Stanford, 450 Serra Mall, Stanford, California 94305-2004, Hoa Kỳ" vido="37.42315" kinhdo="-122.1766" ghichu="super schoolsss" />
+      <DIADIEM madiadiem="4" tendiadiem="Trường Đại Học Luật Tp. Hcm, Quốc lộ 13, Hiệp Bình Chánh, Thủ Đức, Hồ Chí Minh, Việt Nam" vido="10.82993" kinhdo="106.7137" ghichu="cool" />
     </DANHMUC>
-    <DANHMUC tendanhmuc="Bệnh viện">
-      <DIADIEM tendiadiem="Bệnh viện Chợ Rẫy" vido="10.7578584" kinhdo="106.65943689999995" ghichu="fare" />
-      <DIADIEM tendiadiem="Bệnh viện Từ Dũ" vido="10.7686486" kinhdo="106.68531519999999" ghichu="fare" />
+    <DANHMUC madanhmuc="2" tendanhmuc="Bệnh viện">
+      <DIADIEM madiadiem="5" tendiadiem="Bệnh viện Chợ Rẫy" vido="10.7578584" kinhdo="106.65943689999995" ghichu="fare" />
+      <DIADIEM madiadiem="6" tendiadiem="Bệnh viện Từ Dũ" vido="10.7686486" kinhdo="106.68531519999999" ghichu="fare" />
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="bill" password="bill">
-    <DANHMUC tendanhmuc="Trường">
-      <DIADIEM tendiadiem="Trường Đại Học Luật Tp. Hcm" vido="10.8299264" kinhdo="106.71369090000007" ghichu="no ideal" />
+    <DANHMUC madanhmuc="3" tendanhmuc="Trường">
+      <DIADIEM madiadiem="7" tendiadiem="Trường Đại Học Luật Tp. Hcm" vido="10.8299264" kinhdo="106.71369090000007" ghichu="no ideal" />
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="thuan" password="thuan">
-    <DANHMUC tendanhmuc="Công An">
-      <DIADIEM tendiadiem="Công AN Quận 4" vido="10.7667587" kinhdo="106.70579550000002" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Công An Quận 2" vido="10.7834892" kinhdo="106.72604360000003" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Công An Quận 7" vido="10.7111125" kinhdo="106.73654850000003" ghichu="no ideal" />
+    <DANHMUC madanhmuc="4" tendanhmuc="Công An">
+      <DIADIEM madiadiem="8" tendiadiem="Công AN Quận 4" vido="10.7667587" kinhdo="106.70579550000002" ghichu="no ideal" />
+      <DIADIEM madiadiem="9" tendiadiem="Công An Quận 2" vido="10.7834892" kinhdo="106.72604360000003" ghichu="no ideal" />
+      <DIADIEM madiadiem="10" tendiadiem="Công An Quận 7" vido="10.7111125" kinhdo="106.73654850000003" ghichu="no ideal" />
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="tien" password="tien">
-    <DANHMUC tendanhmuc="Bệnh viện">
-      <DIADIEM tendiadiem="Bệnh viện mắt Tp.HCM" vido="10.7786902" kinhdo="106.68493680000006" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Bệnh viện Q.3" vido="10.7845602 " kinhdo="106.68391399999996" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Bệnh viện FV" vido="10.7324149" kinhdo="106.71799829999998" ghichu="no ideal" />
+    <DANHMUC madanhmuc="5" tendanhmuc="Bệnh viện">
+      <DIADIEM madiadiem="11" tendiadiem="Bệnh viện mắt Tp.HCM" vido="10.7786902" kinhdo="106.68493680000006" ghichu="no ideal" />
+      <DIADIEM madiadiem="12" tendiadiem="Bệnh viện Q.3" vido="10.7845602 " kinhdo="106.68391399999996" ghichu="no ideal" />
+      <DIADIEM madiadiem="13" tendiadiem="Bệnh viện FV" vido="10.7324149" kinhdo="106.71799829999998" ghichu="no ideal" />
     </DANHMUC>
-    <DANHMUC tendanhmuc="Chung  Cư">
-      <DIADIEM tendiadiem="Chung cư Nguyễn Kiệm" vido="10.8100776" kinhdo="106.67800009999996" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Chung cư Nguyễn Du" vido="10.7771479" kinhdo="106.69854580000003" ghichu="no ideal" />
+    <DANHMUC madanhmuc="6" tendanhmuc="Chung  Cư">
+      <DIADIEM madiadiem="14" tendiadiem="Chung cư Nguyễn Kiệm" vido="10.8100776" kinhdo="106.67800009999996" ghichu="no ideal" />
+      <DIADIEM madiadiem="15" tendiadiem="Chung cư Nguyễn Du" vido="10.7771479" kinhdo="106.69854580000003" ghichu="no ideal" />
     </DANHMUC>
   </NGUOIDUNG>
   <NGUOIDUNG username="toan" password="toan">
-    <DANHMUC tendanhmuc="Công Viên">
-      <DIADIEM tendiadiem="Công Viên Lê Văn Huân" vido="10.805078" kinhdo="106.64115449999997" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Công Viên An Phú" vido="10.7988756" kinhdo="106.7412481" ghichu="no ideal" />
+    <DANHMUC madanhmuc="7" tendanhmuc="Công Viên">
+      <DIADIEM madiadiem="16" tendiadiem="Công Viên Lê Văn Huân" vido="10.805078" kinhdo="106.64115449999997" ghichu="no ideal" />
+      <DIADIEM madiadiem="17" tendiadiem="Công Viên An Phú" vido="10.7988756" kinhdo="106.7412481" ghichu="no ideal" />
     </DANHMUC>
-    <DANHMUC tendanhmuc="Cầu">
-      <DIADIEM tendiadiem="Cầu Tân Kiên" vido="10.7295056" kinhdo="106.58174600000007" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Cầu Hiệp Phước" vido="10.6427043" kinhdo="106.74308900000005" ghichu="no ideal" />
-      <DIADIEM tendiadiem="Cầu Long Hậu" vido="10.6396807" kinhdo="106.69466970000008" ghichu="no ideal" />
+    <DANHMUC madanhmuc="8" tendanhmuc="Cầu">
+      <DIADIEM madiadiem="18" tendiadiem="Cầu Tân Kiên" vido="10.7295056" kinhdo="106.58174600000007" ghichu="no ideal" />
+      <DIADIEM madiadiem="19" tendiadiem="Cầu Hiệp Phước" vido="10.6427043" kinhdo="106.74308900000005" ghichu="no ideal" />
+      <DIADIEM madiadiem="20" tendiadiem="Cầu Long Hậu" vido="10.6396807" kinhdo="106.69466970000008" ghichu="no ideal" />
     </DANHMUC>
   </NGUOIDUNG>
 </GOOGLEAPI>
