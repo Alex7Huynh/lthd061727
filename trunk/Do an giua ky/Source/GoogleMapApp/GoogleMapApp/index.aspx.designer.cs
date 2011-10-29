@@ -58,12 +58,12 @@ namespace GoogleMapApp {
         protected global::System.Web.UI.WebControls.Button btnChiaSeDiaDiem;
         
         /// <summary>
-        /// TreeView1 control.
+        /// CayDiaDiem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView TreeView1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CayDiaDiem;
     }
 }

@@ -236,33 +236,43 @@ function findMyLocation(address, flag, note) {
 }
 
 //Them dia diem
-function themDiaDiem() {    
+function themDiaDiem() {   
+    //Lay du lieu 
     var tenDiaDiem = $get("TenDiaDiem").value;
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
     var tenDanhMuc = $get("TenDanhMuc").value;
     var ghiChu = $get("GhiChu").value;
-    
+    //Cap nhat treeview
+    var tmp = $get("TenDiaDiem").value;
+
+    //Them dia diem
     PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
 
 //Xoa dia diem
 function xoaDiaDiem() {
+    //Lay du lieu 
     var tenDiaDiem = $get("TenDiaDiem").value;
+    //Cap nhat treeview
+    var tmp = $get("TenDiaDiem").value;
 
+    //Them dia diem
     PageMethods.XoaDiaDiem(tenDiaDiem, OnCallXoaDiaDiemComplete, OnFailed);
 }
 
 //Cap nhat dia diem
 function capNhatDiaDiem() {
+    //Lay du lieu 
     var tenDiaDiem = $get("TenDiaDiem").value;
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
     var ghiChu = $get("GhiChu").value;
-    var treeView = $get("TreeView1");
-    //var treeView = document.getElementById("TreeView1");
-    PageMethods.CapNhatDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, OnCallCapNhatDiaDiemComplete, OnFailed);
-    //PageMethods.LoadTreeView(treeView, OnCallCapNhatDiaDiemComplete, OnFailed);
+    //Cap nhat treeview
+    var tmp = $get("TenDiaDiem").value;
+
+    //Them dia diem
+    PageMethods.CapNhatDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, OnCallCapNhatDiaDiemComplete, OnFailed);    
 }
 
 //Hoan thanh them dia diem
@@ -284,7 +294,3 @@ function OnFailed(error) {
         alert(error.get_message());
     }
 }
-
-//function OnCallSumComplete(result, txtresult, methodName) {
-//    txtresult.value = result;
-//}
