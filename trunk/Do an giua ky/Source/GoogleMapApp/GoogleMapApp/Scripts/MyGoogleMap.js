@@ -31,7 +31,7 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    map = new google.maps.Map(document.getElementById("map"), myOptions);   
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     // Try W3C Geolocation (Preferred)
     if (navigator.geolocation) {
@@ -89,12 +89,12 @@ function findLocation(address, flag) {
             document.getElementById("DiaDiem").value = results[0].formatted_address;
             //document.getElementById("viDo").value = results[0].geometry.location.lat();
             //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
-                        
+
             var content = "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
-            content += "Vĩ độ: <input id='ViDo' type=text  value='" + results[0].geometry.location.lat() + "' /><br/>";
-            content += "Kinh độ: <input id='KinhDo' type=text  value='" + results[0].geometry.location.lng() + "' /><br/>";
+            content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
+            content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
             content += "Danh mục: <input id='TenDanhMuc' type=text /><br/>";
-            content += "Ghi chú: <input id='GhiChu' type=text /><br/><br/><br/>";            
+            content += "Ghi chú: <input id='GhiChu' type=text /><br/><br/><br/>";
             content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=themDiaDiem()>Thêm</a>";
 
             infowindow.setContent(content);
@@ -134,7 +134,7 @@ function btnDiaDiemMoi_Click() {
     var x = document.getElementById("viDo").value;
     var y = document.getElementById("kinhDo").value;
     //    //findLocation(viDo, kinhDo, true);    
-    alert(x.toString() + " - " + y.toString());    
+    alert(x.toString() + " - " + y.toString());
 }
 
 //ham xu ly su kien button click
@@ -154,8 +154,8 @@ function btnMyLocation_Click() {
 
 }
 
-function zoomIn() {    
-    map.zoomIn();    
+function zoomIn() {
+    map.zoomIn();
     contextmenu.style.visibility = "hidden";
 }
 function zoomOut() {
@@ -178,7 +178,7 @@ function centreMapHere() {
     contextmenu.style.visibility = "hidden";
 }
 /*function setMarker(lat, lgn) {
-    marker = new google.maps.Marker({ position: new google.maps.LatLng(lat, lgn), map: map });
+marker = new google.maps.Marker({ position: new google.maps.LatLng(lat, lgn), map: map });
 }*/
 function setMarker() {
     var x = parseFloat(document.getElementById("viDo").value);
@@ -188,7 +188,7 @@ function setMarker() {
 }
 
 
-function findMyLocation(address, flag, note) {
+function findMyLocation(idAddress, address, note) {
     if (!geocoder) {
         geocoder = new google.maps.Geocoder();
     }
@@ -199,7 +199,7 @@ function findMyLocation(address, flag, note) {
                 marker = new google.maps.Marker({ map: map });
             }
             marker.setPosition(results[0].geometry.location);
-                        
+
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
@@ -208,23 +208,26 @@ function findMyLocation(address, flag, note) {
             //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
 
-            var content = "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
-            content += "Vĩ độ: <input id='ViDo' type=text  value='" + results[0].geometry.location.lat() + "' /><br/>";
-            content += "Kinh độ: <input id='KinhDo' type=text  value='" + results[0].geometry.location.lng() + "' /><br/>";            
+            var content = "<input id='MaDiaDiem' type=hidden value='" + idAddress + "' /><br/>";
+            content += "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
+            content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
+            content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
             content += "Ghi chú: <input id='GhiChu' type=text value='" + note + "' /><br/><br/><br/>";
             content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=xoaDiaDiem()>Xóa</a>&nbsp&nbsp";
             content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=capNhatDiaDiem()>Cập nhật</a>";
-            
+
             infowindow.setContent(content);
             infowindow.open(map, marker);
+            /*
             if (flag == true) {
-                var panel = document.getElementById("diadiempanel");
-                var panelContent = "<strong>Các kết quả tìm được:</strong></br>";
-                for (var i in results) {
-                    panelContent += "<a href='javascript:void(0);' name='" + results[i].formatted_address + "' onclick=linkDiaDiem_Click(this)>" + results[i].formatted_address + "</a>" + "</br></br>";
-                }
-                panel.innerHTML = panelContent;
+            var panel = document.getElementById("diadiempanel");
+            var panelContent = "<strong>Các kết quả tìm được:</strong></br>";
+            for (var i in results) {
+            panelContent += "<a href='javascript:void(0);' name='" + results[i].formatted_address + "' onclick=linkDiaDiem_Click(this)>" + results[i].formatted_address + "</a>" + "</br></br>";
             }
+            panel.innerHTML = panelContent;
+            }*/
+
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.open(map, marker);
             });
@@ -236,8 +239,8 @@ function findMyLocation(address, flag, note) {
 }
 
 //Them dia diem
-function themDiaDiem() {   
-    //Lay du lieu 
+function themDiaDiem() {
+    //Lay du lieu     
     var tenDiaDiem = $get("TenDiaDiem").value;
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
@@ -245,7 +248,6 @@ function themDiaDiem() {
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
     var tmp = $get("TenDiaDiem").value;
-
     //Them dia diem
     PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
@@ -253,26 +255,38 @@ function themDiaDiem() {
 //Xoa dia diem
 function xoaDiaDiem() {
     //Lay du lieu 
+    var maDiaDiem = $get("MaDiaDiem").value;
     var tenDiaDiem = $get("TenDiaDiem").value;
     //Cap nhat treeview
-    var tmp = $get("TenDiaDiem").value;
-
-    //Them dia diem
-    PageMethods.XoaDiaDiem(tenDiaDiem, OnCallXoaDiaDiemComplete, OnFailed);
+    var parent = document.getElementById("CayDiaDiem");    
+    var tmp = $get("DD" + maDiaDiem);
+    parent.removeChild(tmp);
+    //Xoa dia diem
+    PageMethods.XoaDiaDiem(maDiaDiem, OnCallXoaDiaDiemComplete, OnFailed);
 }
 
 //Cap nhat dia diem
 function capNhatDiaDiem() {
     //Lay du lieu 
+    var maDiaDiem = $get("MaDiaDiem").value;
     var tenDiaDiem = $get("TenDiaDiem").value;
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
-    var tmp = $get("TenDiaDiem").value;
+    var parent = document.getElementById("CayDiaDiem");
+    var tmp = $get("DD" + maDiaDiem);
+    $get("DD" + maDiaDiem).href = "javascript:(findMyLocation('" + maDiaDiem + ", '" + tenDiaDiem + "', " + ghiChu + "'))";
+    $get("DD" + maDiaDiem).innerHTML = "&nbsp;&nbsp;+&nbsp;" + tenDiaDiem + "<br/>";
+    
+    //tmp.id= "DD1"
+    //tmp.href =     "javascript:(findMyLocation('1', 'Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam', 'cool'))"
+    //tmp.pathname = "(findMyLocation('1', 'Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam', 'cool'))"
+    //tmp.nameProp = "javascript:(findMyLocation('1', 'Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam', 'cool'))"
+    //innerHTML = "&nbsp;&nbsp;+&nbsp;Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam<br>"
 
-    //Them dia diem
-    PageMethods.CapNhatDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, OnCallCapNhatDiaDiemComplete, OnFailed);    
+    //Cap nhat dia diem
+    PageMethods.CapNhatDiaDiem(maDiaDiem, tenDiaDiem, viDo, kinhDo, ghiChu, OnCallCapNhatDiaDiemComplete, OnFailed);
 }
 
 //Hoan thanh them dia diem

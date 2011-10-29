@@ -18,9 +18,10 @@ namespace GoogleMapApp
                 return false;
 
             XmlElement child = doc.CreateElement("DIADIEM");
-            child.SetAttribute("tendiadiem", diaDiem.TenDiaDiem);            
+            child.SetAttribute("madiadiem", diaDiem.MaDiaDiem.ToString());
+            child.SetAttribute("tendiadiem", diaDiem.TenDiaDiem);
             child.SetAttribute("vido", diaDiem.ViDo.ToString());
-            child.SetAttribute("kinhdo", diaDiem.KinhDo.ToString());            
+            child.SetAttribute("kinhdo", diaDiem.KinhDo.ToString());
             child.SetAttribute("ghichu", diaDiem.GhiChu);
             list[0].AppendChild(child);
             doc.Save(Util.FileName);
@@ -38,7 +39,8 @@ namespace GoogleMapApp
             foreach (XmlNode node in list[0].ChildNodes)
             {
                 foreach (XmlNode n in node.ChildNodes)
-                    if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    //if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    if (diaDiem.MaDiaDiem.ToString() == n.Attributes["madiadiem"].Value)
                     {
                         n.ParentNode.RemoveChild(n);
                     }
@@ -59,8 +61,9 @@ namespace GoogleMapApp
             foreach (XmlNode node in list[0].ChildNodes)
             {
                 foreach (XmlNode n in node.ChildNodes)
-                    if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
-                    {                        
+                    //if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
+                    if (diaDiem.MaDiaDiem.ToString() == n.Attributes["madiadiem"].Value)
+                    {
                         n.Attributes["tendiadiem"].Value = diaDiem.TenDiaDiem;
                         n.Attributes["vido"].Value = diaDiem.ViDo.ToString();
                         n.Attributes["kinhdo"].Value = diaDiem.KinhDo.ToString();
@@ -73,6 +76,7 @@ namespace GoogleMapApp
 
             return false;
         }
+
         public static DiaDiemDTO TimDiaDiem(DiaDiemDTO diaDiem)
         {
             XmlDocument doc = new XmlDocument();
@@ -87,6 +91,7 @@ namespace GoogleMapApp
                     if (diaDiem.TenDiaDiem.Contains(n.Attributes["tendiadiem"].Value))
                     {
                         diaDiem = new DiaDiemDTO();
+                        diaDiem.MaDiaDiem = int.Parse(n.Attributes["madiadiem"].Value);
                         diaDiem.TenDiaDiem = n.Attributes["tendiadiem"].Value;
                         diaDiem.ViDo = float.Parse(n.Attributes["vido"].Value);
                         diaDiem.KinhDo = float.Parse(n.Attributes["kinhdo"].Value);

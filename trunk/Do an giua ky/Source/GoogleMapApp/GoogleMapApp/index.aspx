@@ -32,10 +32,10 @@
         <asp:TextBox ID="DiaDiem" runat="server"></asp:TextBox>
         <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
         <%--<asp:Button ID="setLocation" runat="server" Text="Set Location" OnClick="setLocation_Click" Visible="False" />--%>
-        <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button"
-            value="Tìm vị trí hiện tại" />
+        <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button" value="Tìm vị trí hiện tại"/>
             <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" OnClick="btnDangXuat_Click" />
         <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')" CausesValidation="False" UseSubmitBehavior="False"/>
+        
     </p>
     <p>
         <%--Vĩ độ:

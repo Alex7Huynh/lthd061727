@@ -18,6 +18,7 @@ namespace GoogleMapApp
                 return false;
   
             XmlElement child = doc.CreateElement("DANHMUC");
+            child.SetAttribute("madanhmuc", danhMuc.MaDanhMuc.ToString());
             child.SetAttribute("tendanhmuc", danhMuc.TenDanhMuc);
             list[0].AppendChild(child);
             doc.Save(Util.FileName);

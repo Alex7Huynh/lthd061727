@@ -81,38 +81,41 @@ namespace GoogleMapApp
         }
 
         [System.Web.Services.WebMethod]
-        public static bool ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, string tenDanhMuc)
+        public static int ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, string tenDanhMuc)
         {
             try
             {
-                DanhMucDTO danhMuc = new DanhMucDTO(tenDanhMuc, CurrentUser);
-                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
+                Random rand = new Random();
+                int maDanhMuc = rand.Next();
+                int maDiaDiem = rand.Next();
+                DanhMucDTO danhMuc = new DanhMucDTO(maDanhMuc, tenDanhMuc, CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(maDiaDiem, tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
                 if (DanhMucDAO.TimDanhMuc(danhMuc.TenDanhMuc, CurrentUser) == null)
                 {
                     if (DanhMucDAO.ThemDanhMuc(danhMuc))
                     {
                         //Thông báo thất bại
-                        return false;
+                        return -1;
                     }
                 }
                 if (DiaDiemDAO.ThemDiaDiem(diaDiem))
                 {
                     //Thêm thành công                    
-                    return true;
+                    return maDiaDiem;
                 }
                 //Thông báo thất bại
-                return false;
+                return -1;
             }
-            catch (Exception ex) { return false; }
+            catch (Exception ex) { return -1; }
         }
 
         [System.Web.Services.WebMethod]
-        public static bool CapNhatDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
+        public static bool CapNhatDiaDiem(int maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
         {
             try
             {
-                DanhMucDTO danhMuc = new DanhMucDTO("", CurrentUser);
-                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
+                DanhMucDTO danhMuc = new DanhMucDTO(0, "", CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(maDiaDiem, tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
 
                 if (DiaDiemDAO.CapNhatDiaDiem(diaDiem))
                 {
@@ -130,12 +133,13 @@ namespace GoogleMapApp
         }
 
         [System.Web.Services.WebMethod]
-        public static bool XoaDiaDiem(string tenDiaDiem)
+        public static bool XoaDiaDiem(int maDiaDiem)
         {
             try
             {
-                DanhMucDTO danhMuc = new DanhMucDTO("", CurrentUser);
-                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, 0, 0, "", danhMuc);
+                Random rand = new Random();
+                DanhMucDTO danhMuc = new DanhMucDTO(0, "", CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(maDiaDiem, "", 0, 0, "", danhMuc);
 
                 if (DiaDiemDAO.XoaDiaDiem(diaDiem))
                     return true;
@@ -161,29 +165,31 @@ namespace GoogleMapApp
                     for (int i = 0; i < nguoiDungNode.ChildNodes.Count; ++i)
                     {
                         Label l = new Label();
-                        l.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes[0].Value + "</strong>";
+                        l.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes["tendanhmuc"].Value + "</strong><br/>";
                         CayDiaDiem.Controls.Add(l);
 
-                        Literal li = new Literal();
+                        /*Literal li = new Literal();
                         li.Text = "<br/>";
-                        CayDiaDiem.Controls.Add(li);
-                        
+                        CayDiaDiem.Controls.Add(li);*/
+
                         for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
                         {
-                            Literal l1 = new Literal();
+                            /*Literal l1 = new Literal();
                             l1.Text = "&nbsp&nbsp+&nbsp";
-                            CayDiaDiem.Controls.Add(l1);
+                            CayDiaDiem.Controls.Add(l1);*/
 
                             HyperLink a = new HyperLink();
-                            a.Text = nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value;
-                            a.NavigateUrl = "javascript:(findMyLocation('" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value
-                                + "', false, '"
+                            a.ID = "DD" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["madiadiem"].Value;
+                            a.Text = "&nbsp&nbsp+&nbsp" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["tendiadiem"].Value + "<br/>";
+                            a.NavigateUrl = "javascript:(findMyLocation('"
+                                + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["madiadiem"].Value
+                                + "', '" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["tendiadiem"].Value + "', '"
                                 + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["ghichu"].Value + "'))";
                             CayDiaDiem.Controls.Add(a);
 
-                            Literal l2 = new Literal();
+                            /*Literal l2 = new Literal();
                             l2.Text = "<br/>";
-                            CayDiaDiem.Controls.Add(l2);
+                            CayDiaDiem.Controls.Add(l2);*/
                         }
                     }
                 }

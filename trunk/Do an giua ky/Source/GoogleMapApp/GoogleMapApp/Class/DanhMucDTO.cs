@@ -7,9 +7,15 @@ namespace GoogleMapApp
 {
     public class DanhMucDTO
     {
+        private int maDanhMuc;
         private string tenDanhMuc;
         NguoiDungDTO nguoiDung;
 
+        public int MaDanhMuc
+        {
+            get { return maDanhMuc; }
+            set { maDanhMuc = value; }
+        }
         public string TenDanhMuc
         {
             get { return tenDanhMuc; }
@@ -26,8 +32,9 @@ namespace GoogleMapApp
             tenDanhMuc = "";
             nguoiDung = new NguoiDungDTO();
         }
-        public DanhMucDTO(string name, NguoiDungDTO user)
+        public DanhMucDTO(int id, string name, NguoiDungDTO user)
         {
+            maDanhMuc = id;
             tenDanhMuc = name;
             nguoiDung = user;
         }
@@ -36,6 +43,6 @@ namespace GoogleMapApp
             tenDanhMuc = dm.TenDanhMuc;
             nguoiDung = new NguoiDungDTO(dm.NguoiDung);
         }
-    
+
     }
 }
