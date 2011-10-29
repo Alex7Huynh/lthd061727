@@ -10,7 +10,7 @@
 namespace GoogleMapApp {
     
     
-    public partial class _Default {
+    public partial class index {
         
         /// <summary>
         /// form1 control.
@@ -38,33 +38,6 @@ namespace GoogleMapApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox DiaDiem;
-        
-        /// <summary>
-        /// setLocation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button setLocation;
-        
-        /// <summary>
-        /// viDo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox viDo;
-        
-        /// <summary>
-        /// kinhDo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox kinhDo;
         
         /// <summary>
         /// btnDangXuat control.

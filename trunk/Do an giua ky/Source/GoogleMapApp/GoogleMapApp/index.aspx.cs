@@ -11,8 +11,11 @@ using System.Xml;
 
 namespace GoogleMapApp
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class index : System.Web.UI.Page
     {
+        public static NguoiDungDTO CurrentUser;
+        public static string FilePath;
+        public static TreeView MyTreeView;
         protected void Page_Load(object sender, EventArgs e)
         {
             //Kiểm tra đăng nhập
@@ -21,37 +24,22 @@ namespace GoogleMapApp
 
             if (!IsPostBack)
             {
-                //Xử lý từ url
-                if (Request.QueryString["action"] != null)
-                {
-                    if (Request.QueryString["action"].ToString() == "Xoa")
-                    {
-                        DiaDiemDTO diaDiem = new DiaDiemDTO();
-                        DanhMucDTO danhMuc = new DanhMucDTO();
-                        danhMuc.NguoiDung = (NguoiDungDTO)Session["User"];
-                        diaDiem.DanhMuc = danhMuc;
-                        diaDiem.TenDiaDiem = Request.QueryString["ten"].ToString();
-                        if (DiaDiemDAO.XoaDiaDiem(diaDiem))
-                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Xóa thành công" + "');", true);
-                        else
-                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "thất bại" + "');", true);
-                    }
-                    else if (Request.QueryString["action"].ToString() == "TimKiem")
-                    {
-
-                    }
-                }
+                CurrentUser = (NguoiDungDTO)Session["User"];
+                FilePath = Server.MapPath("~/App_Data/GoogleAPI.xml");
+                MyTreeView = TreeView1;
                 //Nạp treeview
-                LoadTreeView();
+                index.LoadTreeView(ref MyTreeView);
             }
         }
-        private void LoadTreeView()
+
+        [System.Web.Services.WebMethod]
+        public static void LoadTreeView(ref TreeView treeView)
         {
-            NguoiDungDTO nguoiDung = (NguoiDungDTO)Session["User"];
-            TreeView1.Nodes.Clear();
+            NguoiDungDTO nguoiDung = index.CurrentUser;
+            treeView.Nodes.Clear();
             XmlDocument doc = new XmlDocument();
-            string path = Server.MapPath("~/App_Data/GoogleAPI.xml");
-            doc.Load(path);
+
+            doc.Load(index.FilePath);
             for (int k = 0; k < doc.DocumentElement.ChildNodes.Count; ++k)
             {
                 if (doc.DocumentElement.ChildNodes[k].Attributes[0].Value == nguoiDung.Username)
@@ -74,46 +62,10 @@ namespace GoogleMapApp
                         nguoiDungTreeNode.ChildNodes.Add(danhMucTreeNode);
                         //TreeView1.Nodes.Add(danhMuc);
                     }
-                    TreeView1.Nodes.Add(nguoiDungTreeNode);
+                    treeView.Nodes.Add(nguoiDungTreeNode);
                 }
             }
-            doc.Save(path);
-        }
-
-        protected void setLocation_Click(object sender, EventArgs e)
-        {
-            string address = DiaDiem.Text;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://maps.googleapis.com/maps/api/geocode/xml?address=" + address + "&sensor=true");
-            request.Method = "GET";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            StreamReader sr = new StreamReader(response.GetResponseStream());
-
-            XDocument data = XDocument.Load(sr);
-            var status = from c in data.Descendants("status")
-                         select c.Value;
-
-            if (status.Contains("OK"))
-            {
-                var TenDiaDiem = (from c in data.Descendants("result")
-                                  select c.Element("formatted_address").Value).ToArray();
-
-                var lat = (from b in data.Descendants("location")
-                           select b.Element("lat").Value).ToArray();
-
-                var lng = (from b in data.Descendants("location")
-                           select b.Element("lng").Value).ToArray();
-
-                int count = TenDiaDiem.Count();
-                if (lat.Count() == count && lng.Count() == count)
-                {
-                    //for (int i = 0; i < count; i++)
-                    //{
-                    //    dataGridView1.Rows.Add(TenDiaDiem[i].ToString(), lat[i].ToString(), lng[i].ToString());
-                    //}
-                    //viDo.Text = lat[0].ToString();
-                    //kinhDo.Text = lng[0].ToString();
-                }
-            }
+            doc.Save(index.FilePath);
         }
 
         protected void TreeView1_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
@@ -128,61 +80,54 @@ namespace GoogleMapApp
             Session["User"] = null;
             Response.Redirect("Default.aspx");
         }
-
+        
         [System.Web.Services.WebMethod]
-        public static double Sum(double arg1, double arg2)
+        public static bool ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, string tenDanhMuc)
         {
-
-            /* On server side we can do any thing. Like we can access the Session.
-             * We can do database access operation. Without postback.
-             */
             try
             {
-                return arg1 + arg2;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                DanhMucDTO danhMuc = new DanhMucDTO(tenDanhMuc, CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
+                if (DanhMucDAO.TimDanhMuc(danhMuc.TenDanhMuc, CurrentUser) == null)
+                {
+                    if (DanhMucDAO.ThemDanhMuc(danhMuc))
+                    {
+                        //Thông báo thất bại
+                        return false;
+                    }
+                }
+                if (DiaDiemDAO.ThemDiaDiem(diaDiem))
+                {
+                    //Thêm thành công
+                    LoadMyTreeView(diaDiem);
+                    return true;
+                }
+                //Thông báo thất bại
+                return false;
+            } catch (Exception ex) { return false; }
         }
 
         [System.Web.Services.WebMethod]
-        public static bool ThemDiaDiem(string tenDiaDiem,string diaChi,float viDo,float kinhDo,string ghiChu)
+        public static bool CapNhatDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
         {
             try
             {
-                DiaDiemDTO diaDiem = new DiaDiemDTO();
-                diaDiem.TenDiaDiem = tenDiaDiem;
-                diaDiem.DiaChi = diaChi;
-                diaDiem.ViDo = viDo;
-                diaDiem.KinhDo = kinhDo;
-                diaDiem.Deleted = false;
-                DiaDiemDAO.ThemDiaDiem(diaDiem);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+                DanhMucDTO danhMuc = new DanhMucDTO("", CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
 
-        [System.Web.Services.WebMethod]
-        public static bool CapNhatDiaDiem(string tenDiaDiem, string diaChi, float viDo, float kinhDo, string ghiChu)
-        {
-            try
-            {
-                DiaDiemDTO diaDiem = new DiaDiemDTO();
-                diaDiem.TenDiaDiem = tenDiaDiem;
-                diaDiem.DiaChi = diaChi;
-                diaDiem.ViDo = viDo;
-                diaDiem.KinhDo = kinhDo;
-                diaDiem.Deleted = false;
-                DiaDiemDAO.CapNhatDiaDiem(diaDiem);
-                return true;
+                if (DiaDiemDAO.CapNhatDiaDiem(diaDiem))
+                {
+                    index.LoadTreeView(ref index.MyTreeView);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }                
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -191,15 +136,22 @@ namespace GoogleMapApp
         {
             try
             {
-                DiaDiemDTO diaDiem = new DiaDiemDTO();
-                diaDiem.TenDiaDiem = tenDiaDiem;
-                DiaDiemDAO.XoaDiaDiem(diaDiem);
-                return true;
+                DanhMucDTO danhMuc = new DanhMucDTO("", CurrentUser);
+                DiaDiemDTO diaDiem = new DiaDiemDTO(tenDiaDiem, 0, 0, "", danhMuc);
+
+                if (DiaDiemDAO.XoaDiaDiem(diaDiem))
+                    return true;
+                else
+                    return false;                
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
+        }
+        public static void LoadMyTreeView(DiaDiemDTO diadiem)
+        {
+            index.MyTreeView.Nodes[0].ChildNodes[0].ChildNodes.Add(new TreeNode(diadiem.TenDiaDiem));
         }
     }
 }

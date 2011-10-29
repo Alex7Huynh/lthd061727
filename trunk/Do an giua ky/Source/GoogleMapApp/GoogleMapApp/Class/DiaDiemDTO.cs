@@ -8,10 +8,8 @@ namespace GoogleMapApp
     public class DiaDiemDTO
     {
         private string tenDiaDiem;
-        private string diaChi;
         private float viDo;
         private float kinhDo;
-        private bool deleted;
         private string ghiChu;
         private DanhMucDTO danhMuc;
 
@@ -19,11 +17,6 @@ namespace GoogleMapApp
         {
             get { return tenDiaDiem; }
             set { tenDiaDiem = value; }
-        }
-        public string DiaChi
-        {
-            get { return diaChi; }
-            set { diaChi = value; }
         }
         public float ViDo
         {
@@ -34,11 +27,6 @@ namespace GoogleMapApp
         {
             get { return kinhDo; }
             set { kinhDo = value; }
-        }
-        public bool Deleted
-        {
-            get { return deleted; }
-            set { deleted = value; }
         }
         public string GhiChu
         {
@@ -55,14 +43,13 @@ namespace GoogleMapApp
         {
             tenDiaDiem = String.Empty;
         }
-        public DiaDiemDTO(string name, string address, float lat, float lgn, string note, DanhMucDTO dm)
+        public DiaDiemDTO(string name, float lat, float lgn, string note, DanhMucDTO dm)
         {
             tenDiaDiem = name;
-            diaChi = address;
             ViDo = lat;
             kinhDo = lgn;
             ghiChu = note;
-            danhMuc = dm;
+            danhMuc = new DanhMucDTO(dm);
         }
     }
 }
