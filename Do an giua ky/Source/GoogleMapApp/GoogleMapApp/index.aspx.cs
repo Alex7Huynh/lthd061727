@@ -15,7 +15,6 @@ namespace GoogleMapApp
     {
         public static NguoiDungDTO CurrentUser;
         public static string FilePath;
-        public static TreeView MyTreeView;
         protected void Page_Load(object sender, EventArgs e)
         {
             //Kiểm tra đăng nhập
@@ -26,14 +25,14 @@ namespace GoogleMapApp
             {
                 CurrentUser = (NguoiDungDTO)Session["User"];
                 FilePath = Server.MapPath("~/App_Data/GoogleAPI.xml");
-                MyTreeView = TreeView1;
+
                 //Nạp treeview
-                index.LoadTreeView(ref MyTreeView);
+                LoadMyTreeView();
             }
         }
 
-        [System.Web.Services.WebMethod]
-        public static void LoadTreeView(ref TreeView treeView)
+
+        /*public static void LoadTreeView(ref TreeView treeView)
         {
             NguoiDungDTO nguoiDung = index.CurrentUser;
             treeView.Nodes.Clear();
@@ -66,7 +65,7 @@ namespace GoogleMapApp
                 }
             }
             doc.Save(index.FilePath);
-        }
+        }*/
 
         protected void TreeView1_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
         {
@@ -80,7 +79,7 @@ namespace GoogleMapApp
             Session["User"] = null;
             Response.Redirect("Default.aspx");
         }
-        
+
         [System.Web.Services.WebMethod]
         public static bool ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, string tenDanhMuc)
         {
@@ -98,13 +97,13 @@ namespace GoogleMapApp
                 }
                 if (DiaDiemDAO.ThemDiaDiem(diaDiem))
                 {
-                    //Thêm thành công
-                    LoadMyTreeView(diaDiem);
+                    //Thêm thành công                    
                     return true;
                 }
                 //Thông báo thất bại
                 return false;
-            } catch (Exception ex) { return false; }
+            }
+            catch (Exception ex) { return false; }
         }
 
         [System.Web.Services.WebMethod]
@@ -117,13 +116,12 @@ namespace GoogleMapApp
 
                 if (DiaDiemDAO.CapNhatDiaDiem(diaDiem))
                 {
-                    index.LoadTreeView(ref index.MyTreeView);
                     return true;
                 }
                 else
                 {
                     return false;
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -142,16 +140,54 @@ namespace GoogleMapApp
                 if (DiaDiemDAO.XoaDiaDiem(diaDiem))
                     return true;
                 else
-                    return false;                
+                    return false;
             }
             catch (Exception ex)
             {
                 return false;
             }
         }
-        public static void LoadMyTreeView(DiaDiemDTO diadiem)
+        public void LoadMyTreeView()
         {
-            index.MyTreeView.Nodes[0].ChildNodes[0].ChildNodes.Add(new TreeNode(diadiem.TenDiaDiem));
+            NguoiDungDTO nguoiDung = index.CurrentUser;
+            XmlDocument doc = new XmlDocument();
+
+            doc.Load(index.FilePath);
+            for (int k = 0; k < doc.DocumentElement.ChildNodes.Count; ++k)
+            {
+                if (doc.DocumentElement.ChildNodes[k].Attributes[0].Value == nguoiDung.Username)
+                {
+                    XmlNode nguoiDungNode = doc.DocumentElement.ChildNodes[k];
+                    for (int i = 0; i < nguoiDungNode.ChildNodes.Count; ++i)
+                    {
+                        Label l = new Label();
+                        l.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes[0].Value + "</strong>";
+                        CayDiaDiem.Controls.Add(l);
+
+                        Literal li = new Literal();
+                        li.Text = "<br/>";
+                        CayDiaDiem.Controls.Add(li);
+                        
+                        for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
+                        {
+                            Literal l1 = new Literal();
+                            l1.Text = "&nbsp&nbsp+&nbsp";
+                            CayDiaDiem.Controls.Add(l1);
+
+                            HyperLink a = new HyperLink();
+                            a.Text = nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value;
+                            a.NavigateUrl = "javascript:(findMyLocation('" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes[0].Value
+                                + "', false, '"
+                                + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["ghichu"].Value + "'))";
+                            CayDiaDiem.Controls.Add(a);
+
+                            Literal l2 = new Literal();
+                            l2.Text = "<br/>";
+                            CayDiaDiem.Controls.Add(l2);
+                        }
+                    }
+                }
+            }
         }
     }
 }

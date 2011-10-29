@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>My Google Map</title>
+    <title>Services Finder</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" href="Styles/MyStyle.css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="Scripts/gears_init.js"></script>
@@ -27,18 +27,15 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
     </asp:ScriptManager>
-    <h1>
-        ỨNG DỤNG Google API V3</h1>
-    <p style="width: 1024px">
+    <h1>DỊCH VỤ TÌM ĐỊA ĐIỂM</h1>
+    <p style="width: 985px">
         <asp:TextBox ID="DiaDiem" runat="server"></asp:TextBox>
-        <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button"
-            value="Tìm địa điểm" />
+        <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
         <%--<asp:Button ID="setLocation" runat="server" Text="Set Location" OnClick="setLocation_Click" Visible="False" />--%>
         <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button"
-            value="Tìm vi tri cua minh" />
+            value="Tìm vị trí hiện tại" />
             <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" OnClick="btnDangXuat_Click" />
-        <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')"
-            CausesValidation="False" UseSubmitBehavior="False" e />
+        <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')" CausesValidation="False" UseSubmitBehavior="False"/>
     </p>
     <p>
         <%--Vĩ độ:
@@ -49,16 +46,13 @@
         <input id="setMarker2" class="button" onclick="setMarker()" type="button" value="Set marker" />--%>
         
     </p>
-    <div id="map" style="position: absolute; top: 172px; left: 330px; width: 700px; height: 500px;">
+    <div id="map" style="position: absolute; top: 100px; left: 315px; width: 700px; height: 510px;">
     </div>
-    <div id="diadiempanel" style="position: absolute; top: 170px; left: 10; width: 300px;
+    <div id="diadiempanel" style="position: absolute; top: 100px; left: 10; width: 300px;
         height: 250px;">
     </div>
-    <div id="CayDiaDiem" style="border-width: thin; border-color: inherit; border-style: solid;
-        position: absolute; top: 430px; left: 0; width: 300px; height: 250px;">
-        <asp:TreeView runat="server" ID="TreeView1" Height="171px" OnTreeNodeCheckChanged="TreeView1_TreeNodeCheckChanged"
-            Width="123px">
-        </asp:TreeView>
+    <div id="CayDiaDiem" runat="server" style="border-width: thin; border-color: inherit; border-style: solid;
+        position: absolute; top: 360px; left: 10; width: 300px; height: 250px;">        
     </div>
     </form>
 </body>
