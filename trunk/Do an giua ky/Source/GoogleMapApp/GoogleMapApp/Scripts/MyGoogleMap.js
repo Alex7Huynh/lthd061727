@@ -27,7 +27,7 @@ function handleNoGeolocation(errorFlag) {
 //ham khoi tao ban do
 function initialize() {
     var myOptions = {
-        zoom: 8,
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -140,7 +140,7 @@ function btnDiaDiemMoi_Click() {
 //ham xu ly su kien button click
 function btnMyLocation_Click() {
     map.setZoom(20);
-    var content = 'Vi tri cua ban</br>' + 'Vi do: ' + latitude + '</br> kinh do: ' + longitude;
+    var content = 'Vị trí hiện tại của bạn:</br>' + 'Vĩ độ: ' + latitude + '</br> Kinh độ: ' + longitude;
     var marker = new google.maps.Marker({
         position: initLocation,
         map: map
@@ -209,7 +209,7 @@ function findMyLocation(idAddress, address, note) {
 
 
             var content = "<input id='MaDiaDiem' type=hidden value='" + idAddress + "' /><br/>";
-            content += "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
+            content += "<strong><input id='TenDiaDiem' type=text  value='" + address + "' /></strong><br/>";
             content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
             content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
             content += "Ghi chú: <input id='GhiChu' type=text value='" + note + "' /><br/><br/><br/>";
@@ -247,7 +247,34 @@ function themDiaDiem() {
     var tenDanhMuc = $get("TenDanhMuc").value;
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
-    var tmp = $get("TenDiaDiem").value;
+    var cayDiaDiem = $get("CayDiaDiem");
+    //--Tao node dia diem
+    var diaDiemMoi = document.createElement('a');
+    diaDiemMoi.setAttribute("id", "DDtemp");
+    diaDiemMoi.setAttribute("href", "javascript:(findMyLocation('" + "DDtemp" + "', '" + tenDiaDiem + "', '" + ghiChu + "'))");
+    var _text = document.createTextNode("        + " + tenDiaDiem);
+    diaDiemMoi.appendChild(_text);
+    diaDiemMoi.appendChild(document.createElement('br'));
+    var myFlag = 0;
+    //--Them dia diem vao danh muc
+    for (var i = 0; i < cayDiaDiem.children.length; i++) {
+        if (cayDiaDiem.children[i].children[0].innerHTML == tenDanhMuc) {
+            $get("CayDiaDiem").children[i].appendChild(diaDiemMoi);
+            myFlag = 1;
+            break;
+        }
+    }
+    //--Them danh muc va them dia diem
+    if (myFlag == 0) {
+        var danhMucMoi = document.createElement('span');
+        var bold = document.createElement('strong');
+        var _text2 = document.createTextNode(tenDanhMuc);
+        bold.appendChild(_text2);
+        bold.appendChild(document.createElement('br'));
+        danhMucMoi.appendChild(bold);
+        danhMucMoi.appendChild(diaDiemMoi);
+        $get("CayDiaDiem").appendChild(danhMucMoi);
+    }
     //Them dia diem
     PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
@@ -258,9 +285,10 @@ function xoaDiaDiem() {
     var maDiaDiem = $get("MaDiaDiem").value;
     var tenDiaDiem = $get("TenDiaDiem").value;
     //Cap nhat treeview
-    var parent = document.getElementById("CayDiaDiem");    
+    var parent = document.getElementById("CayDiaDiem");
     var tmp = $get("DD" + maDiaDiem);
-    parent.removeChild(tmp);
+    tmp.parentNode.removeChild(tmp);
+    //parent.removeChild(tmp);
     //Xoa dia diem
     PageMethods.XoaDiaDiem(maDiaDiem, OnCallXoaDiaDiemComplete, OnFailed);
 }
@@ -275,10 +303,10 @@ function capNhatDiaDiem() {
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
     var parent = document.getElementById("CayDiaDiem");
-    var tmp = $get("DD" + maDiaDiem);
-    $get("DD" + maDiaDiem).href = "javascript:(findMyLocation('" + maDiaDiem + ", '" + tenDiaDiem + "', " + ghiChu + "'))";
+    var tmp = $get(maDiaDiem);
+    $get("DD" + maDiaDiem).href = "javascript:(findMyLocation('" + maDiaDiem + "', '" + tenDiaDiem + "', '" + ghiChu + "'))";
     $get("DD" + maDiaDiem).innerHTML = "&nbsp;&nbsp;+&nbsp;" + tenDiaDiem + "<br/>";
-    
+
     //tmp.id= "DD1"
     //tmp.href =     "javascript:(findMyLocation('1', 'Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam', 'cool'))"
     //tmp.pathname = "(findMyLocation('1', 'Trường ĐH Khoa học Tự nhiên, 227 Nguyễn Văn Cừ, phường 4, Quận 5, Hồ Chí Minh, Việt Nam', 'cool'))"
@@ -290,13 +318,22 @@ function capNhatDiaDiem() {
 }
 
 //Hoan thanh them dia diem
-function OnCallThemDiaDiemComplete() {
-    alert('Thêm thành công!');
+function OnCallThemDiaDiemComplete(result) {
+    //diaDiemMoi.setAttribute("href", "javascript:(findMyLocation('" + "DDtemp" + "', '" + tenDiaDiem + "', '" + ghiChu + "'))");
+    var tmp = document.getElementById('DDtemp').href.replace('DDtemp', result);
+    document.getElementById('DDtemp').setAttribute('href', tmp);
+    document.getElementById('DDtemp').setAttribute('id', "DD" + result);
+    //alert(result.toString());
+    //alert('Thêm thành công!');
+
+    //"DD"  + result ---> "DD1397204503"
+    // new href ---> document.getElementById('DD1').href.replace('1', '1234')
+
 }
 
 //Hoan thanh xoa dia diem
 function OnCallXoaDiaDiemComplete() {
-    alert('Xóa thành công!');
+    //alert('Xóa thành công!');
 }
 
 //Hoan thanh cap nhat dia diem

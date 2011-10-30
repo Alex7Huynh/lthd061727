@@ -40,6 +40,7 @@ namespace GoogleMapApp
         }
         public DanhMucDTO(DanhMucDTO dm)
         {
+            maDanhMuc = dm.MaDanhMuc;
             tenDanhMuc = dm.TenDanhMuc;
             nguoiDung = new NguoiDungDTO(dm.NguoiDung);
         }

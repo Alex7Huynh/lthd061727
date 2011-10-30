@@ -28,14 +28,14 @@ namespace GoogleMapApp
 
                 for (int i = 0; i < nguoiDung.ChildNodes.Count; ++i)
                 {
-                    TreeNode danhMuc = new TreeNode(nguoiDung.ChildNodes[i].Attributes[0].Value);
+                    TreeNode danhMuc = new TreeNode(nguoiDung.ChildNodes[i].Attributes["tendanhmuc"].Value);
                     for (int j = 0; j < nguoiDung.ChildNodes[i].ChildNodes.Count; ++j)
                     {
-                        TreeNode diaDiem = new TreeNode(nguoiDung.ChildNodes[i].ChildNodes[j].Attributes[0].Value);
+                        TreeNode diaDiem = new TreeNode(nguoiDung.ChildNodes[i].ChildNodes[j].Attributes["tendiadiem"].Value);
+                        diaDiem.NavigateUrl = "";
                         danhMuc.ChildNodes.Add(diaDiem);
                     }
-                    user.ChildNodes.Add(danhMuc);
-                    //TreeView1.Nodes.Add(danhMuc);
+                    user.ChildNodes.Add(danhMuc);                    
                 }
                 TreeView1.Nodes.Add(user);
             }

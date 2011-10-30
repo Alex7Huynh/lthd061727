@@ -24,3 +24,11 @@ body {
 	float: left;
 	border: 1px solid #000;
 }
+#CayDiaDiem
+{
+	width: 18%;
+	height: 327px;
+	overflow: scroll;
+	float: left;
+	border: 1px solid #000;
+}

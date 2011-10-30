@@ -92,7 +92,7 @@ namespace GoogleMapApp
                 DiaDiemDTO diaDiem = new DiaDiemDTO(maDiaDiem, tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
                 if (DanhMucDAO.TimDanhMuc(danhMuc.TenDanhMuc, CurrentUser) == null)
                 {
-                    if (DanhMucDAO.ThemDanhMuc(danhMuc))
+                    if (!DanhMucDAO.ThemDanhMuc(danhMuc))
                     {
                         //Thông báo thất bại
                         return -1;
@@ -165,12 +165,16 @@ namespace GoogleMapApp
                     for (int i = 0; i < nguoiDungNode.ChildNodes.Count; ++i)
                     {
                         Label l = new Label();
-                        l.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes["tendanhmuc"].Value + "</strong><br/>";
-                        CayDiaDiem.Controls.Add(l);
+                        l.ID = "DM" + nguoiDungNode.ChildNodes[i].Attributes["madanhmuc"].Value;
+                        
+                        
+                        //CayDiaDiem.Controls.Add(l);
 
-                        /*Literal li = new Literal();
-                        li.Text = "<br/>";
-                        CayDiaDiem.Controls.Add(li);*/
+                        Literal li = new Literal();
+                        //li.Text = "<br/>";
+                        li.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes["tendanhmuc"].Value + "</strong><br/>";
+                        l.Controls.Add(li);
+                        //CayDiaDiem.Controls.Add(li);
 
                         for (int j = 0; j < nguoiDungNode.ChildNodes[i].ChildNodes.Count; ++j)
                         {
@@ -185,12 +189,15 @@ namespace GoogleMapApp
                                 + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["madiadiem"].Value
                                 + "', '" + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["tendiadiem"].Value + "', '"
                                 + nguoiDungNode.ChildNodes[i].ChildNodes[j].Attributes["ghichu"].Value + "'))";
-                            CayDiaDiem.Controls.Add(a);
+                            l.Controls.Add(a);
+                            //CayDiaDiem.Controls.Add(a);
 
                             /*Literal l2 = new Literal();
                             l2.Text = "<br/>";
                             CayDiaDiem.Controls.Add(l2);*/
                         }
+                        //l.Text = "<strong>" + nguoiDungNode.ChildNodes[i].Attributes["tendanhmuc"].Value + "</strong><br/>";
+                        CayDiaDiem.Controls.Add(l);
                     }
                 }
             }
