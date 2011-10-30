@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="localhost" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="SFW" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="True" profileName="Profile1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False" />
+  <publishProfile publishUrl="http://localhost" deleteExistingFiles="False" ftpAnonymousLogin="True" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="SFW" publishMethod="FTP" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Styles/MyStyle.css" publishTime="10/30/2011 09:37:43" />
+    <file relUrl="index.aspx" publishTime="10/30/2011 15:31:33" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Scripts/google-maps-3-vs-1-0.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Scripts/MyGoogleMap.js" publishTime="10/30/2011 16:58:11" />
+    <file relUrl="Web.config" publishTime="10/30/2011 19:21:11" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Scripts/google-maps-3-vs-1-0-vsdoc.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Scripts/gears_init.js" publishTime="10/27/2011 18:30:42" />
+    <file relUrl="Default.aspx" publishTime="10/29/2011 10:09:26" />
+    <file relUrl="bin/GoogleMapApp.dll" publishTime="10/30/2011 19:21:11" />
+    <file relUrl="bin/App_Data/GoogleAPI.xml" publishTime="10/30/2011 18:39:03" />
+    <file relUrl="ChiaSeDiaDiem.aspx" publishTime="10/27/2011 18:30:42" />
+  </publishProfile>
+</publishData>

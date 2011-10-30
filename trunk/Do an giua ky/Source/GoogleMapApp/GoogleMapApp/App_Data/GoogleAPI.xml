@@ -69,4 +69,17 @@
       <DIADIEM madiadiem="1476484087" tendiadiem="Đại học Bách Khoa, 268, phường 14, Quận 10, Hồ Chí Minh, Việt Nam" vido="10.77302" kinhdo="106.6593" ghichu="asfasf" />
     </DANHMUC>
   </NGUOIDUNG>
+  <NGUOIDUNG username="aaa" password="aaa">
+    <DANHMUC madanhmuc="1" tendanhmuc="Trường">
+      <DIADIEM madiadiem="843594143" tendiadiem="Trường Đại Học Khoa Học Tự Nhiên, Nguyễn Văn Cừ, phường 4, Quận 5" vido="10.76283" kinhdo="106.6825" ghichu="cool" />
+      <DIADIEM madiadiem="1248301051" tendiadiem="Đại học Bách Khoa" vido="10.77302" kinhdo="106.6593" ghichu="very cool" />
+      <DIADIEM madiadiem="1309735679" tendiadiem="Trường Đại Học Sài Gòn, Nguyễn Văn Cừ, phường 3, Quận 5, Hồ Chí Minh, Việt Nam" vido="10.75976" kinhdo="106.6824" ghichu="aasd" />
+    </DANHMUC>
+    <DANHMUC madanhmuc="7" tendanhmuc="Bệnh viện">
+      <DIADIEM madiadiem="205933900" tendiadiem="Bệnh viện Từ Dũ, Cống Quỳnh, Quận 1, Hồ Chí Minh, Việt Nam" vido="10.76865" kinhdo="106.6853" ghichu="asd" />
+    </DANHMUC>
+    <DANHMUC madanhmuc="4" tendanhmuc="Công an">
+      <DIADIEM madiadiem="1103503722" tendiadiem="Công an Quận 4, phường 12, Quận 4, Hồ Chí Minh, Việt Nam" vido="10.76676" kinhdo="106.7058" ghichu="asdasd" />
+    </DANHMUC>
+  </NGUOIDUNG>
 </GOOGLEAPI>
