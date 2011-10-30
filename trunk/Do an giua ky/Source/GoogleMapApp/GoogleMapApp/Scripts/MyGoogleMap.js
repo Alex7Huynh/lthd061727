@@ -256,9 +256,12 @@ function themDiaDiem() {
     diaDiemMoi.appendChild(_text);
     diaDiemMoi.appendChild(document.createElement('br'));
     var myFlag = 0;
+    var maDanhMuc = 0;
     //--Them dia diem vao danh muc
     for (var i = 0; i < cayDiaDiem.children.length; i++) {
-        if (cayDiaDiem.children[i].children[0].innerHTML == tenDanhMuc) {
+        //cay dia diem -> <span>danh muc -> <strong> -> textContent
+        if (cayDiaDiem.children[i].children[0].nodeName == "STRONG"
+        && cayDiaDiem.children[i].children[0].textContent == tenDanhMuc) {
             $get("CayDiaDiem").children[i].appendChild(diaDiemMoi);
             myFlag = 1;
             break;
@@ -266,17 +269,19 @@ function themDiaDiem() {
     }
     //--Them danh muc va them dia diem
     if (myFlag == 0) {
+        maDanhMuc = Math.floor(Math.random() * 11);
         var danhMucMoi = document.createElement('span');
+        danhMucMoi.setAttribute("id", "DM" + maDanhMuc);
         var bold = document.createElement('strong');
         var _text2 = document.createTextNode(tenDanhMuc);
         bold.appendChild(_text2);
-        bold.appendChild(document.createElement('br'));
         danhMucMoi.appendChild(bold);
+        danhMucMoi.appendChild(document.createElement('br'));
         danhMucMoi.appendChild(diaDiemMoi);
         $get("CayDiaDiem").appendChild(danhMucMoi);
     }
     //Them dia diem
-    PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
+    PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, maDanhMuc, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
 
 //Xoa dia diem
@@ -344,4 +349,19 @@ function OnFailed(error) {
     if (error !== null) {
         alert(error.get_message());
     }
+}
+
+function timDiaDiemGanNhat() {
+    google.maps.event.addListenerOnce(map, 'click', function (event) {
+        placeNearestMarker(event.latLng);
+    });
+}
+
+function placeNearestMarker(location) {
+    var tenDanhMuc = $get("DanhMucTimKiem").value;
+    PageMethods.TimDiaDiemGanNhat(location.lat(), location.lng(), tenDanhMuc, OnCallTimDiaDiemComplete, OnFailed);
+}
+
+function OnCallTimDiaDiemComplete(result) {
+    findMyLocation(0, result, "note");
 }

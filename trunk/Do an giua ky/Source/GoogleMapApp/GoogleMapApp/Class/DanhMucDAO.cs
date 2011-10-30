@@ -46,9 +46,11 @@ namespace GoogleMapApp
             XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + nguoiDung.Username + "']//DANHMUC[@tendanhmuc='" + tenDanhMuc + "']");
             if (list.Count == 0)
                 return danhMuc;
+
             danhMuc = new DanhMucDTO();
             danhMuc.NguoiDung = new NguoiDungDTO();
             danhMuc.NguoiDung = nguoiDung;
+            danhMuc.MaDanhMuc = int.Parse(list[0].Attributes["madanhmuc"].Value);
             danhMuc.TenDanhMuc = tenDanhMuc;
 
             return danhMuc;
