@@ -6,8 +6,6 @@
       <DIADIEM madiadiem="2" tendiadiem="Đại học Bách Khoa" vido="10.77302" kinhdo="106.6593" ghichu="very good" />
       <DIADIEM madiadiem="642840000" tendiadiem="Trường Đại Học Luật" vido="10.82993" kinhdo="106.7137" ghichu="note" />
       <DIADIEM madiadiem="1564551243" tendiadiem="Trường Đại Học Kinh Tế" vido="10.76097" kinhdo="106.668" ghichu="nsdasdas" />
-      <DIADIEM madiadiem="84363984" tendiadiem="Trường Đại Học Sư Phạm TPHCM" vido="16.46808" kinhdo="107.5923" ghichu="cool" />
-      <DIADIEM madiadiem="1003994087" tendiadiem="Trường Đại Học Sài Gòn, Nguyễn Văn Cừ, phường 3, Quận 5, Hồ Chí Minh, Việt Nam" vido="10.75976" kinhdo="106.6824" ghichu="cool" />
     </DANHMUC>
     <DANHMUC madanhmuc="2" tendanhmuc="Bệnh viện">
       <DIADIEM madiadiem="5" tendiadiem="Bệnh viện Chợ Rẫy" vido="10.7578584" kinhdo="106.65943689999995" ghichu="fare" />
@@ -47,26 +45,5 @@
       <DIADIEM madiadiem="19" tendiadiem="Cầu Hiệp Phước" vido="10.6427043" kinhdo="106.74308900000005" ghichu="no ideal" />
       <DIADIEM madiadiem="20" tendiadiem="Cầu Long Hậu" vido="10.6396807" kinhdo="106.69466970000008" ghichu="no ideal" />
     </DANHMUC>
-  </NGUOIDUNG>
-  <NGUOIDUNG username="a" password="a">
-    <DANHMUC madanhmuc="368469186" tendanhmuc="Trường">
-    </DANHMUC>
-    <DANHMUC madanhmuc="938388228" tendanhmuc="Bệnh viện">
-    </DANHMUC>
-    <DANHMUC madanhmuc="0" tendanhmuc="cùi bắp">
-      <DIADIEM madiadiem="487540555" tendiadiem="Trường Đại Học Luật" vido="10.82993" kinhdo="106.7137" ghichu="cool" />
-    </DANHMUC>
-    <DANHMUC madanhmuc="5" tendanhmuc="Cùi">
-      <DIADIEM madiadiem="1304519456" tendiadiem="Đại học Khoa học Tự nhiên" vido="20.99569" kinhdo="105.8075" ghichu="asdad" />
-      <DIADIEM madiadiem="311265109" tendiadiem="Đại học Khoa học Tự nhiên" vido="20.99569" kinhdo="105.8075" ghichu="asdad" />
-      <DIADIEM madiadiem="458058196" tendiadiem="Đại học Khoa học Tự nhiên" vido="20.99569" kinhdo="105.8075" ghichu="asdad" />
-    </DANHMUC>
-    <DANHMUC madanhmuc="4" tendanhmuc="asad">
-      <DIADIEM madiadiem="1138503072" tendiadiem="Đại học Khoa học Tự nhiên, Nguyễn Tuân, Thanh Xuân Trung, Thanh Xuân, Hà Nội, Việt Nam" vido="20.99569" kinhdo="105.8075" ghichu="sfasf" />
-      <DIADIEM madiadiem="1229626948" tendiadiem="Đại học Khoa học Tự nhiên, Nguyễn Tuân, Thanh Xuân Trung, Thanh Xuân, Hà Nội, Việt Nam" vido="20.99569" kinhdo="105.8075" ghichu="sfasf" />
-      <DIADIEM madiadiem="1215445082" tendiadiem="Đại học Khoa học Tự nhiên, Nguyễn Tuân, Thanh Xuân Trung, Thanh Xuân, Hà Nội, Việt Nam" vido="20.99569" kinhdo="105.8075" ghichu="sfasf" />
-      <DIADIEM madiadiem="131066859" tendiadiem="Đại học Khoa học Tự nhiên, Nguyễn Tuân, Thanh Xuân Trung, Thanh Xuân, Hà Nội, Việt Nam" vido="20.99569" kinhdo="105.8075" ghichu="sfasf" />
-      <DIADIEM madiadiem="1476484087" tendiadiem="Đại học Bách Khoa, 268, phường 14, Quận 10, Hồ Chí Minh, Việt Nam" vido="10.77302" kinhdo="106.6593" ghichu="asfasf" />
-    </DANHMUC>
-  </NGUOIDUNG>
+  </NGUOIDUNG>  
 </GOOGLEAPI>

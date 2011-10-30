@@ -104,6 +104,32 @@ namespace GoogleMapApp
             return null;
         }
 
+        public static List<DiaDiemDTO> TimDiaDiem(DanhMucDTO danhMuc)
+        {
+            List<DiaDiemDTO> dsDiaDiem = new List<DiaDiemDTO>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Util.FileName);
+            XmlNodeList list = doc.SelectNodes("//NGUOIDUNG[@username='" + danhMuc.NguoiDung.Username + "']//DANHMUC[@tendanhmuc='"
+                + danhMuc.TenDanhMuc + "']");
+            if (list.Count == 0)
+                return null;
+
+            foreach (XmlNode node in list[0].ChildNodes)
+            {
+                DiaDiemDTO diaDiem = new DiaDiemDTO();
+                diaDiem.MaDiaDiem = int.Parse(node.Attributes["madiadiem"].Value);
+                diaDiem.TenDiaDiem = node.Attributes["tendiadiem"].Value;
+                diaDiem.ViDo = float.Parse(node.Attributes["vido"].Value);
+                diaDiem.KinhDo = float.Parse(node.Attributes["kinhdo"].Value);
+                diaDiem.GhiChu = node.Attributes["ghichu"].Value;
+                diaDiem.DanhMuc = new DanhMucDTO(danhMuc);
+
+                dsDiaDiem.Add(diaDiem);
+            }
+
+            return dsDiaDiem;
+        }
+
         //public static bool XoaDiaDiem(DiaDiemDTO diaDiem)
         //{
         //    XmlDocument doc = new XmlDocument();

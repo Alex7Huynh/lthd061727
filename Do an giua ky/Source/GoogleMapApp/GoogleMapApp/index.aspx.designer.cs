@@ -49,6 +49,15 @@ namespace GoogleMapApp {
         protected global::System.Web.UI.WebControls.Button btnDangXuat;
         
         /// <summary>
+        /// DanhMucTimKiem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DanhMucTimKiem;
+        
+        /// <summary>
         /// CayDiaDiem control.
         /// </summary>
         /// <remarks>

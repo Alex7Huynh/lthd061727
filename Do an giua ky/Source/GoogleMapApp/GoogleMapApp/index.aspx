@@ -14,12 +14,23 @@
     <style type="text/css">
         #DiaDiem
         {
-            width: 461px;
         }
         #CayDiaDiem
         {
             width: 181px;
             height: 285px;
+        }
+        #TimViTriGanNhat
+        {
+            width: 124px;
+        }
+        #TimDiaDiem
+        {
+            width: 93px;
+        }
+        #MyLocation
+        {
+            width: 95px;
         }
     </style>
 </head>
@@ -27,31 +38,27 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
     </asp:ScriptManager>
-    <h1>DỊCH VỤ TÌM KIẾM ĐỊA ĐIỂM</h1>
-    <p style="width: 985px">
-        <asp:TextBox ID="DiaDiem" runat="server"></asp:TextBox>
-        <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
-        <%--<asp:Button ID="setLocation" runat="server" Text="Set Location" OnClick="setLocation_Click" Visible="False" />--%>
-        <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button" value="Tìm vị trí hiện tại"/>
-            <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" OnClick="btnDangXuat_Click" />
-        <%--<asp:Button runat="server" ID="btnChiaSeDiaDiem" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')"/>--%>
-        <input type="button" value="Chia sẻ địa điểm" onclick="window.open('ChiaSeDiaDiem.aspx')" />
-        
+    <h1>
+        DỊCH VỤ TÌM KIẾM ĐỊA ĐIỂM</h1>
+    <p style="width: 100%">
+        <asp:TextBox ID="DiaDiem" runat="server" Width="36%"></asp:TextBox>
+        <input id="TimDiaDiem" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
+        <input id="MyLocation" onclick="btnMyLocation_Click()" type="button" value="Vị trí hiện tại" />
+        <asp:Button ID="btnDangXuat" runat="server" Text="Đăng xuất" OnClick="btnDangXuat_Click"
+            Width="83px" />
+        <input type="button" value="Chia sẻ địa điểm" onclick="window.open('ChiaSeDiaDiem.aspx')"
+            style="width: 122px" />
+        <asp:TextBox ID="DanhMucTimKiem" runat="server" Width="84px" Text="Trường"></asp:TextBox>
+        <input id="TimViTriGanNhat" onclick="timDiaDiemGanNhat()" type="button" value="Tìm vị trí gần nhất" />
     </p>
-    <p>
-        <%--Vĩ độ:
-        <asp:TextBox ID="viDo" runat="server" value="10.75918"></asp:TextBox>
-        Kinh độ:
-        <asp:TextBox ID="kinhDo" runat="server" value="106.662498"></asp:TextBox>--%>
-        <%--<input id="TimDiaDiemMoi" class="button" onclick="btnDiaDiemMoi_Click()" type="button" value="Tìm địa điểm theo tọa độ" />
-        <input id="setMarker2" class="button" onclick="setMarker()" type="button" value="Set marker" />--%>
-        
-    </p>
+
     <div id="map" style="position: absolute; top: 100px; left: 315px; width: 700px; height: 510px;">
     </div>
-    <div id="diadiempanel" style="position: absolute; top: 100px; left: 10; width: 300px; height: 250px;">
+    <div id="diadiempanel" style="position: absolute; top: 100px; left: 10; width: 300px;
+        height: 250px;">
     </div>
-    <div id="CayDiaDiem" runat="server" style="position: absolute; top: 360px; left: 10; width: 300px; height: 250px;">        
+    <div id="CayDiaDiem" runat="server" style="position: absolute; top: 360px; left: 10;
+        width: 300px; height: 250px;">
     </div>
     </form>
 </body>
