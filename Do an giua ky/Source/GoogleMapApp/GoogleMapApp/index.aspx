@@ -27,14 +27,15 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
     </asp:ScriptManager>
-    <h1>DỊCH VỤ TÌM ĐỊA ĐIỂM</h1>
+    <h1>DỊCH VỤ TÌM KIẾM ĐỊA ĐIỂM</h1>
     <p style="width: 985px">
         <asp:TextBox ID="DiaDiem" runat="server"></asp:TextBox>
         <input id="TimDiaDiem" class="button" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
         <%--<asp:Button ID="setLocation" runat="server" Text="Set Location" OnClick="setLocation_Click" Visible="False" />--%>
         <input id="MyLocation" class="button" onclick="btnMyLocation_Click()" type="button" value="Tìm vị trí hiện tại"/>
             <asp:Button ID="btnDangXuat" runat="server" Text="Đăng Xuất" OnClick="btnDangXuat_Click" />
-        <asp:Button ID="btnChiaSeDiaDiem" runat="server" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')" CausesValidation="False" UseSubmitBehavior="False"/>
+        <%--<asp:Button runat="server" ID="btnChiaSeDiaDiem" Text="Chia sẻ địa điểm" OnClientClick="window.open('ChiaSeDiaDiem.aspx')"/>--%>
+        <input type="button" value="Chia sẻ địa điểm" onclick="window.open('ChiaSeDiaDiem.aspx')" />
         
     </p>
     <p>
@@ -48,11 +49,9 @@
     </p>
     <div id="map" style="position: absolute; top: 100px; left: 315px; width: 700px; height: 510px;">
     </div>
-    <div id="diadiempanel" style="position: absolute; top: 100px; left: 10; width: 300px;
-        height: 250px;">
+    <div id="diadiempanel" style="position: absolute; top: 100px; left: 10; width: 300px; height: 250px;">
     </div>
-    <div id="CayDiaDiem" runat="server" style="border-width: thin; border-color: inherit; border-style: solid;
-        position: absolute; top: 360px; left: 10; width: 300px; height: 250px;">        
+    <div id="CayDiaDiem" runat="server" style="position: absolute; top: 360px; left: 10; width: 300px; height: 250px;">        
     </div>
     </form>
 </body>
