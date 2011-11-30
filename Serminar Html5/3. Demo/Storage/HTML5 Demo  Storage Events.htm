@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://html5demos.com/storage-events -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=620">
+<title>HTML5 Demo: Storage Events</title>
+<link rel="stylesheet" href="./HTML5 Demo  Storage Events_files/html5demos.css" type="text/css">
+<script src="./HTML5 Demo  Storage Events_files/h5utils.js"></script></head>
+<body>
+<section id="wrapper">
+    <header>
+      <h1>Storage Events</h1>
+    </header>
+<style>
+article div { 
+  margin: 10px 0;
+}
+
+label {
+  float: left;
+  display: block;
+  width: 125px;
+  line-height: 32px;
+}
+
+#fromEvent {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+</style>
+<article>
+  <section>
+    <p><strong>Directions:</strong> open multiple windows or tabs with <a href="./HTML5 Demo  Storage Events_files/HTML5 Demo  Storage Events.htm">this demo</a> and change the text below.</p>
+    <p>The <code>storage</code> event triggers on the "blurred" windows, giving us a way to communicate across windows using <code>localStorage</code>.</p>
+    <div>
+      <p><label for="data">Your test data:</label> <input type="text" name="data" value="" placeholder="change me" id="data" x-webkit-speech=""> <small>(this is only echoed on <em>other</em> windows)</small></p>
+      <p id="fromEvent">Waiting for data via <code>storage</code> event...</p>
+    </div>
+  </section>
+</article>
+<script>
+
+var dataInput = document.getElementById('data'),
+    output = document.getElementById('fromEvent');
+
+addEvent(window, 'storage', function (event) {
+  if (event.key == 'storage-event-test') {
+    output.innerHTML = event.newValue;
+  }
+});
+
+addEvent(dataInput, 'keyup', function () {
+  localStorage.setItem('storage-event-test', this.value);
+});
+
+</script>
+<a id="html5badge" href="http://www.w3.org/html/logo/">
+<img src="./HTML5 Demo  Storage Events_files/html5-badge-h-connectivity-device-graphics-multimedia-performance-semantics-storage.png" width="325" height="64" alt="HTML5 Powered with Connectivity / Realtime, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with Connectivity / Realtime, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
+</a>
+    <footer><a href="http://html5demos.com/">HTML5 demos</a>/<a id="built" href="http://twitter.com/rem">@rem built this</a>/<a href="http://html5demos.com/storage-events#view-source">view source</a></footer> 
+</section>
+<a href="http://github.com/remy/html5demos"><img style="position: absolute; top: 0; left: 0; border: 0;" src="./HTML5 Demo  Storage Events_files/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<script src="./HTML5 Demo  Storage Events_files/prettify.packed.js"></script>
+<script>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./HTML5 Demo  Storage Events_files/ga.js" type="text/javascript"></script>
+<script>
+try {
+var pageTracker = _gat._getTracker("UA-1656750-18");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+</body></html>
