@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://html5demos.com/database -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=620">
+<title>HTML5 Demo: Web Database</title>
+<link rel="stylesheet" href="./HTML5 Demo  Web Database_files/html5demos.css" type="text/css">
+<script src="./HTML5 Demo  Web Database_files/h5utils.js"></script></head>
+<body>
+<section id="wrapper">
+    <header>
+      <h1>Web Database</h1>
+    </header>
+<style>
+#status {
+  padding: 5px;
+  color: #fff;
+  background: #ccc;
+}
+
+#status.error {
+  background: #c00;
+}
+
+#status.ok {
+  background: #0c0;
+}
+
+label {
+  float: left;
+  display: block;
+  width: 125px;
+  line-height: 32px;
+}
+
+#tweets {
+  max-height: 300px;
+  overflow: auto;
+  border: 3px solid #ccc;
+}
+
+#tweets ul {
+  margin: 0;
+  padding: 5px;
+}
+
+#tweets li {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-top: 1px solid #ccc;
+}
+
+#tweets li:first-child {
+  border-top: 0;
+}
+</style>
+<article>
+  <section>
+    <p>We're using the Web Database API to store <a href="http://twitter.com/rem">my tweets</a>, so there's no Twitter API hit on load.</p>
+    <p>In addition, I'm using the <code>since_id</code> when we make new requests, so I shouldn't be doubling up on tweets.</p>
+    <p>Status: <span id="status" class="ok">19 new tweets loaded</span></p>
+  </section>
+  <section id="tweets">
+    <ol><li>@<a href="http://twitter.com/balexandre">balexandre</a> you can do it yourself - check the FAQ :) (<a href="http://twitter.com/rem/status/67504043727126530">Mon May 09 08:19:52 +0000 2011</a>)</li><li>Last HTML5 workshop of the @<a href="http://twitter.com/leftlogic">leftlogic</a> big tour. After today it's all designers and Noders. (<a href="http://twitter.com/rem/status/67490118604296190">Mon May 09 07:24:32 +0000 2011</a>)</li><li>@<a href="http://twitter.com/ryanseddon">ryanseddon</a> you win the hat. (<a href="http://twitter.com/rem/status/67376048458825730">Sun May 08 23:51:16 +0000 2011</a>)</li><li>@<a href="http://twitter.com/mathias">mathias</a> if I edit a jsperf description only, it removes all browser scope logs - is that correct? :( (<a href="http://twitter.com/rem/status/67376023607582720">Sun May 08 23:51:10 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> sod, whilst trying to sleep I think I found the cause of the perf issue, not the concat, but the lookup... (<a href="http://twitter.com/rem/status/67372676573954050">Sun May 08 23:37:52 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> yeah, Opera is fine (as per the Opera blog post), and occasionally FF4 is okay, but perf is around equal. (<a href="http://twitter.com/rem/status/67362598529679360">Sun May 08 22:57:49 +0000 2011</a>)</li><li>@<a href="http://twitter.com/erikjmoller">erikjmoller</a> ran with your performance issue, boils down to += vs. .join (still), perf tests: <a href="http://t.co/EB0L6ug">http://t.co/EB0L6ug</a> (<a href="http://twitter.com/rem/status/67362260166782980">Sun May 08 22:56:29 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> damnit - just cleared the results by editing the test! shoot (<a href="http://twitter.com/rem/status/67360642776039420">Sun May 08 22:50:03 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> wow - look at the browser scope results: Safari 5.1 - 16 loops on concat. Wow. (<a href="http://twitter.com/rem/status/67360209647042560">Sun May 08 22:48:20 +0000 2011</a>)</li><li>/me giving myself a telling off for using the word 'ultimate' in a url. Bad me. It's not the ultimate, it's just attention grabbing! (<a href="http://twitter.com/rem/status/67359954511732740">Sun May 08 22:47:19 +0000 2011</a>)</li><li>Folks, if you have a browser, I'd appreciate if you could run this jsperf and let it's submit to browserscope: <a href="http://t.co/EB0L6ug">http://t.co/EB0L6ug</a> (<a href="http://twitter.com/rem/status/67359808696754180">Sun May 08 22:46:44 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> test case: <a href="http://t.co/EB0L6ug">http://t.co/EB0L6ug</a> (<a href="http://twitter.com/rem/status/67358562971680770">Sun May 08 22:41:47 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> actually, my simplified test doesn't blow browser up - just reduced the number. (<a href="http://twitter.com/rem/status/67357649519394820">Sun May 08 22:38:09 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> I can upload a jsperf, but it's likely to hang the browser! (<a href="http://twitter.com/rem/status/67356010968391680">Sun May 08 22:31:39 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> I am, but I don't use it to anywhere near it's potential. Just the esc command mostly. (<a href="http://twitter.com/rem/status/67355893351718910">Sun May 08 22:31:11 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> /watched none the less :) (<a href="http://twitter.com/rem/status/67355189509767170">Sun May 08 22:28:23 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> nice - if I hadn't migrated to Vim some time ago ;-) (<a href="http://twitter.com/rem/status/67355153719771140">Sun May 08 22:28:14 +0000 2011</a>)</li><li>@<a href="http://twitter.com/MrNibbles">MrNibbles</a> proof's in the pudding. The original test case vs. my array version seems, to me, indisputable! :) (<a href="http://twitter.com/rem/status/67354073254469630">Sun May 08 22:23:57 +0000 2011</a>)</li><li>@<a href="http://twitter.com/cowboy">cowboy</a> yeah, saw that. pretty badass :) congrats (<a href="http://twitter.com/rem/status/67352876938297340">Sun May 08 22:19:11 +0000 2011</a>)</li></ol>
+  </section>
+  <div>
+    <input type="button" id="clear" value="Reset database" x-webkit-speech="">
+    <input type="button" id="timeline" value="Timeline" x-webkit-speech="">
+    <input type="button" id="mentions" value="Mentions" x-webkit-speech="">
+  </div>
+</article>
+<script src="./HTML5 Demo  Web Database_files/tweets.js"></script>
+<script>
+// all contained in http://html5demos.com/js/tweets.js
+html5demoTweets.init();
+
+addEvent(document.getElementById('clear'), 'click', function () {
+  html5demoTweets.reset();
+});
+
+addEvent(document.getElementById('timeline'), 'click', function () {
+  html5demoTweets.timeline();
+});
+
+addEvent(document.getElementById('mentions'), 'click', function () {
+  html5demoTweets.mentions();
+});
+</script><a id="html5badge" href="http://www.w3.org/html/logo/">
+<img src="./HTML5 Demo  Web Database_files/html5-badge-h-connectivity-device-graphics-multimedia-performance-semantics-storage.png" width="325" height="64" alt="HTML5 Powered with Connectivity / Realtime, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with Connectivity / Realtime, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
+</a>
+    <footer><a href="http://html5demos.com/">HTML5 demos</a>/<a id="built" href="http://twitter.com/rem">@rem built this</a>/<a href="http://html5demos.com/database#view-source">view source</a></footer> 
+</section>
+<a href="http://github.com/remy/html5demos"><img style="position: absolute; top: 0; left: 0; border: 0;" src="./HTML5 Demo  Web Database_files/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<script src="./HTML5 Demo  Web Database_files/prettify.packed.js"></script>
+<script>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./HTML5 Demo  Web Database_files/ga.js" type="text/javascript"></script>
+<script>
+try {
+var pageTracker = _gat._getTracker("UA-1656750-18");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+</body></html>
