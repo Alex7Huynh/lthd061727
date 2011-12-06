@@ -13,10 +13,15 @@ namespace SumUpApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Lấy ngày hiện tại, 
-            // nếu ngày hiện tại chưa có thông tin rút trích trong database 
-            // thì thực hiện rút trích và thêm vào database
+            // Link cần rút trích
+            string url = "http://eboard.orstrade.vn:8888/client/index.htm";
+            // Lấy ngày hiện tại,
+            // thực hiện rút trích 
+            List<ChungKhoan> dsChungKhoan = ParseEboard(url);
+            // nếu ngày hiện tại chưa có thông tin rút trích trong database thì thêm vào database
             // không thì cập nhật thông tin
+
+            //Hiển thị thông tin lên một table, (giống trang web trên cũng được)
         }
 
         /// <summary>
@@ -24,27 +29,30 @@ namespace SumUpApp
         /// </summary>
         /// <param name="url">http://eboard.orstrade.vn:8888/client/index.htm</param>
         /// <returns></returns>
-        public virtual IList<ChungKhoan> ParseEboard(string url)
+        public List<ChungKhoan> ParseEboard(string url)
         {
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument hd = hw.Load(url);
+            HtmlWeb doc = new HtmlWeb();
+            HtmlDocument hd = doc.Load(url);
             HtmlNode hn = hd.DocumentNode;
             HtmlNode parentNode = hd.DocumentNode.SelectSingleNode("//div[@id='matrix-cavan1']");
-            HtmlNodeCollection anode = parentNode.SelectNodes(".//table");
-            List<ChungKhoan> li = new List<ChungKhoan>();
-            foreach (HtmlNode hnode in anode)
+            HtmlNodeCollection tables = parentNode.SelectNodes("./table");
+            List<ChungKhoan> dsChungKhoan = new List<ChungKhoan>();
+            foreach (HtmlNode table in tables)
             {
-                HtmlNode artnode = hnode.SelectSingleNode(".//td[@class='post_title']");
-                ChungKhoan item = new ChungKhoan();
-                //item.Title = artnode.InnerText.Trim();
-                //string date = hnode.SelectSingleNode(".//td[@class='day_month']").InnerText.Trim();
-                //string month = hnode.SelectSingleNode("(.//td[@class='day_month'])[2]").InnerText.Trim();
-                //string year = hnode.SelectSingleNode(".//td[@class='post_year']").InnerText.Trim();
-                //string pubdate = month + '/' + date + '/' + year + " 00:00:00 AM";
-                //item.PubDate = DateTime.Parse(pubdate);
-                li.Add(item);
+                foreach (HtmlNode row in table.SelectNodes(".//tr"))
+                {
+                    ChungKhoan chungKhoan = new ChungKhoan();
+
+                    //id
+                    HtmlNode idCell = row.SelectSingleNode("./td[@class='matrix-cell-CODE']");
+                    chungKhoan.MaChungKhoan = idCell.SelectSingleNode("./a").InnerText;
+
+                    // Các giá trị tiếp theo như giá, khối lượng... như trên, chú ý không có thẻ a
+
+                    dsChungKhoan.Add(chungKhoan);
+                }
             }
-            return li;
+            return dsChungKhoan;
         }
     }
 }
