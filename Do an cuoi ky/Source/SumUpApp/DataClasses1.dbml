@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="ASPNETDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ASPNETDBConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ChungKhoan" Member="ChungKhoans">
+    <Type Name="ChungKhoan">
+      <Column Name="MaChungKhoan" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GiaTran" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaSan" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaThamChieu" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TKLMua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL3Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia3Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL2Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia2Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL1Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia1Mua" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopLenhGanNhat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KLKhopLenhGanNhat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TKLKhopLenhHienTai" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ChenhLechGiaKhopLenh" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TKLBan" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL3Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia3Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL2Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia2Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KL1Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gia1Ban" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopTrungBinh" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopCaoNhat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopThapNhat" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaPhien1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KhoiLuongPhien1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopTrungBinhPhien2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiaKhopCaoNhatPhien2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GiakhopThapNhatPhien2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TKLKhopPhien2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KLMuaNuocNgoai" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KLBanNuocNgoai" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="KLConLaiNuocNgoai" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NgayGiaoDich" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
