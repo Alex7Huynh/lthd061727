@@ -122,6 +122,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\EventStorage.cs" />
+    <Compile Include="Schedule\IScheduledItem.cs" />
+    <Compile Include="Schedule\MethodCall.cs" />
+    <Compile Include="Schedule\ReportTimer.cs" />
+    <Compile Include="Schedule\ScheduledItems\BlockWrapper.cs" />
+    <Compile Include="Schedule\ScheduledItems\EventInstance.cs" />
+    <Compile Include="Schedule\ScheduledItems\EventQueue.cs" />
+    <Compile Include="Schedule\ScheduledItems\ScheduledTime.cs" />
+    <Compile Include="Schedule\ScheduledItems\SimpleInterval.cs" />
+    <Compile Include="Schedule\ScheduledItems\SingleEvent.cs" />
+    <Compile Include="Schedule\ScheduleFilter.cs" />
+    <Compile Include="Schedule\ScheduleTimer.cs" />
+    <Compile Include="Schedule\TimerJob.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
