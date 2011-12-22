@@ -1,0 +1,6 @@
+1. Google map
+http://code.google.com/apis/maps/documentation/javascript/reference.html
+http://code.google.com/apis/ajax/playground/
+
+2. asp.net membership
+http://www.ezineasp.net/post/How-to-Create-Aspnetdb.aspx
