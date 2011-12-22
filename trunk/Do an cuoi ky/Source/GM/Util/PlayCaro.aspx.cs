@@ -11,7 +11,11 @@ namespace CaroSocialNetwork
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!ClientScript.IsStartupScriptRegistered("loadForm"))
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(),
+                    "load", "loadForm();", true);
+            }
         }
     }
 }
