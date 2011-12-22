@@ -1,0 +1,1 @@
+mang xa hoi caro, lam quen va giao luu caro truc tuyen, su dung asp.net membership
