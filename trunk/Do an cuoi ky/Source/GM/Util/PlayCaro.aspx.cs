@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 namespace CaroSocialNetwork
 {
@@ -16,6 +17,15 @@ namespace CaroSocialNetwork
                 Page.ClientScript.RegisterStartupScript(this.GetType(),
                     "load", "loadForm();", true);
             }
+        }
+
+        [Ajax.AjaxMethod(null, true, false, null)]
+        public Point GetMachineMove(int userX, int userY)
+        {
+            Point point = new Point();
+            point.X = 0;
+            point.Y = 0;
+            return point;
         }
     }
 }

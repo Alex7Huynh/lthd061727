@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ajax, Version=1.0.4207.18692, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Ajax.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -62,13 +66,13 @@
     <Content Include="App_Data\ASPNETDB_log.ldf">
       <DependentUpon>ASPNETDB.MDF</DependentUpon>
     </Content>
-    <Content Include="CaroWebService.asmx" />
     <Content Include="images\add.png" />
     <Content Include="images\cancel.png" />
     <Content Include="images\delete.png" />
     <Content Include="images\edit.png" />
     <Content Include="images\pen.cur" />
     <Content Include="images\update.png" />
+    <Content Include="Library\Ajax.dll" />
     <Content Include="Scripts\caro.js" />
     <Content Include="Scripts\gears_init.js" />
     <Content Include="Scripts\gmap3.min.js" />
@@ -128,10 +132,6 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CaroWebService.asmx.cs">
-      <DependentUpon>CaroWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DataClasses1.cs">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
@@ -173,7 +173,9 @@
       <DependentUpon>PlayCaro.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
