@@ -4,3 +4,6 @@ http://code.google.com/apis/ajax/playground/
 
 2. asp.net membership
 http://www.ezineasp.net/post/How-to-Create-Aspnetdb.aspx
+
+3.Javascript and code behide
+http://www.devcurry.com/2009/01/execute-javascript-function-from-aspnet.html
