@@ -12,6 +12,29 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetRoomList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRoomListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoomListResult" type="tns:ArrayOfRoom" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRoom">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Room" nillable="true" type="tns:Room" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Room">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="GameStarted" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GameOver" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasMachine" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="CreateRoom">
         <s:complexType>
           <s:sequence>
@@ -100,6 +123,12 @@
   <wsdl:message name="HelloWorldSoapOut">
     <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
   </wsdl:message>
+  <wsdl:message name="GetRoomListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoomList" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoomListResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateRoomSoapIn">
     <wsdl:part name="parameters" element="tns:CreateRoom" />
   </wsdl:message>
@@ -135,6 +164,10 @@
       <wsdl:input message="tns:HelloWorldSoapIn" />
       <wsdl:output message="tns:HelloWorldSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRoomList">
+      <wsdl:input message="tns:GetRoomListSoapIn" />
+      <wsdl:output message="tns:GetRoomListSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateRoom">
       <wsdl:input message="tns:CreateRoomSoapIn" />
       <wsdl:output message="tns:CreateRoomSoapOut" />
@@ -160,6 +193,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
       <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomList">
+      <soap:operation soapAction="http://tempuri.org/GetRoomList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -217,6 +259,15 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
       <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomList">
+      <soap12:operation soapAction="http://tempuri.org/GetRoomList" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

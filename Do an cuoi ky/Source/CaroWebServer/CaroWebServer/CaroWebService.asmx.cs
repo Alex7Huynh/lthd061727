@@ -25,6 +25,12 @@ namespace CaroWebServer
         }
 
         [WebMethod]
+        public List<Room> GetRoomList()
+        {
+            return rooms;
+        }
+
+        [WebMethod]
         public bool CreateRoom(string username, bool playwithmachine, out int roomIndex)
         {
             Room room = new Room();

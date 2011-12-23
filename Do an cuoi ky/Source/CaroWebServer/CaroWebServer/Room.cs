@@ -43,9 +43,6 @@ namespace CaroWebServer
         public const int MAX_PLAYER = 2;
         protected List<Player> players = new List<Player>();
 
-        #region Machine
-
-
         public bool GameStarted
         {
             get;
@@ -63,6 +60,175 @@ namespace CaroWebServer
             get;
             set;
         }
+
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public Room()
+        {
+            boardSize = 20;
+            nmbRows = boardSize;
+            nmbColumns = boardSize;
+
+            machSq = -1;
+
+            f = new int[boardSize, boardSize];
+            s = new int[boardSize, boardSize];
+            q = new int[boardSize, boardSize];
+
+            iMax = new int[boardSize * boardSize];
+            jMax = new int[boardSize * boardSize];
+
+
+            nPos = new int[4];
+            dirA = new int[4];
+
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    f[i, j] = 0;
+                    s[i, j] = 0;
+                    q[i, j] = 0;
+                }
+            }
+
+            currentTurn = -1;
+
+            HasMachine = false;
+            GameStarted = false;
+            GameOver = false;
+        }
+
+        public int GetNumberPlayer()
+        {
+            return players.Count;
+        }
+
+        public bool AddPlayer(Player player)
+        {
+            if (!IsFull())
+            {
+                players.Add(player);
+
+                if (player is Machine)
+                {
+                    HasMachine = true;
+                    machSq = -1;
+                }
+                else
+                {
+                    userSq = FindPlayer(player.Name);
+                }
+
+                if (IsFull())
+                {
+                    ChoosePlayerForFirstTurn();
+                    GameStarted = true;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private void ChoosePlayerForFirstTurn()
+        {
+            foreach (Player p in players)
+            {
+                if (!(p is Machine))
+                {
+                    currentTurn = FindPlayer(p.Name);
+                    break;
+                }
+            }
+        }
+
+        public bool IsFull()
+        {
+            if (players.Count >= MAX_PLAYER)
+                return true;
+            return false;
+        }
+
+        protected int FindPlayer(string username)
+        {
+            foreach (Player p in players)
+            {
+                if (!(p is Machine) && p.Name == username)
+                {
+                    return players.IndexOf(p);
+                }
+            }
+
+            return -1;
+        }
+
+        internal void Move(string username, int userX, int userY)
+        {
+            if (GameOver)
+                return;
+            int id = FindPlayer(username);
+            if (id != -1 && currentTurn == id)
+            {
+                f[userX, userY] = id;
+
+                iLastMove = userX;
+                jLastMove = userY;
+
+                NextTurn();
+            }
+        }
+
+        private void NextTurn()
+        {
+            if (GameOver)
+                return;
+
+            lastTurn = currentTurn;
+            currentTurn++;
+            if (currentTurn >= players.Count)
+                currentTurn = 0;
+
+            if (players[currentTurn] is Machine)
+            {
+                MachineMove();
+            }
+        }
+
+        internal int[] WaitingForOpponent(string username)
+        {
+            do
+            {
+                Thread.Sleep(200);
+            }
+            while (FindPlayer(username) != currentTurn);
+
+            return new int[] { iLastMove, jLastMove };
+        }
+
+        internal bool CheckGameOver(string username, out bool win)
+        {
+            if (WinningPos(iLastMove, jLastMove, lastTurn) == winningMove)
+            {
+                GameOver = true;
+            }
+            else if (drawPos)
+            {
+                GameOver = true;
+            }
+
+            if (FindPlayer(username) == lastTurn)
+                win = true;
+            else
+                win = false;
+
+            return GameOver;
+
+        }
+        #region Machine
 
         private void MachineMove()
         {
@@ -290,166 +456,5 @@ namespace CaroWebServer
         }
         #endregion
 
-        public Room()
-        {
-            boardSize = 20;
-            nmbRows = boardSize;
-            nmbColumns = boardSize;
-
-            machSq = -1;
-
-            f = new int[boardSize, boardSize];
-            s = new int[boardSize, boardSize];
-            q = new int[boardSize, boardSize];
-
-            iMax = new int[boardSize * boardSize];
-            jMax = new int[boardSize * boardSize];
-
-
-            nPos = new int[4];
-            dirA = new int[4];
-
-            for (int i = 0; i < boardSize; i++)
-            {
-                for (int j = 0; j < boardSize; j++)
-                {
-                    f[i, j] = 0;
-                    s[i, j] = 0;
-                    q[i, j] = 0;
-                }
-            }
-
-            currentTurn = -1;
-
-            HasMachine = false;
-            GameStarted = false;
-            GameOver = false;
-        }
-
-        public int GetNumberPlayer()
-        {
-            return players.Count;
-        }
-
-        public bool AddPlayer(Player player)
-        {
-            if (!IsFull())
-            {
-                players.Add(player);
-
-                if (player is Machine)
-                {
-                    HasMachine = true;
-                    machSq = -1;
-                }
-                else
-                {
-                    userSq = FindPlayer(player.Name);
-                }
-
-                if (IsFull())
-                {
-                    ChoosePlayerForFirstTurn();
-                    GameStarted = true;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private void ChoosePlayerForFirstTurn()
-        {
-            foreach (Player p in players)
-            {
-                if (!(p is Machine))
-                {
-                    currentTurn = FindPlayer(p.Name);
-                    break;
-                }
-            }
-        }
-
-        public bool IsFull()
-        {
-            if (players.Count >= MAX_PLAYER)
-                return true;
-            return false;
-        }
-
-        protected int FindPlayer(string username)
-        {
-            foreach (Player p in players)
-            {
-                if (!(p is Machine) && p.Name == username)
-                {
-                    return players.IndexOf(p);
-                }
-            }
-
-            return -1;
-        }
-
-        internal void Move(string username, int userX, int userY)
-        {
-            if (GameOver)
-                return;
-            int id = FindPlayer(username);
-            if (id != -1 && currentTurn == id)
-            {
-                f[userX, userY] = id;
-
-                iLastMove = userX;
-                jLastMove = userY;
-
-                NextTurn();
-            }
-        }
-
-        private void NextTurn()
-        {
-            if (GameOver)
-                return;
-
-            lastTurn = currentTurn;
-            currentTurn++;
-            if (currentTurn >= players.Count)
-                currentTurn = 0;
-
-            if (players[currentTurn] is Machine)
-            {
-                MachineMove();
-            }
-        }
-
-        internal int[] WaitingForOpponent(string username)
-        {
-            do
-            {
-                Thread.Sleep(200);
-            }
-            while (FindPlayer(username) != currentTurn);
-
-            return new int[] { iLastMove, jLastMove };
-        }
-
-        internal bool CheckGameOver(string username, out bool win)
-        {
-            if (WinningPos(iLastMove, jLastMove, lastTurn) == winningMove)
-            {
-                GameOver = true;
-            }
-            else if (drawPos)
-            {
-                GameOver = true;
-            }
-
-            if (FindPlayer(username) == lastTurn)
-                win = true;
-            else
-                win = false;
-
-            return GameOver;
-
-        }
     }
 }
