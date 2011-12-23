@@ -29,14 +29,14 @@ namespace CaroWebServer
         int iLastMove = -1;
         int jLastMove = -1;
 
-        int[] iMax = new int[int.MaxValue];
-        int[] jMax = new int[int.MaxValue];
+        int[] iMax;
+        int[] jMax;
         int nMax = 0;
 
         bool drawPos = false;
         int[] w = new int[] { 0, 20, 17, 15, 14, 10 };
-        int[] nPos = new int[int.MaxValue];
-        int[] dirA = new int[int.MaxValue];
+        int[] nPos;
+        int[] dirA;
         int iMach;
         int jMach;
         #endregion
@@ -301,6 +301,13 @@ namespace CaroWebServer
             f = new int[boardSize, boardSize];
             s = new int[boardSize, boardSize];
             q = new int[boardSize, boardSize];
+
+            iMax = new int[boardSize * boardSize];
+            jMax = new int[boardSize * boardSize];
+
+
+            nPos = new int[4];
+            dirA = new int[4];
 
             for (int i = 0; i < boardSize; i++)
             {
