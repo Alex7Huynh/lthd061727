@@ -16,15 +16,38 @@ namespace CaroSocialNetwork
     public partial class PlayCaro : System.Web.UI.Page
     {
         int roomIndex;
+        int currentRoomSelected;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            roomIndex = -1;
+            currentRoomSelected = -1;
+            UpdateRoomView();
+
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            Room[] rooms = service.GetRoomList();
+            ddlRooms.DataTextField = "Name";
+            ddlRooms.DataSource = rooms;
+            ddlRooms.DataBind();
+
             if (!ClientScript.IsStartupScriptRegistered("loadForm"))
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(),
                     "load", "loadForm();", true);
             }
             Ajax.Utility.GenerateMethodScripts(this);
+        }
+
+        private void UpdateRoomView()
+        {
+            if (roomIndex == -1)
+            {
+                RoomMultiView.SetActiveView(NoRoomView);
+            }
+            else
+            {
+                RoomMultiView.SetActiveView(InRoomView);
+            }
         }
 
         [Ajax.AjaxMethod("WaitingForOpponent", "opponentMove", null, "Loading...")]
@@ -41,20 +64,6 @@ namespace CaroSocialNetwork
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
         }
 
-        [Ajax.AjaxMethod]
-        public void PlayWithMachine()
-        {
-            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            service.CreateRoom(Membership.GetUser().UserName, true, out roomIndex);
-        }
-
-        [Ajax.AjaxMethod]
-        public void PlayWithOpponent()
-        {
-            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
-        }
-
         [Ajax.AjaxMethod("CheckGameOver", "gameOver", null, "Loading...")]
         public bool CheckGameOver()
         {
@@ -66,6 +75,36 @@ namespace CaroSocialNetwork
                 return win;
             }
             return false;
+        }
+
+        protected void btnJoinRoom_Click(object sender, EventArgs e)
+        {
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            service.JoinRoom(currentRoomSelected, Membership.GetUser().UserName);
+            roomIndex = currentRoomSelected;
+
+            UpdateRoomView();
+        }
+
+        protected void ddlRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentRoomSelected = ddlRooms.SelectedIndex;
+        }
+
+        protected void btnCreateRoomMachine_Click(object sender, EventArgs e)
+        {
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            service.CreateRoom(Membership.GetUser().UserName, true, out roomIndex);
+
+            UpdateRoomView();
+        }
+
+        protected void btnCreateRoomPlayer_Click(object sender, EventArgs e)
+        {
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
+
+            UpdateRoomView();
         }
     }
 }

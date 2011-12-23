@@ -45,6 +45,23 @@ function paintBoard() {
     context.closePath();
 }
 
+function initGame() {
+    oppTurn = true;
+    gameOver = true;
+
+    for (i = 0; i < boardSize; i++) {
+        for (j = 0; j < boardSize; j++) {
+            f[i][j] = 0;
+        }
+    }
+
+    var board = document.getElementById('board');
+    context = board.getContext('2d');
+    context.clearRect(0, 0, width, height);
+
+    paintBoard();
+}
+
 function resetGame(playwithOpponent) {
     oppTurn = true;
     gameOver = false;

@@ -31,6 +31,8 @@ namespace CaroSocialNetwork.CaroWebService {
         
         private System.Threading.SendOrPostCallback HelloWorldOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetRoomListOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateRoomOperationCompleted;
         
         private System.Threading.SendOrPostCallback JoinRoomOperationCompleted;
@@ -83,6 +85,9 @@ namespace CaroSocialNetwork.CaroWebService {
         public event HelloWorldCompletedEventHandler HelloWorldCompleted;
         
         /// <remarks/>
+        public event GetRoomListCompletedEventHandler GetRoomListCompleted;
+        
+        /// <remarks/>
         public event CreateRoomCompletedEventHandler CreateRoomCompleted;
         
         /// <remarks/>
@@ -121,6 +126,33 @@ namespace CaroSocialNetwork.CaroWebService {
             if ((this.HelloWorldCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.HelloWorldCompleted(this, new HelloWorldCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRoomList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Room[] GetRoomList() {
+            object[] results = this.Invoke("GetRoomList", new object[0]);
+            return ((Room[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetRoomListAsync() {
+            this.GetRoomListAsync(null);
+        }
+        
+        /// <remarks/>
+        public void GetRoomListAsync(object userState) {
+            if ((this.GetRoomListOperationCompleted == null)) {
+                this.GetRoomListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetRoomListOperationCompleted);
+            }
+            this.InvokeAsync("GetRoomList", new object[0], this.GetRoomListOperationCompleted, userState);
+        }
+        
+        private void OnGetRoomListOperationCompleted(object arg) {
+            if ((this.GetRoomListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetRoomListCompleted(this, new GetRoomListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -304,6 +336,63 @@ namespace CaroSocialNetwork.CaroWebService {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.225")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Room {
+        
+        private bool gameStartedField;
+        
+        private bool gameOverField;
+        
+        private bool hasMachineField;
+        
+        private string nameField;
+        
+        /// <remarks/>
+        public bool GameStarted {
+            get {
+                return this.gameStartedField;
+            }
+            set {
+                this.gameStartedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool GameOver {
+            get {
+                return this.gameOverField;
+            }
+            set {
+                this.gameOverField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool HasMachine {
+            get {
+                return this.hasMachineField;
+            }
+            set {
+                this.hasMachineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
     public delegate void HelloWorldCompletedEventHandler(object sender, HelloWorldCompletedEventArgs e);
     
@@ -325,6 +414,32 @@ namespace CaroSocialNetwork.CaroWebService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void GetRoomListCompletedEventHandler(object sender, GetRoomListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetRoomListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetRoomListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Room[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Room[])(this.results[0]));
             }
         }
     }
