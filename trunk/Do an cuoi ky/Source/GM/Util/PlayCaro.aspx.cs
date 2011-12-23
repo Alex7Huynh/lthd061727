@@ -13,7 +13,6 @@ namespace CaroSocialNetwork
     public partial class PlayCaro : System.Web.UI.Page
     {
         int roomIndex;
-        int userId;
 
         private System.Windows.Forms.WebBrowser wb;
 
@@ -56,6 +55,19 @@ namespace CaroSocialNetwork
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
+        }
+
+        [Ajax.AjaxMethod]
+        public void CheckGameOver()
+        {
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            bool win;
+            bool gameOver = service.CheckGameOver(roomIndex, Membership.GetUser().UserName, out win);
+            if (gameOver)
+            {
+                Object[] objs = { win };
+                wb.Document.InvokeScript("gameOver", objs);
+            }
         }
     }
 }

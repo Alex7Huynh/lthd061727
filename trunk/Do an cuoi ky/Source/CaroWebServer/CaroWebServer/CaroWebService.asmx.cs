@@ -87,5 +87,17 @@ namespace CaroWebServer
 
             return new int[] { -1, -1};
         }
+
+        [WebMethod]
+        public bool CheckGameOver(int roomIndex, string username, out bool win)
+        {
+            if (roomIndex >= 0 && roomIndex < rooms.Count)
+            {
+                return rooms[roomIndex].CheckGameOver(username, out win);
+            }
+
+            win = false;
+            return false;
+        }
     }
 }

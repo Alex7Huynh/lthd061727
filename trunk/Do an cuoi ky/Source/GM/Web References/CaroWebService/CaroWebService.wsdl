@@ -76,6 +76,22 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="CheckGameOver">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="roomIndex" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckGameOverResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckGameOverResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="win" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -108,6 +124,12 @@
   <wsdl:message name="WaitingForOpponentSoapOut">
     <wsdl:part name="parameters" element="tns:WaitingForOpponentResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckGameOverSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckGameOver" />
+  </wsdl:message>
+  <wsdl:message name="CheckGameOverSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckGameOverResponse" />
+  </wsdl:message>
   <wsdl:portType name="CaroWebServiceSoap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -128,6 +150,10 @@
     <wsdl:operation name="WaitingForOpponent">
       <wsdl:input message="tns:WaitingForOpponentSoapIn" />
       <wsdl:output message="tns:WaitingForOpponentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckGameOver">
+      <wsdl:input message="tns:CheckGameOverSoapIn" />
+      <wsdl:output message="tns:CheckGameOverSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CaroWebServiceSoap" type="tns:CaroWebServiceSoap">
@@ -177,6 +203,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckGameOver">
+      <soap:operation soapAction="http://tempuri.org/CheckGameOver" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CaroWebServiceSoap12" type="tns:CaroWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -218,6 +253,15 @@
     </wsdl:operation>
     <wsdl:operation name="WaitingForOpponent">
       <soap12:operation soapAction="http://tempuri.org/WaitingForOpponent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckGameOver">
+      <soap12:operation soapAction="http://tempuri.org/CheckGameOver" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
