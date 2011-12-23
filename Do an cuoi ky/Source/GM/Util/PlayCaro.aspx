@@ -13,4 +13,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <canvas onclick="javascript: clickHandler(event);" id="board" height="600" width="600" position="relative"/>
     <input type="button" onclick="javascript: resetGame();" value="reset" name="Reset"/>
+    <asp:Button ID="btnPlayWithMachine" runat="server" Text="Play With Machine" 
+        onclick="btnPlayWithMachine_Click" />
+    <asp:Button ID="btnPlayWithOpponent" runat="server" Text="Play With Opponent" 
+        onclick="btnPlayWithOpponent_Click" />
+&nbsp;
 </asp:Content>

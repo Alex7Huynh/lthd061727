@@ -7,5 +7,9 @@ namespace CaroWebServer
 {
     public class Machine: Player
     {
+        public Machine()
+        {
+            Name = "Machine";
+        }
     }
 }

@@ -12,11 +12,5 @@ namespace CaroWebServer
             get;
             set;
         }
-
-        public int Id
-        {
-            get;
-            set;
-        }
     }
 }
