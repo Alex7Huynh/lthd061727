@@ -66,6 +66,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="LeaveRoom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="roomid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeaveRoomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="roomid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Move">
         <s:complexType>
           <s:sequence>
@@ -141,6 +156,12 @@
   <wsdl:message name="JoinRoomSoapOut">
     <wsdl:part name="parameters" element="tns:JoinRoomResponse" />
   </wsdl:message>
+  <wsdl:message name="LeaveRoomSoapIn">
+    <wsdl:part name="parameters" element="tns:LeaveRoom" />
+  </wsdl:message>
+  <wsdl:message name="LeaveRoomSoapOut">
+    <wsdl:part name="parameters" element="tns:LeaveRoomResponse" />
+  </wsdl:message>
   <wsdl:message name="MoveSoapIn">
     <wsdl:part name="parameters" element="tns:Move" />
   </wsdl:message>
@@ -175,6 +196,10 @@
     <wsdl:operation name="JoinRoom">
       <wsdl:input message="tns:JoinRoomSoapIn" />
       <wsdl:output message="tns:JoinRoomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeaveRoom">
+      <wsdl:input message="tns:LeaveRoomSoapIn" />
+      <wsdl:output message="tns:LeaveRoomSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Move">
       <wsdl:input message="tns:MoveSoapIn" />
@@ -220,6 +245,15 @@
     </wsdl:operation>
     <wsdl:operation name="JoinRoom">
       <soap:operation soapAction="http://tempuri.org/JoinRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeaveRoom">
+      <soap:operation soapAction="http://tempuri.org/LeaveRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -286,6 +320,15 @@
     </wsdl:operation>
     <wsdl:operation name="JoinRoom">
       <soap12:operation soapAction="http://tempuri.org/JoinRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeaveRoom">
+      <soap12:operation soapAction="http://tempuri.org/LeaveRoom" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

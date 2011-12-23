@@ -101,6 +101,7 @@ namespace CaroWebServer
             HasMachine = false;
             GameStarted = false;
             GameOver = false;
+            Name = "";
         }
 
         public int GetNumberPlayer()
@@ -113,6 +114,7 @@ namespace CaroWebServer
             if (!IsFull())
             {
                 players.Add(player);
+                UpdateRoomName();
 
                 if (player is Machine)
                 {
@@ -456,5 +458,21 @@ namespace CaroWebServer
         }
         #endregion
 
+
+        internal void RemovePlayer(string username)
+        {
+            int index = FindPlayer(username);
+            players.RemoveAt(index);
+
+            UpdateRoomName();
+        }
+
+        private void UpdateRoomName()
+        {
+            foreach (Player player in players)
+            {
+                Name += player.Name;
+            }
+        }
     }
 }

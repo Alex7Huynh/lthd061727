@@ -16,7 +16,7 @@ namespace CaroWebServer
     // [System.Web.Script.Services.ScriptService]
     public class CaroWebService : System.Web.Services.WebService
     {
-        List<Room> rooms = new List<Room>();
+        static List<Room> rooms = new List<Room>();
 
         [WebMethod]
         public string HelloWorld()
@@ -71,6 +71,17 @@ namespace CaroWebServer
             }
 
             return false;
+        }
+
+        [WebMethod]
+        public void LeaveRoom(ref int roomid, string username)
+        {
+            if (roomid >= 0 && roomid < rooms.Count)
+            {
+                rooms[roomid].RemovePlayer(username);
+            }
+
+            roomid = -1;
         }
 
         [WebMethod]

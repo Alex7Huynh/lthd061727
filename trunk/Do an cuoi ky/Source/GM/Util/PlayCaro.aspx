@@ -38,7 +38,8 @@
             </asp:View>
             <asp:View id="InRoomView" runat="server">
                 You are in room...
-                <asp:Button ID="btnLeaveTheRoom" runat="server" Text="Leave The Room" />
+                <asp:Button ID="btnLeaveTheRoom" runat="server" Text="Leave The Room" 
+                    onclick="btnLeaveTheRoom_Click" />
             </asp:View>
         </asp:MultiView>
     </div>
