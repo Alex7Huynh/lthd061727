@@ -15,35 +15,37 @@ namespace CaroSocialNetwork
 {
     public partial class PlayCaro : System.Web.UI.Page
     {
-        int roomIndex;
-        int currentRoomSelected;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                roomIndex = -1;
-                currentRoomSelected = -1;
+                if (Session["CurrentRoom"] == null)
+                    Session["CurrentRoom"] = -1;
                 UpdateRoomView();
-
-                CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-                Room[] rooms = service.GetRoomList();
-                ddlRooms.DataTextField = "Name";
-                ddlRooms.DataSource = rooms;
-                ddlRooms.DataBind();
-
-                if (!ClientScript.IsStartupScriptRegistered("loadForm"))
-                {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(),
-                        "load", "loadForm();", true);
-                }
-                Ajax.Utility.GenerateMethodScripts(this);
+                UpdateListRooms();
             }
+
+            if (!ClientScript.IsStartupScriptRegistered("loadForm"))
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(),
+                    "load", "loadForm();", true);
+            }
+            Ajax.Utility.GenerateMethodScripts(this);
+        }
+
+        private void UpdateListRooms()
+        {
+
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            Room[] rooms = service.GetRoomList();
+            ddlRooms.DataTextField = "Name";
+            ddlRooms.DataSource = rooms;
+            ddlRooms.DataBind();
         }
 
         private void UpdateRoomView()
         {
-            if (roomIndex == -1)
+            if (int.Parse(Session["CurrentRoom"].ToString()) == -1)
             {
                 RoomMultiView.SetActiveView(NoRoomView);
             }
@@ -57,7 +59,7 @@ namespace CaroSocialNetwork
         public int[] WaitingForOpponent()
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            int[] x = service.WaitingForOpponent(roomIndex, Membership.GetUser().UserName);
+            int[] x = service.WaitingForOpponent(int.Parse(Session["CurrentRoom"].ToString()), Membership.GetUser().UserName);
             return x;
         }
 
@@ -72,7 +74,7 @@ namespace CaroSocialNetwork
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             bool win;
-            bool gameOver = service.CheckGameOver(roomIndex, Membership.GetUser().UserName, out win);
+            bool gameOver = service.CheckGameOver(int.Parse(Session["CurrentRoom"].ToString()), Membership.GetUser().UserName, out win);
             if (gameOver)
             {
                 return win;
@@ -82,40 +84,50 @@ namespace CaroSocialNetwork
 
         protected void btnJoinRoom_Click(object sender, EventArgs e)
         {
-            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            service.JoinRoom(currentRoomSelected, Membership.GetUser().UserName);
-            roomIndex = currentRoomSelected;
+            if (ddlRooms.SelectedIndex != -1)
+            {
+                CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+                service.JoinRoom(ddlRooms.SelectedIndex, Membership.GetUser().UserName);
+                Session["CurrentRoom"] = ddlRooms.SelectedIndex;
 
-            UpdateRoomView();
-        }
-
-        protected void ddlRooms_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentRoomSelected = ddlRooms.SelectedIndex;
+                UpdateRoomView();
+                UpdateListRooms();
+            }
+            else
+                MessageBox.Show("It seem to be server does not have any room");
         }
 
         protected void btnCreateRoomMachine_Click(object sender, EventArgs e)
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            int roomIndex;
             service.CreateRoom(Membership.GetUser().UserName, true, out roomIndex);
+            Session["CurrentRoom"] = roomIndex;
 
             UpdateRoomView();
+            UpdateListRooms();
         }
 
         protected void btnCreateRoomPlayer_Click(object sender, EventArgs e)
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            int roomIndex;
             service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
+            Session["CurrentRoom"] = roomIndex;
 
             UpdateRoomView();
+            UpdateListRooms();
         }
 
         protected void btnLeaveTheRoom_Click(object sender, EventArgs e)
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            int roomIndex = int.Parse(Session["CurrentRoom"].ToString());
             service.LeaveRoom(ref roomIndex, Membership.GetUser().UserName);
+            Session["CurrentRoom"] = roomIndex;
 
             UpdateRoomView();
+            UpdateListRooms();
         }
     }
 }

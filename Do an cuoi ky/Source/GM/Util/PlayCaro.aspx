@@ -23,8 +23,7 @@
             <asp:View id="NoRoomView" runat="server">
                 Join exist room or create new room...
                 <br /> &nbsp;
-                <asp:DropDownList ID="ddlRooms" runat="server" 
-                    onselectedindexchanged="ddlRooms_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlRooms" runat="server">
                 </asp:DropDownList>
                 <asp:Button ID="btnJoinRoom" runat="server" Text="Join Room" 
                     onclick="btnJoinRoom_Click" />

@@ -230,6 +230,30 @@ namespace CaroWebServer
             return GameOver;
 
         }
+
+        internal void RemovePlayer(string username)
+        {
+            int index = FindPlayer(username);
+            players.RemoveAt(index);
+
+            UpdateRoomName();
+        }
+
+        private void UpdateRoomName()
+        {
+            Name = "";
+            foreach (Player player in players)
+            {
+                Name += player.Name;
+            }
+        }
+
+        internal bool IsEmpty()
+        {
+            if (players.Count == 0 | (players.Count == 1 && players[0] is Machine))
+                return true;
+            return false;
+        }
         #region Machine
 
         private void MachineMove()
@@ -457,22 +481,5 @@ namespace CaroWebServer
             return -1;
         }
         #endregion
-
-
-        internal void RemovePlayer(string username)
-        {
-            int index = FindPlayer(username);
-            players.RemoveAt(index);
-
-            UpdateRoomName();
-        }
-
-        private void UpdateRoomName()
-        {
-            foreach (Player player in players)
-            {
-                Name += player.Name;
-            }
-        }
     }
 }

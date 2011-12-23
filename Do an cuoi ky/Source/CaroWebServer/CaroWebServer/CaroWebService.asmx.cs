@@ -81,6 +81,10 @@ namespace CaroWebServer
                 rooms[roomid].RemovePlayer(username);
             }
 
+            if (rooms[roomid].IsEmpty())
+            {
+                rooms.RemoveAt(roomid);
+            }
             roomid = -1;
         }
 
