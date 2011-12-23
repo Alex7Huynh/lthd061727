@@ -39,6 +39,8 @@ namespace CaroSocialNetwork.CaroWebService {
         
         private System.Threading.SendOrPostCallback WaitingForOpponentOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CheckGameOverOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -91,6 +93,9 @@ namespace CaroSocialNetwork.CaroWebService {
         
         /// <remarks/>
         public event WaitingForOpponentCompletedEventHandler WaitingForOpponentCompleted;
+        
+        /// <remarks/>
+        public event CheckGameOverCompletedEventHandler CheckGameOverCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/HelloWorld", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -248,6 +253,38 @@ namespace CaroSocialNetwork.CaroWebService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CheckGameOver", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool CheckGameOver(int roomIndex, string username, out bool win) {
+            object[] results = this.Invoke("CheckGameOver", new object[] {
+                        roomIndex,
+                        username});
+            win = ((bool)(results[1]));
+            return ((bool)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CheckGameOverAsync(int roomIndex, string username) {
+            this.CheckGameOverAsync(roomIndex, username, null);
+        }
+        
+        /// <remarks/>
+        public void CheckGameOverAsync(int roomIndex, string username, object userState) {
+            if ((this.CheckGameOverOperationCompleted == null)) {
+                this.CheckGameOverOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCheckGameOverOperationCompleted);
+            }
+            this.InvokeAsync("CheckGameOver", new object[] {
+                        roomIndex,
+                        username}, this.CheckGameOverOperationCompleted, userState);
+        }
+        
+        private void OnCheckGameOverOperationCompleted(object arg) {
+            if ((this.CheckGameOverCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CheckGameOverCompleted(this, new CheckGameOverCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -378,6 +415,40 @@ namespace CaroSocialNetwork.CaroWebService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((int[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void CheckGameOverCompletedEventHandler(object sender, CheckGameOverCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CheckGameOverCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CheckGameOverCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public bool win {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[1]));
             }
         }
     }

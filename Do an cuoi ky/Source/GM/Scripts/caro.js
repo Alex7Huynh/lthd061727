@@ -1,47 +1,23 @@
-var xBoard = 0;
-var oBoard = 0;
-var begin = true;
 var context;
-var width, height;
+var oppTurn = true;
+var gameOver = false;
 
-var boardSize=20;
+var userSq = 1;
+var oppSq = -1;
+
+f = new Array();
+
+var width, height;
+var boardSize = 20;
 var nmbRows = boardSize;
 var nmbColumns = boardSize;
 
-var userSq= 1;
-var machSq=-1;
-
-var machTurn=false;
-var winningMove=9999999;
-var openFour   =8888888;
-var twoThrees  =7777777;
-
-f=new Array();
-s=new Array();
-q=new Array();
-
-iMax=new Array();
-jMax=new Array();
-nMax=0;
-
-for (i=0;i<boardSize;i++) {
-    f[i]=new Array();
-    s[i]=new Array();
-    q[i]=new Array();
-    for (j=0;j<boardSize;j++) {
-        f[i][j]=0;
-        s[i][j]=0;
-        q[i][j]=0;
+for (i = 0; i < boardSize; i++) {
+    f[i] = new Array();
+    for (j = 0; j < boardSize; j++) {
+        f[i][j] = 0;
     }
 }
-
-iLastUserMove=0;
-jLastUserMove=0;
-
-var drawPos=0;
-w=new Array(0,20,17,15.4,14,10);
-nPos=new Array();
-dirA=new Array();
 
 function paintBoard() {
     var board = document.getElementById('board');
@@ -72,9 +48,8 @@ function paintBoard() {
 }
 
 function resetGame() {
-    machTurn=0;
-    gameOver=0;
-    drawPos=0;
+    oppTurn=true;
+    gameOver=false;
 
     for (i=0;i<boardSize;i++) {
         for (j=0;j<boardSize;j++) {
@@ -85,8 +60,10 @@ function resetGame() {
     var board = document.getElementById('board');
     context = board.getContext('2d');
     context.clearRect(0,0,width,height);
-   
+
     paintBoard();
+
+    WaitingForOpponent();
 }
 
 
@@ -182,32 +159,47 @@ function getPosition(e) {
 };
 
 function clk(iMove, jMove) {
-    if (machTurn) return; //machine (computer) turn
+    if (!gameOver) {
+        if (oppTurn) return; //machine (computer) turn
 
-    if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
-    f[iMove][jMove] = userSq;
-    drawSquare(iMove, jMove, userSq);
-    machTurn = true;
-    UserMove(iMove, jMove);
-
-    if (winningPos(iMove, jMove, userSq) == winningMove) {
-        gameOver = 1;
-        alert('You won!');
-    }
-    else
+        if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
+        f[iMove][jMove] = userSq;
+        drawSquare(iMove, jMove, userSq);
+        oppTurn = true;
+        UserMove(iMove, jMove);
         WaitingForOpponent();
+    
+        CheckGameOver();
+    }
 }
 
 function opponentMove(iMove, jMove) {
-    if (!machTurn) return; //machine (computer) turn
+    if (!gameOver) {
+        if (!oppTurn) return; //opponent turn
 
-    if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
-    f[iMove][jMove] = machSq;
-    drawSquare(iMove, jMove, machSq);
-    machTurn = false;
+        if (iMove != -1 && jMove != -1) {
+            if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
+            f[iMove][jMove] = oppSq;
+            drawSquare(iMove, jMove, oppSq);
+            oppTurn = false;
+            alert('Your Turn');
 
-    if (winningPos(iMove, jMove, machTurn) == winningMove) {
-        gameOver = 1;
+            CheckGameOver();
+        }
+        else {
+            oppTurn = false;
+            alert('Your Turn');
+        }
+    }
+}
+
+function gameOver(win) {
+    gameOver = true;
+
+    if (win) {
+        alert('You won!');
+    }
+    else {
         alert('Opponent won!');
     }
 }
