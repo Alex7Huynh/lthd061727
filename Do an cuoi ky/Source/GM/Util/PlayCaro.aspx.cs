@@ -41,13 +41,15 @@ namespace CaroSocialNetwork
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
         }
 
-        protected void btnPlayWithMachine_Click(object sender, EventArgs e)
+        [Ajax.AjaxMethod]
+        public void PlayWithMachine()
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             service.CreateRoom(Membership.GetUser().UserName, true, out roomIndex);
         }
 
-        protected void btnPlayWithOpponent_Click(object sender, EventArgs e)
+        [Ajax.AjaxMethod]
+        public void PlayWithOpponent()
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);

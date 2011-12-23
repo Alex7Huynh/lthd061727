@@ -45,7 +45,7 @@ function paintBoard() {
     context.closePath();
 }
 
-function resetGame() {
+function resetGame(playwithOpponent) {
     oppTurn = true;
     gameOver = false;
 
@@ -61,6 +61,14 @@ function resetGame() {
 
     paintBoard();
 
+    if (playwithOpponent) {
+        //Call Ajax Function
+        PlayWithOpponent();
+    }
+    else {
+        //Call Ajax Function
+        PlayWithMachine();
+    }
     WaitingForOpponent();
 }
 
@@ -171,14 +179,13 @@ function clk(iMove, jMove) {
     }
 }
 
-function opponentMove(iMove, jMove) {
+function opponentMove(move) {
+    alert('x:' + move[0] + ', y:' + move[1]);
     if (!gameOver) {
-        if (!oppTurn) return; //opponent turn
-
-        if (iMove != -1 && jMove != -1) {
-            if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
-            f[iMove][jMove] = oppSq;
-            drawSquare(iMove, jMove, oppSq);
+        if (move[0] != -1 && move[1] != -1) {
+            if (f[move[0]][move[1]] != 0) { alert('This square is not empty! Please choose another.'); return; }
+            f[move[0]][move[1]] = oppSq;
+            drawSquare(move[0], move[1], oppSq);
             oppTurn = false;
             alert('Your Turn');
 
@@ -200,4 +207,12 @@ function gameOver(win) {
     else {
         alert('Opponent won!');
     }
+}
+
+function playWithMachine() {
+    resetGame(false);
+}
+
+function playWithOpponent() {
+    resetGame(true);
 }

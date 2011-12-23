@@ -6,7 +6,8 @@
     <link type="text/css" href="../Styles/Caro.css" rel="stylesheet"/>
     <script type="text/javascript">
         function loadForm() {
-            resetGame();
+            //Play with machine
+            resetGame(false);
         }
     </script>
 </asp:Content>
@@ -17,12 +18,8 @@
         <canvas onclick="javascript: clickHandler(event);" id="board" height="600" width="600" position="relative"/>
     </div>
     <div style="width: 15%; float: right; ">
-        <a href="#" onclick="WaitingForOpponent()">Click Here</a>
-        <input type="button" onclick="WaitingForOpponent()" value="reset" name="Reset"/>
-        <asp:Button ID="btnPlayWithMachine" runat="server" Text="Play With Machine" 
-            onclick="btnPlayWithMachine_Click" />
-        <asp:Button ID="btnPlayWithOpponent" runat="server" Text="Play With Opponent" 
-            onclick="btnPlayWithOpponent_Click" />
+        <input type="button" onclick="playWithMachine()" value="Play With Machine" name="machine"/>
+        <input type="button" onclick="playWithOpponent()" value="Play With Opponent" name="opponent"/>
     </div>
 &nbsp;
 </asp:Content>
