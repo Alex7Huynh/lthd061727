@@ -4,17 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
 using System.Drawing;
 using CaroSocialNetwork.CaroWebService;
 using System.Web.Security;
+using System.Windows.Forms;
 
 namespace CaroSocialNetwork
 {
     public partial class PlayCaro : System.Web.UI.Page
     {
         int roomIndex;
-
-        private System.Windows.Forms.WebBrowser wb;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,20 +24,15 @@ namespace CaroSocialNetwork
                 Page.ClientScript.RegisterStartupScript(this.GetType(),
                     "load", "loadForm();", true);
             }
+            Ajax.Utility.GenerateMethodScripts(this);
         }
 
-        [Ajax.AjaxMethod]
-        public void WaitingForOpponent()
+        [Ajax.AjaxMethod("WaitingForOpponent", "opponentMove", null, "Loading...")]
+        public int[] WaitingForOpponent()
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            service.WaitingForOpponentCompleted += new WaitingForOpponentCompletedEventHandler(service_WaitingForOpponentCompleted);
-            service.WaitingForOpponentAsync(roomIndex, Membership.GetUser().UserName);
-        }
-
-        void service_WaitingForOpponentCompleted(object sender, WaitingForOpponentCompletedEventArgs e)
-        {
-            Object[] objs = { e.Result };
-            wb.Document.InvokeScript("opponentMove", objs);
+            int[] x = service.WaitingForOpponent(roomIndex, Membership.GetUser().UserName);
+            return x;
         }
 
         [Ajax.AjaxMethod]
@@ -57,17 +53,17 @@ namespace CaroSocialNetwork
             service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
         }
 
-        [Ajax.AjaxMethod]
-        public void CheckGameOver()
+        [Ajax.AjaxMethod("CheckGameOver", "gameOver", null, "Loading...")]
+        public bool CheckGameOver()
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             bool win;
             bool gameOver = service.CheckGameOver(roomIndex, Membership.GetUser().UserName, out win);
             if (gameOver)
             {
-                Object[] objs = { win };
-                wb.Document.InvokeScript("gameOver", objs);
+                return win;
             }
+            return false;
         }
     }
 }
