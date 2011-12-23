@@ -37,6 +37,8 @@ namespace CaroSocialNetwork.CaroWebService {
         
         private System.Threading.SendOrPostCallback JoinRoomOperationCompleted;
         
+        private System.Threading.SendOrPostCallback LeaveRoomOperationCompleted;
+        
         private System.Threading.SendOrPostCallback MoveOperationCompleted;
         
         private System.Threading.SendOrPostCallback WaitingForOpponentOperationCompleted;
@@ -92,6 +94,9 @@ namespace CaroSocialNetwork.CaroWebService {
         
         /// <remarks/>
         public event JoinRoomCompletedEventHandler JoinRoomCompleted;
+        
+        /// <remarks/>
+        public event LeaveRoomCompletedEventHandler LeaveRoomCompleted;
         
         /// <remarks/>
         public event MoveCompletedEventHandler MoveCompleted;
@@ -216,6 +221,37 @@ namespace CaroSocialNetwork.CaroWebService {
             if ((this.JoinRoomCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.JoinRoomCompleted(this, new JoinRoomCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/LeaveRoom", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void LeaveRoom(ref int roomid, string username) {
+            object[] results = this.Invoke("LeaveRoom", new object[] {
+                        roomid,
+                        username});
+            roomid = ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void LeaveRoomAsync(int roomid, string username) {
+            this.LeaveRoomAsync(roomid, username, null);
+        }
+        
+        /// <remarks/>
+        public void LeaveRoomAsync(int roomid, string username, object userState) {
+            if ((this.LeaveRoomOperationCompleted == null)) {
+                this.LeaveRoomOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLeaveRoomOperationCompleted);
+            }
+            this.InvokeAsync("LeaveRoom", new object[] {
+                        roomid,
+                        username}, this.LeaveRoomOperationCompleted, userState);
+        }
+        
+        private void OnLeaveRoomOperationCompleted(object arg) {
+            if ((this.LeaveRoomCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.LeaveRoomCompleted(this, new LeaveRoomCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -500,6 +536,32 @@ namespace CaroSocialNetwork.CaroWebService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void LeaveRoomCompletedEventHandler(object sender, LeaveRoomCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class LeaveRoomCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal LeaveRoomCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int roomid {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
             }
         }
     }

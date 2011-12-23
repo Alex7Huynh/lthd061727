@@ -20,22 +20,25 @@ namespace CaroSocialNetwork
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            roomIndex = -1;
-            currentRoomSelected = -1;
-            UpdateRoomView();
-
-            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
-            Room[] rooms = service.GetRoomList();
-            ddlRooms.DataTextField = "Name";
-            ddlRooms.DataSource = rooms;
-            ddlRooms.DataBind();
-
-            if (!ClientScript.IsStartupScriptRegistered("loadForm"))
+            if (!IsPostBack)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(),
-                    "load", "loadForm();", true);
+                roomIndex = -1;
+                currentRoomSelected = -1;
+                UpdateRoomView();
+
+                CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+                Room[] rooms = service.GetRoomList();
+                ddlRooms.DataTextField = "Name";
+                ddlRooms.DataSource = rooms;
+                ddlRooms.DataBind();
+
+                if (!ClientScript.IsStartupScriptRegistered("loadForm"))
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(),
+                        "load", "loadForm();", true);
+                }
+                Ajax.Utility.GenerateMethodScripts(this);
             }
-            Ajax.Utility.GenerateMethodScripts(this);
         }
 
         private void UpdateRoomView()
@@ -103,6 +106,14 @@ namespace CaroSocialNetwork
         {
             CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
             service.CreateRoom(Membership.GetUser().UserName, false, out roomIndex);
+
+            UpdateRoomView();
+        }
+
+        protected void btnLeaveTheRoom_Click(object sender, EventArgs e)
+        {
+            CaroWebService.CaroWebService service = new CaroWebService.CaroWebService();
+            service.LeaveRoom(ref roomIndex, Membership.GetUser().UserName);
 
             UpdateRoomView();
         }
