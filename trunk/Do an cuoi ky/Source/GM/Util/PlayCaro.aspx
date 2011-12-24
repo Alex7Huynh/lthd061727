@@ -9,6 +9,10 @@
             //Just Draw Caro Board
             initGame();
         }
+        function reloadForm() {
+            //game started
+            resetGame();
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

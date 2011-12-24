@@ -62,7 +62,7 @@ function initGame() {
     paintBoard();
 }
 
-function resetGame(playwithOpponent) {
+function resetGame() {
     oppTurn = true;
     gameOver = false;
 
@@ -77,15 +77,6 @@ function resetGame(playwithOpponent) {
     context.clearRect(0, 0, width, height);
 
     paintBoard();
-
-    if (playwithOpponent) {
-        //Call Ajax Function
-        PlayWithOpponent();
-    }
-    else {
-        //Call Ajax Function
-        PlayWithMachine();
-    }
     WaitingForOpponent();
 }
 
@@ -215,21 +206,6 @@ function opponentMove(move) {
     }
 }
 
-function gameOver(win) {
-    gameOver = true;
-
-    if (win) {
-        alert('You won!');
-    }
-    else {
-        alert('Opponent won!');
-    }
-}
-
-function playWithMachine() {
-    resetGame(false);
-}
-
-function playWithOpponent() {
-    resetGame(true);
+function gameOver(over) {
+    gameOver = over;
 }

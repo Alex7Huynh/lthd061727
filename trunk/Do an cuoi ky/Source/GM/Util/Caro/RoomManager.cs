@@ -4,39 +4,38 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 
-namespace CaroWebServer
+namespace CaroSocialNetwork
 {
-    /// <summary>
-    /// Summary description for CaroWebService
-    /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
-    public class CaroWebService : System.Web.Services.WebService
+    public class RoomManager
     {
-        static List<Room> rooms = new List<Room>();
+        List<Room> rooms = new List<Room>();
 
-        [WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }
+        public event PlayerEvent PlayerJoin;
+        public event PlayerEvent PlayerLeave;
+        public event YourTurnEvent YourTurn;
+        public event GameOverEvent GameOver;
+        public delegate void PlayerEvent();
+        public delegate void YourTurnEvent(int lastX, int lastY);
+        public delegate void GameOverEvent();
 
-        [WebMethod]
         public List<Room> GetRoomList()
         {
-            return rooms;
+            List<Room> result = new List<Room>();
+            foreach (Room room in rooms)
+            {
+                if (!room.IsEmpty() && !room.IsFull())
+                    result.Add(room);
+            }
+            return result;
         }
 
-        [WebMethod]
         public bool CreateRoom(string username, bool playwithmachine, out int roomIndex)
         {
             Room room = new Room();
             Player player = new Player() { Name = username };
             if (room.AddPlayer(player))
             {
+                PlayerJoin();
                 if (playwithmachine)
                 {
                     if (!room.IsFull())
@@ -61,24 +60,26 @@ namespace CaroWebServer
             return false;
         }
 
-        [WebMethod]
         public bool JoinRoom(int roomid, string username)
         {
             if (roomid >= 0 && roomid < rooms.Count)
             {
-                if (rooms[roomid].AddPlayer(new Player() { Name = username}))
+                if (rooms[roomid].AddPlayer(new Player() { Name = username }))
+                {
+                    PlayerJoin();
                     return true;
+                }
             }
 
             return false;
         }
 
-        [WebMethod]
         public void LeaveRoom(ref int roomid, string username)
         {
             if (roomid >= 0 && roomid < rooms.Count)
             {
                 rooms[roomid].RemovePlayer(username);
+                PlayerLeave();
             }
 
             if (rooms[roomid].IsEmpty())
@@ -88,7 +89,6 @@ namespace CaroWebServer
             roomid = -1;
         }
 
-        [WebMethod]
         public void Move(int roomid, string username, int userX, int userY)
         {
             if (roomid >= 0 && roomid < rooms.Count)
@@ -98,7 +98,6 @@ namespace CaroWebServer
             }
         }
 
-        [WebMethod]
         public int[] WaitingForOpponent(int roomid, string username)
         {
             if (roomid >= 0 && roomid < rooms.Count)
@@ -109,7 +108,6 @@ namespace CaroWebServer
             return new int[] { -1, -1};
         }
 
-        [WebMethod]
         public bool CheckGameOver(int roomIndex, string username, out bool win)
         {
             if (roomIndex >= 0 && roomIndex < rooms.Count)
