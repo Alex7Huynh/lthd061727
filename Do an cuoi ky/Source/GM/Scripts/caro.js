@@ -211,8 +211,6 @@ function opponentMove(move) {
             drawSquare(move[0], move[1], oppSq);
             oppTurn = false;
             alert('Your Turn');
-
-            CheckGameOver();
         }
         else {
             oppTurn = false;
