@@ -1,6 +1,7 @@
-namespace GM
+namespace CaroSocialNetwork
 {
-    partial class DataClasses1DataContext
+
+partial class DataClasses1DataContext
     {
     }
 }

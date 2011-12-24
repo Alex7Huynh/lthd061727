@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GM {
+namespace CaroSocialNetwork {
     
     
     public partial class MapViewer {
