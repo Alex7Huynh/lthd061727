@@ -135,6 +135,13 @@ namespace CaroSocialNetwork
             roomManager.Move(roomId, Membership.GetUser().UserName, x, y);
         }
 
+        [Ajax.AjaxMethod(false)]
+        public bool IsWin()
+        {
+            int roomId = int.Parse(Session["CurrentRoom"].ToString());
+            return roomManager.IsWin(roomId, Membership.GetUser().UserName);
+        }
+
         #endregion
     }
 }

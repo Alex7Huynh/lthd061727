@@ -140,5 +140,15 @@ namespace CaroSocialNetwork
             }
             return true;
         }
+
+        internal bool IsWin(int roomId, string username)
+        {
+            int index = FindRoom(roomId);
+            if (index >= 0 && index < rooms.Count)
+            {
+                return rooms[index].IsWin(username);
+            }
+            return false;
+        }
     }
 }
