@@ -65,12 +65,19 @@ namespace CaroSocialNetwork
             set;
         }
 
+        public bool PlayWithMachine
+        {
+            get;
+            set;
+        }
+
         public Room()
         {
             boardSize = 20;
             nmbRows = boardSize;
             nmbColumns = boardSize;
 
+            userSq = -1;
             machSq = -1;
 
             f = new int[boardSize, boardSize];
@@ -88,9 +95,9 @@ namespace CaroSocialNetwork
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    f[i, j] = 0;
-                    s[i, j] = 0;
-                    q[i, j] = 0;
+                    f[i, j] = -1;
+                    s[i, j] = -1;
+                    q[i, j] = -1;
                 }
             }
 
@@ -116,24 +123,22 @@ namespace CaroSocialNetwork
                 players.Add(player);
                 UpdateRoomName();
 
-                if (player is Machine)
+                if (PlayWithMachine)
                 {
-                    machSq = -1;
-                }
-                else
-                {
-                    userSq = FindPlayer(player.Name);
+                    if (player is Machine)
+                    {
+                        machSq = players.IndexOf(player);
+                    }
+                    else
+                    {
+                        userSq = FindPlayer(player.Name);
+                    }
                 }
 
                 if (IsFull())
                 {
                     GameOver = false;
-                    if (players.Count >= 1)
-                    {
-                        currentTurn = 0;
-                    }
-                    else
-                        currentTurn = -1;
+                    currentTurn = 0;
                 }
                 return true;
             }
@@ -186,6 +191,8 @@ namespace CaroSocialNetwork
             if (currentTurn >= players.Count)
                 currentTurn = 0;
 
+            CheckGameOver();
+
             if (players[currentTurn] is Machine)
             {
                 MachineMove();
@@ -209,7 +216,7 @@ namespace CaroSocialNetwork
             WaitingComplete(new int[] { iLastMove, jLastMove });
         }
 
-        internal bool CheckGameOver(string username, out bool win)
+        private void CheckGameOver()
         {
             if (WinningPos(iLastMove, jLastMove, lastTurn) == winningMove)
             {
@@ -219,14 +226,6 @@ namespace CaroSocialNetwork
             {
                 GameOver = true;
             }
-
-            if (FindPlayer(username) == lastTurn)
-                win = true;
-            else
-                win = false;
-
-            return GameOver;
-
         }
 
         internal void RemovePlayer(string username)

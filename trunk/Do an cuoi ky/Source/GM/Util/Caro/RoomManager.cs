@@ -25,6 +25,7 @@ namespace CaroSocialNetwork
         public void CreateRoom(string username, bool playwithmachine, out int roomId)
         {
             Room room = new Room();
+            room.PlayWithMachine = playwithmachine;
             Player player = new Player() { Name = username };
             if (room.AddPlayer(player))
             {
@@ -107,18 +108,6 @@ namespace CaroSocialNetwork
             {
                 rooms[index].WaitingComplete += new MoveWaitingEvent(method);
             }
-        }
-
-        public bool CheckGameOver(int roomid, string username, out bool win)
-        {
-            int index = FindRoom(roomid);
-            if (index >= 0 && index < rooms.Count)
-            {
-                return rooms[index].CheckGameOver(username, out win);
-            }
-
-            win = false;
-            return false;
         }
 
         internal bool IsMyTurn(int roomid, string userName)
