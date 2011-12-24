@@ -500,5 +500,12 @@ namespace CaroSocialNetwork
         {
             return GameOver;
         }
+
+        internal bool IsWin(string username)
+        {
+            if (FindPlayer(username) == lastTurn)
+                return true;
+            return false;
+        }
     }
 }

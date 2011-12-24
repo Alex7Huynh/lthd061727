@@ -200,6 +200,9 @@ function clk(iMove, jMove) {
         oppTurn = true;
         UserMove(iMove, jMove);
     }
+    else {
+        gameOver();
+    }
 }
 
 function opponentMove(move) {
@@ -217,9 +220,17 @@ function opponentMove(move) {
             alert('Your Turn');
         }
     }
+    else {
+        gameOver();
+    }
 }
 
-function gameOver(over) {
-    gameOver = over;
-    clearInterval(intervalId);
+function gameOver() {
+    intervalId = clearInterval(intervalId);
+
+    var win = IsWin();
+    if (win)
+        alert('You win!');
+    else
+        alert('You loose!');
 }
