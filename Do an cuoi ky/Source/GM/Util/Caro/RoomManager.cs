@@ -8,15 +8,8 @@ namespace CaroSocialNetwork
 {
     public class RoomManager
     {
-        List<Room> rooms = new List<Room>();
-
-        public event PlayerEvent PlayerJoin;
-        public event PlayerEvent PlayerLeave;
-        public event YourTurnEvent YourTurn;
-        public event GameOverEvent GameOver;
-        public delegate void PlayerEvent();
-        public delegate void YourTurnEvent(int lastX, int lastY);
-        public delegate void GameOverEvent();
+        static List<Room> rooms = new List<Room>();
+        static int currentIndex = -1;
 
         public List<Room> GetRoomList()
         {
@@ -29,44 +22,36 @@ namespace CaroSocialNetwork
             return result;
         }
 
-        public bool CreateRoom(string username, bool playwithmachine, out int roomIndex)
+        public void CreateRoom(string username, bool playwithmachine, out int roomId)
         {
             Room room = new Room();
             Player player = new Player() { Name = username };
             if (room.AddPlayer(player))
             {
-                PlayerJoin();
                 if (playwithmachine)
                 {
                     if (!room.IsFull())
                     {
                         Player machine = new Machine();
                         room.AddPlayer(machine);
-                        rooms.Add(room);
-                        roomIndex = rooms.IndexOf(room);
-                        return true;
                     }
                 }
-                else
-                {
-                    rooms.Add(room);
-                    roomIndex = rooms.IndexOf(room);
-                    return true;
-                }
+                currentIndex++;
+                room.Id = currentIndex;
+                rooms.Add(room);
+                roomId = room.Id;
             }
-
-            roomIndex = -1;
-
-            return false;
+            else
+                roomId = -1;
         }
 
         public bool JoinRoom(int roomid, string username)
         {
-            if (roomid >= 0 && roomid < rooms.Count)
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
             {
-                if (rooms[roomid].AddPlayer(new Player() { Name = username }))
+                if (rooms[index].AddPlayer(new Player() { Name = username }))
                 {
-                    PlayerJoin();
                     return true;
                 }
             }
@@ -74,49 +59,97 @@ namespace CaroSocialNetwork
             return false;
         }
 
-        public void LeaveRoom(ref int roomid, string username)
+        private int FindRoom(int roomid)
         {
-            if (roomid >= 0 && roomid < rooms.Count)
+            for (int i = 0; i < rooms.Count; i++)
+                if (rooms[i].Id == roomid)
+                    return i;
+            return -1;
+        }
+
+        public void LeaveRoom(int roomid, string username)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
             {
-                rooms[roomid].RemovePlayer(username);
-                PlayerLeave();
+                rooms[index].RemovePlayer(username);
             }
 
-            if (rooms[roomid].IsEmpty())
+            if (rooms[index].IsEmpty())
             {
-                rooms.RemoveAt(roomid);
+                rooms.RemoveAt(index);
             }
-            roomid = -1;
         }
 
         public void Move(int roomid, string username, int userX, int userY)
         {
-            if (roomid >= 0 && roomid < rooms.Count)
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
             {
-                if (rooms[roomid].GameStarted && !rooms[roomid].GameOver)
-                    rooms[roomid].Move(username, userX, userY);
+                if (!rooms[index].GameOver)
+                    rooms[index].Move(username, userX, userY);
             }
         }
 
-        public int[] WaitingForOpponent(int roomid, string username)
+        public void WaitingForOpponent(int roomid, string username)
         {
-            if (roomid >= 0 && roomid < rooms.Count)
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
             {
-                return rooms[roomid].WaitingForOpponent(username);
+                rooms[index].WaitingForOpponent(username);
             }
-
-            return new int[] { -1, -1};
         }
 
-        public bool CheckGameOver(int roomIndex, string username, out bool win)
+        public void RegistryComplete(int roomid, string username, MoveWaitingEvent method)
         {
-            if (roomIndex >= 0 && roomIndex < rooms.Count)
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
             {
-                return rooms[roomIndex].CheckGameOver(username, out win);
+                rooms[index].WaitingComplete += new MoveWaitingEvent(method);
+            }
+        }
+
+        public bool CheckGameOver(int roomid, string username, out bool win)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
+            {
+                return rooms[index].CheckGameOver(username, out win);
             }
 
             win = false;
             return false;
+        }
+
+        internal bool IsMyTurn(int roomid, string userName)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
+            {
+                if (rooms[index].GetCurrentTurn() == userName)
+                    return true;
+            }
+            return false;
+        }
+
+        internal int[] GetLastMove(int roomid)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
+            {
+                return rooms[index].GetLastMove();
+            }
+            return new int[] {-1, -1};
+        }
+
+        internal bool IsGameOver(int roomId)
+        {
+            int index = FindRoom(roomId);
+            if (index >= 0 && index < rooms.Count)
+            {
+                return rooms[index].IsGameOver();
+            }
+            return true;
         }
     }
 }

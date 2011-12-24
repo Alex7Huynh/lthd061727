@@ -6,6 +6,8 @@ using System.Threading;
 
 namespace CaroSocialNetwork
 {
+    public delegate int[] MoveWaitingEvent(int[] p);
+
     public class Room
     {
         #region Caro Board
@@ -43,11 +45,7 @@ namespace CaroSocialNetwork
         public const int MAX_PLAYER = 2;
         protected List<Player> players = new List<Player>();
 
-        public bool GameStarted
-        {
-            get;
-            set;
-        }
+        public event MoveWaitingEvent WaitingComplete;
 
         public bool GameOver
         {
@@ -55,13 +53,13 @@ namespace CaroSocialNetwork
             set;
         }
 
-        public bool HasMachine
+        public string Name
         {
             get;
             set;
         }
 
-        public string Name
+        public int Id
         {
             get;
             set;
@@ -101,10 +99,9 @@ namespace CaroSocialNetwork
             iLastMove = -1;
             jLastMove = -1;
 
-            HasMachine = false;
-            GameStarted = false;
-            GameOver = false;
+            GameOver = true;
             Name = "";
+            Id = -1;
         }
 
         public int GetNumberPlayer()
@@ -121,7 +118,6 @@ namespace CaroSocialNetwork
 
                 if (player is Machine)
                 {
-                    HasMachine = true;
                     machSq = -1;
                 }
                 else
@@ -131,7 +127,7 @@ namespace CaroSocialNetwork
 
                 if (IsFull())
                 {
-                    GameStarted = true;
+                    GameOver = false;
                     if (players.Count >= 1)
                     {
                         currentTurn = 0;
@@ -196,7 +192,13 @@ namespace CaroSocialNetwork
             }
         }
 
-        internal int[] WaitingForOpponent(string username)
+        internal void WaitingForOpponent(string username)
+        {
+            Thread thread = new Thread(o => WaitingThread(username));
+            thread.Start();
+        }
+
+        public void WaitingThread(string username)
         {
             do
             {
@@ -204,7 +206,7 @@ namespace CaroSocialNetwork
             }
             while (FindPlayer(username) != currentTurn);
 
-            return new int[] { iLastMove, jLastMove };
+            WaitingComplete(new int[] { iLastMove, jLastMove });
         }
 
         internal bool CheckGameOver(string username, out bool win)
@@ -479,5 +481,25 @@ namespace CaroSocialNetwork
             return -1;
         }
         #endregion
+
+        internal string GetCurrentTurn()
+        {
+            if (currentTurn == -1)
+                return "";
+            else
+            {
+                return players[currentTurn].Name;
+            }
+        }
+
+        internal int[] GetLastMove()
+        {
+            return new int[] { iLastMove, jLastMove};
+        }
+
+        internal bool IsGameOver()
+        {
+            return GameOver;
+        }
     }
 }
