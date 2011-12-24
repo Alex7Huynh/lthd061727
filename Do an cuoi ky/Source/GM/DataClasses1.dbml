@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ASPNETDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ASPNETDBConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.LocationCategory" Member="LocationCategories">
-    <Type Name="LocationCategory">
-      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ParentCategoryID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="LocationCategory_LocationCategory" Member="LocationCategories" ThisKey="CategoryID" OtherKey="ParentCategoryID" Type="LocationCategory" />
-      <Association Name="LocationCategory_Location" Member="Locations" ThisKey="CategoryID" OtherKey="CategoryID" Type="Location" />
-      <Association Name="LocationCategory_LocationCategory" Member="LocationCategory1" ThisKey="ParentCategoryID" OtherKey="CategoryID" Type="LocationCategory" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Location" Member="Locations">
     <Type Name="Location">
       <Column Name="LocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -21,6 +10,17 @@
       <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="LocationCategory_Location" Member="LocationCategory" ThisKey="CategoryID" OtherKey="CategoryID" Type="LocationCategory" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LocationCategory" Member="LocationCategories">
+    <Type Name="LocationCategory">
+      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ParentCategoryID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="LocationCategory_Location" Member="Locations" ThisKey="CategoryID" OtherKey="CategoryID" Type="Location" />
+      <Association Name="LocationCategory_LocationCategory" Member="LocationCategories" ThisKey="CategoryID" OtherKey="ParentCategoryID" Type="LocationCategory" />
+      <Association Name="LocationCategory_LocationCategory" Member="LocationCategory1" ThisKey="ParentCategoryID" OtherKey="CategoryID" Type="LocationCategory" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

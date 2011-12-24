@@ -11,7 +11,7 @@ using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
 
-namespace GM
+namespace CaroSocialNetwork
 {
     public partial class MapViewer : System.Web.UI.Page, ICallbackEventHandler
     {
