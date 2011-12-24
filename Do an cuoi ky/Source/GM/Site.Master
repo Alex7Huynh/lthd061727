@@ -32,11 +32,15 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
+                        
                         <asp:MenuItem NavigateUrl="~/Util/MapViewer.aspx" Text="Map"/>
+                        <asp:MenuItem NavigateUrl="~/Util/GMap.aspx" Text="GMap"/>
+                        <asp:MenuItem NavigateUrl="~/Util/Bingle.aspx" Text="Search"/>
+                        <asp:MenuItem NavigateUrl="~/Util/BingTranslate.aspx" Text="Translate"/>
                         <asp:MenuItem NavigateUrl="~/Util/PlayCaro.aspx" Text="Play Caro" 
                             Value="Play Caro">
                         </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>
             </div>
