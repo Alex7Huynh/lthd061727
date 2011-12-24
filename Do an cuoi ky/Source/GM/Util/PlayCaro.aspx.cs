@@ -128,6 +128,13 @@ namespace CaroSocialNetwork
             return roomManager.IsGameOver(roomId);
         }
 
+        [Ajax.AjaxMethod(false)]
+        public void UserMove(int x, int y)
+        {
+            int roomId = int.Parse(Session["CurrentRoom"].ToString());
+            roomManager.Move(roomId, Membership.GetUser().UserName, x, y);
+        }
+
         #endregion
     }
 }

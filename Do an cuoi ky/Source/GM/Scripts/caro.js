@@ -199,9 +199,6 @@ function clk(iMove, jMove) {
         drawSquare(iMove, jMove, userSq);
         oppTurn = true;
         UserMove(iMove, jMove);
-        WaitingForOpponent();
-
-        CheckGameOver();
     }
 }
 
