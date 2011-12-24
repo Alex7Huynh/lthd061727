@@ -9,10 +9,6 @@
             //Just Draw Caro Board
             initGame();
         }
-        function reloadForm() {
-            //game started
-            resetGame();
-        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -29,8 +25,8 @@
                 <br /> &nbsp;
                 <asp:DropDownList ID="ddlRooms" runat="server">
                 </asp:DropDownList>
-                <asp:Button ID="btnJoinRoom" runat="server" Text="Join Room" 
-                    onclick="btnJoinRoom_Click" />
+                <asp:Button ID="btnJoin" runat="server" Text="Join" onclick="btnJoinRoom_Click"/>
+                <asp:Button ID="btnRefresh" runat="server" Text="Refresh" onclick="btnRefresh_Click"/>
                 <br /> &nbsp;
                 <asp:Button ID="btnCreateRoomMachine" runat="server" 
                     Text="Create Room With Machine" onclick="btnCreateRoomMachine_Click" />

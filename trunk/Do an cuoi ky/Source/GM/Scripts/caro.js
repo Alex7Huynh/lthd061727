@@ -17,7 +17,9 @@ for (i = 0; i < boardSize; i++) {
     for (j = 0; j < boardSize; j++) {
         f[i][j] = 0;
     }
-}
+};
+
+var intervalId;
 
 function paintBoard() {
     var board = document.getElementById('board');
@@ -60,6 +62,20 @@ function initGame() {
     context.clearRect(0, 0, width, height);
 
     paintBoard();
+    waitingForOpponent();
+}
+
+function waitingForOpponent() {
+    intervalId = setInterval("tick()", 2000);
+}
+
+function tick() {
+    var myTurn = IsMyTurn();
+    var lastMove = GetOpponentMove();
+    if (oppTurn && myTurn) {
+        alert('last Move' + lastMove);
+        opponentMove(lastMove);
+    }
 }
 
 function resetGame() {
@@ -77,7 +93,8 @@ function resetGame() {
     context.clearRect(0, 0, width, height);
 
     paintBoard();
-    WaitingForOpponent();
+
+    alert('reset');
 }
 
 
@@ -173,6 +190,7 @@ function getPosition(e) {
 };
 
 function clk(iMove, jMove) {
+    gameOver = IsGameOver();
     if (!gameOver) {
         if (oppTurn) return; //machine (computer) turn
 
@@ -188,7 +206,7 @@ function clk(iMove, jMove) {
 }
 
 function opponentMove(move) {
-    alert('x:' + move[0] + ', y:' + move[1]);
+    gameOver = IsGameOver();
     if (!gameOver) {
         if (move[0] != -1 && move[1] != -1) {
             if (f[move[0]][move[1]] != 0) { alert('This square is not empty! Please choose another.'); return; }
@@ -208,4 +226,5 @@ function opponentMove(move) {
 
 function gameOver(over) {
     gameOver = over;
+    clearInterval(intervalId);
 }

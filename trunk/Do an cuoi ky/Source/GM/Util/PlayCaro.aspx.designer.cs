@@ -49,13 +49,22 @@ namespace CaroSocialNetwork {
         protected global::System.Web.UI.WebControls.DropDownList ddlRooms;
         
         /// <summary>
-        /// btnJoinRoom control.
+        /// btnJoin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnJoinRoom;
+        protected global::System.Web.UI.WebControls.Button btnJoin;
+        
+        /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRefresh;
         
         /// <summary>
         /// btnCreateRoomMachine control.

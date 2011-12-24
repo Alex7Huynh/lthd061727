@@ -11,7 +11,7 @@ using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
 
-namespace CaroSocialNetwork
+namespace GM
 {
     public partial class MapViewer : System.Web.UI.Page, ICallbackEventHandler
     {
@@ -54,8 +54,10 @@ namespace CaroSocialNetwork
                     }
                 }
 
-                MyLocationTreeView.Nodes.Clear();
-                MyLocationTreeView.Nodes.Add(root);
+
+                TreeView myLocation = (TreeView)LoginView1.FindControl("MyLocationTreeView");
+                myLocation.Nodes.Clear();
+                myLocation.Nodes.Add(root);
             }
         }
 
