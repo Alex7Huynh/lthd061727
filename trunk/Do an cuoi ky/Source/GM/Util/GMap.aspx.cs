@@ -17,7 +17,7 @@ namespace CaroSocialNetwork
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.Title = "Map";
         }
 
         public static void LoadTreeView(ref TreeView treeView)
