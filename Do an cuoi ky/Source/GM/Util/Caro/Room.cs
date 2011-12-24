@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Threading;
 
-namespace CaroWebServer
+namespace CaroSocialNetwork
 {
     public class Room
     {
@@ -26,8 +26,8 @@ namespace CaroWebServer
 
         int currentTurn;
         int lastTurn;
-        int iLastMove = -1;
-        int jLastMove = -1;
+        int iLastMove;
+        int jLastMove;
 
         int[] iMax;
         int[] jMax;
@@ -97,6 +97,9 @@ namespace CaroWebServer
             }
 
             currentTurn = -1;
+            lastTurn = -1;
+            iLastMove = -1;
+            jLastMove = -1;
 
             HasMachine = false;
             GameStarted = false;
@@ -128,24 +131,17 @@ namespace CaroWebServer
 
                 if (IsFull())
                 {
-                    ChoosePlayerForFirstTurn();
                     GameStarted = true;
+                    if (players.Count >= 1)
+                    {
+                        currentTurn = 0;
+                    }
+                    else
+                        currentTurn = -1;
                 }
                 return true;
             }
             return false;
-        }
-
-        private void ChoosePlayerForFirstTurn()
-        {
-            foreach (Player p in players)
-            {
-                if (!(p is Machine))
-                {
-                    currentTurn = FindPlayer(p.Name);
-                    break;
-                }
-            }
         }
 
         public bool IsFull()
@@ -235,6 +231,8 @@ namespace CaroWebServer
         {
             int index = FindPlayer(username);
             players.RemoveAt(index);
+            GameOver = true;
+            currentTurn = -1;
 
             UpdateRoomName();
         }

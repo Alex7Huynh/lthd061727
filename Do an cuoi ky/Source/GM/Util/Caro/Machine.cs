@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CaroWebServer
+namespace CaroSocialNetwork
 {
-    public class Player
+    public class Machine: Player
     {
-        public string Name
+        public Machine()
         {
-            get;
-            set;
+            Name = "Machine";
         }
     }
 }
