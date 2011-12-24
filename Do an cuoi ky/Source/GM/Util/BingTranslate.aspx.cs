@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
+using CaroSocialNetwork.Util.Engine;
 
 namespace CaroSocialNetwork
 {
@@ -17,7 +18,27 @@ namespace CaroSocialNetwork
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.Title = "Translation";
+            if (!IsPostBack)
+            {
+                Dictionary<string, string> language = TranslateEngine.InitLanguage();
+                ddlSource.Items.Clear();
+                ddlDest.Items.Clear();
+                for (int i = 0; i < language.Keys.Count; ++i)
+                {
+                    ddlSource.Items.Add(new ListItem(language.Keys.ElementAt(i), language.Values.ElementAt(i)));
+                    ddlDest.Items.Add(new ListItem(language.Keys.ElementAt(i), language.Values.ElementAt(i)));
+                }
+            }
+        }
 
+        protected void btnTranslate_Click(object sender, EventArgs e)
+        {
+            string src = ddlSource.SelectedValue.ToString();
+            string des = ddlDest.SelectedValue.ToString();
+            string textSource = txtSource.Text;
+            string textDest = TranslateEngine.Translate(textSource, src, des);
+            txtDest.Text = textDest;
         }
     }
 }

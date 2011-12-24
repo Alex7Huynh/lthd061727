@@ -31,7 +31,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <form id="form1" runat="server">
+    
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
     </asp:ScriptManager>
     <h1>
@@ -56,5 +56,5 @@
     <div id="CayDiaDiem" runat="server" style="position: absolute; top: 360px; left: 10;
         width: 300px; height: 250px;">
     </div>
-    </form>
+    
 </asp:Content>

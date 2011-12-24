@@ -70,6 +70,7 @@
       <DependentUpon>ASPNETDB.MDF</DependentUpon>
     </Content>
     <Content Include="images\add.png" />
+    <Content Include="images\bingle.png" />
     <Content Include="images\cancel.png" />
     <Content Include="images\delete.png" />
     <Content Include="images\edit.png" />
@@ -84,6 +85,7 @@
     <Content Include="Scripts\jquery-1.6.1.min.js" />
     <Content Include="Scripts\MyGoogleMap.js" />
     <Content Include="Scripts\MyScript.js" />
+    <Content Include="Styles\bingle.css" />
     <Content Include="Styles\Caro.css" />
     <Content Include="Styles\MyStyle.css" />
     <Content Include="Styles\Site.css" />
@@ -194,6 +196,9 @@
     <Compile Include="Util\BingTranslate.aspx.designer.cs">
       <DependentUpon>BingTranslate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Util\Engine\Article.cs" />
+    <Compile Include="Util\Engine\SearchEngine.cs" />
+    <Compile Include="Util\Engine\TranslateEngine.cs" />
     <Compile Include="Util\GMap.aspx.cs">
       <DependentUpon>GMap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
