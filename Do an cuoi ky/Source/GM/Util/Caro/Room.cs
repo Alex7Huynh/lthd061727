@@ -88,8 +88,8 @@ namespace CaroSocialNetwork
             jMax = new int[boardSize * boardSize];
 
 
-            nPos = new int[4];
-            dirA = new int[4];
+            nPos = new int[5];
+            dirA = new int[5];
 
             for (int i = 0; i < boardSize; i++)
             {

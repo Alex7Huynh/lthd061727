@@ -201,7 +201,14 @@ function clk(iMove, jMove) {
         UserMove(iMove, jMove);
     }
     else {
-        gameOver();
+        alert('over');
+        clearInterval(intervalId);
+
+        var win = IsWin();
+        if (win)
+            alert('You win!');
+        else
+            alert('You loose!');
     }
 }
 
@@ -221,16 +228,13 @@ function opponentMove(move) {
         }
     }
     else {
-        gameOver();
+        alert('over');
+        clearInterval(intervalId);
+
+        var win = IsWin();
+        if (win)
+            alert('You win!');
+        else
+            alert('You loose!');
     }
-}
-
-function gameOver() {
-    intervalId = clearInterval(intervalId);
-
-    var win = IsWin();
-    if (win)
-        alert('You win!');
-    else
-        alert('You loose!');
 }
