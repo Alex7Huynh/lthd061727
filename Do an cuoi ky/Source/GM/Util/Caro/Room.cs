@@ -77,7 +77,7 @@ namespace CaroSocialNetwork
             nmbRows = boardSize;
             nmbColumns = boardSize;
 
-            userSq = -1;
+            userSq = 1;
             machSq = -1;
 
             f = new int[boardSize, boardSize];
@@ -88,16 +88,16 @@ namespace CaroSocialNetwork
             jMax = new int[boardSize * boardSize];
 
 
-            nPos = new int[5];
-            dirA = new int[5];
+            nPos = new int[4];
+            dirA = new int[4];
 
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    f[i, j] = -1;
-                    s[i, j] = -1;
-                    q[i, j] = -1;
+                    f[i, j] = 0;
+                    s[i, j] = 0;
+                    q[i, j] = 0;
                 }
             }
 
@@ -122,18 +122,6 @@ namespace CaroSocialNetwork
             {
                 players.Add(player);
                 UpdateRoomName();
-
-                if (PlayWithMachine)
-                {
-                    if (player is Machine)
-                    {
-                        machSq = players.IndexOf(player);
-                    }
-                    else
-                    {
-                        userSq = FindPlayer(player.Name);
-                    }
-                }
 
                 if (IsFull())
                 {
@@ -172,7 +160,7 @@ namespace CaroSocialNetwork
             int id = FindPlayer(username);
             if (id != -1 && currentTurn == id)
             {
-                f[userX, userY] = id;
+                f[userX, userY] = id+1;
 
                 iLastMove = userX;
                 jLastMove = userY;
@@ -218,13 +206,29 @@ namespace CaroSocialNetwork
 
         private void CheckGameOver()
         {
-            if (WinningPos(iLastMove, jLastMove, lastTurn) == winningMove)
+            if (PlayWithMachine)
             {
-                GameOver = true;
+                bool over;
+                if (players[lastTurn] is Machine)
+                {
+                    over = (WinningPos(iLastMove, jLastMove, machSq) == winningMove);
+                }
+                else
+                {
+                    over = (WinningPos(iLastMove, jLastMove, userSq) == winningMove);
+                }
+                GameOver = over;
             }
-            else if (drawPos)
+            else
             {
-                GameOver = true;
+                if (WinningPos(iLastMove, jLastMove, lastTurn+1) == winningMove)
+                {
+                    GameOver = true;
+                }
+                else if (drawPos)
+                {
+                    GameOver = true;
+                }
             }
         }
 
@@ -270,8 +274,8 @@ namespace CaroSocialNetwork
 
         private void GetBestMachMove()
         {
-            int maxS = EvaluatePos(s, userSq);
-            int maxQ = EvaluatePos(q, machSq);
+            int maxS = EvaluatePos(ref s, userSq);
+            int maxQ = EvaluatePos(ref q, machSq);
 
             // alert ('maxS='+maxS+', maxQ='+maxQ);
 
@@ -321,7 +325,7 @@ namespace CaroSocialNetwork
             jMach = jMax[randomK];
         }
 
-        private int EvaluatePos(int[,] a, int mySq)
+        private int EvaluatePos(ref int[,] a, int mySq)
         {
             int maxA = -1;
             drawPos = true;
@@ -347,41 +351,41 @@ namespace CaroSocialNetwork
                         int maxM = i + 5; if (maxM > boardSize) maxM = boardSize;
                         int maxN = j + 5; if (maxN > boardSize) maxN = boardSize;
 
-                        nPos[1] = 1; A1 = 0;
-                        m = 1; while (j + m < maxN && f[i, j + m] != -mySq) { nPos[1]++; A1 += w[m] * f[i, j + m]; m++; }
+                        nPos[0] = 1; A1 = 0;
+                        m = 1; while (j + m < maxN && f[i, j + m] != -mySq) { nPos[0]++; A1 += w[m] * f[i, j + m]; m++; }
                         if (j + m >= boardSize || f[i, j + m] == -mySq) A1 -= (f[i, j + m - 1] == mySq) ? (w[5] * mySq) : 0;
-                        m = 1; while (j - m >= minN && f[i, j - m] != -mySq) { nPos[1]++; A1 += w[m] * f[i, j - m]; m++; }
+                        m = 1; while (j - m >= minN && f[i, j - m] != -mySq) { nPos[0]++; A1 += w[m] * f[i, j - m]; m++; }
                         if (j - m < 0 || f[i, j - m] == -mySq) A1 -= (f[i, j - m + 1] == mySq) ? (w[5] * mySq) : 0;
+                        if (nPos[0] > 4) drawPos = false;
+
+                        nPos[1] = 1; A2 = 0;
+                        m = 1; while (i + m < maxM && f[i + m, j] != -mySq) { nPos[1]++; A2 += w[m] * f[i + m, j]; m++; }
+                        if (i + m >= boardSize || f[i + m, j] == -mySq) A2 -= (f[i + m - 1, j] == mySq) ? (w[5] * mySq) : 0;
+                        m = 1; while (i - m >= minM && f[i - m, j] != -mySq) { nPos[1]++; A2 += w[m] * f[i - m, j]; m++; }
+                        if (i - m < 0 || f[i - m, j] == -mySq) A2 -= (f[i - m + 1, j] == mySq) ? (w[5] * mySq) : 0;
                         if (nPos[1] > 4) drawPos = false;
 
-                        nPos[2] = 1; A2 = 0;
-                        m = 1; while (i + m < maxM && f[i + m, j] != -mySq) { nPos[2]++; A2 += w[m] * f[i + m, j]; m++; }
-                        if (i + m >= boardSize || f[i + m, j] == -mySq) A2 -= (f[i + m - 1, j] == mySq) ? (w[5] * mySq) : 0;
-                        m = 1; while (i - m >= minM && f[i - m, j] != -mySq) { nPos[2]++; A2 += w[m] * f[i - m, j]; m++; }
-                        if (i - m < 0 || f[i - m, j] == -mySq) A2 -= (f[i - m + 1, j] == mySq) ? (w[5] * mySq) : 0;
+                        nPos[2] = 1; A3 = 0;
+                        m = 1; while (i + m < maxM && j + m < maxN && f[i + m, j + m] != -mySq) { nPos[2]++; A3 += w[m] * f[i + m, j + m]; m++; }
+                        if (i + m >= boardSize || j + m >= boardSize || f[i + m, j + m] == -mySq) A3 -= (f[i + m - 1, j + m - 1] == mySq) ? (w[5] * mySq) : 0;
+                        m = 1; while (i - m >= minM && j - m >= minN && f[i - m, j - m] != -mySq) { nPos[2]++; A3 += w[m] * f[i - m, j - m]; m++; }
+                        if (i - m < 0 || j - m < 0 || f[i - m, j - m] == -mySq) A3 -= (f[i - m + 1, j - m + 1] == mySq) ? (w[5] * mySq) : 0;
                         if (nPos[2] > 4) drawPos = false;
 
-                        nPos[3] = 1; A3 = 0;
-                        m = 1; while (i + m < maxM && j + m < maxN && f[i + m, j + m] != -mySq) { nPos[3]++; A3 += w[m] * f[i + m, j + m]; m++; }
-                        if (i + m >= boardSize || j + m >= boardSize || f[i + m, j + m] == -mySq) A3 -= (f[i + m - 1, j + m - 1] == mySq) ? (w[5] * mySq) : 0;
-                        m = 1; while (i - m >= minM && j - m >= minN && f[i - m, j - m] != -mySq) { nPos[3]++; A3 += w[m] * f[i - m, j - m]; m++; }
-                        if (i - m < 0 || j - m < 0 || f[i - m, j - m] == -mySq) A3 -= (f[i - m + 1, j - m + 1] == mySq) ? (w[5] * mySq) : 0;
+                        nPos[3] = 1; A4 = 0;
+                        m = 1; while (i + m < maxM && j - m >= minN && f[i + m, j - m] != -mySq) { nPos[3]++; A4 += w[m] * f[i + m, j - m]; m++; }
+                        if (i + m >= boardSize || j - m < 0 || f[i + m, j - m] == -mySq) A4 -= (f[i + m - 1, j - m + 1] == mySq) ? (w[5] * mySq) : 0;
+                        m = 1; while (i - m >= minM && j + m < maxN && f[i - m, j + m] != -mySq) { nPos[3]++; A4 += w[m] * f[i - m, j + m]; m++; }
+                        if (i - m < 0 || j + m >= boardSize || f[i - m, j + m] == -mySq) A4 -= (f[i - m + 1, j + m - 1] == mySq) ? (w[5] * mySq) : 0;
                         if (nPos[3] > 4) drawPos = false;
 
-                        nPos[4] = 1; A4 = 0;
-                        m = 1; while (i + m < maxM && j - m >= minN && f[i + m, j - m] != -mySq) { nPos[4]++; A4 += w[m] * f[i + m, j - m]; m++; }
-                        if (i + m >= boardSize || j - m < 0 || f[i + m, j - m] == -mySq) A4 -= (f[i + m - 1, j - m + 1] == mySq) ? (w[5] * mySq) : 0;
-                        m = 1; while (i - m >= minM && j + m < maxN && f[i - m, j + m] != -mySq) { nPos[4]++; A4 += w[m] * f[i - m, j + m]; m++; }
-                        if (i - m < 0 || j + m >= boardSize || f[i - m, j + m] == -mySq) A4 -= (f[i - m + 1, j + m - 1] == mySq) ? (w[5] * mySq) : 0;
-                        if (nPos[4] > 4) drawPos = false;
-
-                        dirA[1] = (nPos[1] > 4) ? A1 * A1 : 0;
-                        dirA[2] = (nPos[2] > 4) ? A2 * A2 : 0;
-                        dirA[3] = (nPos[3] > 4) ? A3 * A3 : 0;
-                        dirA[4] = (nPos[4] > 4) ? A4 * A4 : 0;
+                        dirA[0] = (nPos[0] > 4) ? A1 * A1 : 0;
+                        dirA[1] = (nPos[1] > 4) ? A2 * A2 : 0;
+                        dirA[2] = (nPos[2] > 4) ? A3 * A3 : 0;
+                        dirA[3] = (nPos[3] > 4) ? A4 * A4 : 0;
 
                         A1 = 0; A2 = 0;
-                        for (int k = 1; k < 5; k++)
+                        for (int k = 0; k < 4; k++)
                         {
                             if (dirA[k] >= A1) { A2 = A1; A1 = dirA[k]; }
                         }
