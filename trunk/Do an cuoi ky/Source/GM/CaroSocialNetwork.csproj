@@ -186,6 +186,7 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Util\Caro\CaroBoard.cs" />
     <Compile Include="Util\Caro\RoomManager.cs" />
     <Compile Include="Util\Caro\Machine.cs" />
     <Compile Include="Util\Caro\Player.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Util\BingTranslate.aspx.designer.cs">
       <DependentUpon>BingTranslate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Util\Caro\UserPlayer.cs" />
     <Compile Include="Util\Engine\Article.cs" />
     <Compile Include="Util\Engine\SearchEngine.cs" />
     <Compile Include="Util\Engine\TranslateEngine.cs" />

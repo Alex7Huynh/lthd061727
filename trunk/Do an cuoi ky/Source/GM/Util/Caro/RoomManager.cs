@@ -92,24 +92,6 @@ namespace CaroSocialNetwork
             }
         }
 
-        public void WaitingForOpponent(int roomid, string username)
-        {
-            int index = FindRoom(roomid);
-            if (index >= 0 && index < rooms.Count)
-            {
-                rooms[index].WaitingForOpponent(username);
-            }
-        }
-
-        public void RegistryComplete(int roomid, string username, MoveWaitingEvent method)
-        {
-            int index = FindRoom(roomid);
-            if (index >= 0 && index < rooms.Count)
-            {
-                rooms[index].WaitingComplete += new MoveWaitingEvent(method);
-            }
-        }
-
         internal bool IsMyTurn(int roomid, string userName)
         {
             int index = FindRoom(roomid);
