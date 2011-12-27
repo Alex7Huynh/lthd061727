@@ -6,10 +6,53 @@ using System.Threading;
 
 namespace CaroSocialNetwork
 {
-    public delegate int[] MoveWaitingEvent(int[] p);
 
     public class Room
     {
+        #region Event and Delegate (Not Use)
+        /*
+        public delegate int[] MoveWaitingEvent(int[] p);
+        public event MoveWaitingEvent WaitingComplete;
+        
+        //Room
+        internal void WaitingForOpponent(string username)
+        {
+            Thread thread = new Thread(o => WaitingThread(username));
+            thread.Start();
+        }
+
+        public void WaitingThread(string username)
+        {
+            do
+            {
+                Thread.Sleep(200);
+            }
+            while (FindPlayer(username) != currentTurn);
+
+            WaitingComplete(new int[] { iLastMove, jLastMove });
+        }
+        
+        //Room Manager
+        public void WaitingForOpponent(int roomid, string username)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
+            {
+                rooms[index].WaitingForOpponent(username);
+            }
+        }
+
+        public void RegistryComplete(int roomid, string username, MoveWaitingEvent method)
+        {
+            int index = FindRoom(roomid);
+            if (index >= 0 && index < rooms.Count)
+            {
+                rooms[index].WaitingComplete += new MoveWaitingEvent(method);
+            }
+        }
+         */
+        #endregion
+
         #region Caro Board
         int boardSize;
         int nmbRows;
@@ -42,10 +85,10 @@ namespace CaroSocialNetwork
         int iMach;
         int jMach;
         #endregion
+
+        #region Room Attribute
         public const int MAX_PLAYER = 2;
         protected List<Player> players = new List<Player>();
-
-        public event MoveWaitingEvent WaitingComplete;
 
         public bool GameOver
         {
@@ -70,6 +113,7 @@ namespace CaroSocialNetwork
             get;
             set;
         }
+        #endregion
 
         public Room()
         {
@@ -185,23 +229,6 @@ namespace CaroSocialNetwork
             {
                 MachineMove();
             }
-        }
-
-        internal void WaitingForOpponent(string username)
-        {
-            Thread thread = new Thread(o => WaitingThread(username));
-            thread.Start();
-        }
-
-        public void WaitingThread(string username)
-        {
-            do
-            {
-                Thread.Sleep(200);
-            }
-            while (FindPlayer(username) != currentTurn);
-
-            WaitingComplete(new int[] { iLastMove, jLastMove });
         }
 
         private void CheckGameOver()
