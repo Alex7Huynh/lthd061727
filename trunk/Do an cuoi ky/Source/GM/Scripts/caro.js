@@ -1,6 +1,6 @@
 var context;
-var oppTurn = true;
-var gameOver = false;
+var myTurn;
+var gameOver;
 
 var userSq = 1;
 var oppSq = -1;
@@ -20,6 +20,7 @@ for (i = 0; i < boardSize; i++) {
 };
 
 var intervalId;
+var oppDraw;
 
 function paintBoard() {
     var board = document.getElementById('board');
@@ -48,8 +49,9 @@ function paintBoard() {
 }
 
 function initGame() {
-    oppTurn = true;
-    gameOver = true;
+    myTurn = IsMyTurn();
+    gameOver = IsGameOver();
+    oppDraw = false;
 
     for (i = 0; i < boardSize; i++) {
         for (j = 0; j < boardSize; j++) {
@@ -70,16 +72,17 @@ function waitingForOpponent() {
 }
 
 function tick() {
-    var myTurn = IsMyTurn();
-    var lastMove = GetOpponentMove();
-    if (oppTurn && myTurn) {
+    myTurn = IsMyTurn();
+    if ((myTurn == true) && (oppDraw == false)) {
+        oppDraw = true;
+        var lastMove = GetOpponentMove();
         alert('last Move' + lastMove);
         opponentMove(lastMove);
     }
 }
 
 function resetGame() {
-    oppTurn = true;
+    myTurn = true;
     gameOver = false;
 
     for (i = 0; i < boardSize; i++) {
@@ -190,51 +193,38 @@ function getPosition(e) {
 };
 
 function clk(iMove, jMove) {
-    gameOver = IsGameOver();
-    if (!gameOver) {
-        if (oppTurn) return; //machine (computer) turn
+    checkGameOver();
 
+    gameOver = IsGameOver();
+
+    myTurn = IsMyTurn();
+    if (!gameOver && myTurn) {
+        oppDraw = false;
         if (f[iMove][jMove] != 0) { alert('This square is not empty! Please choose another.'); return; }
         f[iMove][jMove] = userSq;
         drawSquare(iMove, jMove, userSq);
-        oppTurn = true;
         UserMove(iMove, jMove);
-    }
-    else {
-        alert('over');
-        clearInterval(intervalId);
-
-        var win = IsWin();
-        if (win)
-            alert('You win!');
-        else
-            alert('You loose!');
     }
 }
 
 function opponentMove(move) {
+    f[move[0]][move[1]] = oppSq;
+    drawSquare(move[0], move[1], oppSq);
+
+    checkGameOver();
+}
+
+function checkGameOver() {
     gameOver = IsGameOver();
-    if (!gameOver) {
-        if (move[0] != -1 && move[1] != -1) {
-            if (f[move[0]][move[1]] != 0) { alert('This square is not empty! Please choose another.'); return; }
-            f[move[0]][move[1]] = oppSq;
-            drawSquare(move[0], move[1], oppSq);
-            oppTurn = false;
-            alert('Your Turn');
-        }
-        else {
-            oppTurn = false;
-            alert('Your Turn');
-        }
-    }
-    else {
+    if (gameOver) {
         alert('over');
-        clearInterval(intervalId);
 
         var win = IsWin();
         if (win)
             alert('You win!');
         else
             alert('You loose!');
+
+        clearInterval(intervalId);
     }
 }
