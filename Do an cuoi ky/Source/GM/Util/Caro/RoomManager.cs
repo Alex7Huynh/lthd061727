@@ -8,9 +8,12 @@ namespace CaroSocialNetwork
 {
     public class RoomManager
     {
+        #region Attributes
         static List<Room> rooms = new List<Room>();
         static int currentIndex = -1;
+        #endregion
 
+        #region Methods
         public List<Room> GetRoomList()
         {
             List<Room> result = new List<Room>();
@@ -26,38 +29,25 @@ namespace CaroSocialNetwork
         {
             Room room = new Room();
             room.PlayWithMachine = playwithmachine;
-            Player player = new Player() { Name = username };
-            if (room.AddPlayer(player))
+            room.AddUserPlayer(username);
+            
+            if (playwithmachine)
             {
-                if (playwithmachine)
-                {
-                    if (!room.IsFull())
-                    {
-                        Player machine = new Machine();
-                        room.AddPlayer(machine);
-                    }
-                }
-                currentIndex++;
-                room.Id = currentIndex;
-                rooms.Add(room);
-                roomId = room.Id;
+                room.AddMachine();
             }
-            else
-                roomId = -1;
+            currentIndex++;
+            room.Id = currentIndex;
+            rooms.Add(room);
+            roomId = room.Id;
         }
 
-        public bool JoinRoom(int roomid, string username)
+        public void JoinRoom(int roomid, string username)
         {
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                if (rooms[index].AddPlayer(new Player() { Name = username }))
-                {
-                    return true;
-                }
+                rooms[index].AddUserPlayer(username);
             }
-
-            return false;
         }
 
         private int FindRoom(int roomid)
@@ -73,7 +63,7 @@ namespace CaroSocialNetwork
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                rooms[index].RemovePlayer(username);
+                rooms[index].RemoveUserPlayer(username);
             }
 
             if (rooms[index].IsEmpty())
@@ -87,8 +77,7 @@ namespace CaroSocialNetwork
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                if (!rooms[index].GameOver)
-                    rooms[index].Move(username, userX, userY);
+                rooms[index].Move(username, userX, userY);
             }
         }
 
@@ -97,8 +86,7 @@ namespace CaroSocialNetwork
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                if (rooms[index].GetCurrentTurn() == userName)
-                    return true;
+                return rooms[index].IsMyTurn(userName);
             }
             return false;
         }
@@ -132,5 +120,6 @@ namespace CaroSocialNetwork
             }
             return false;
         }
+        #endregion
     }
 }

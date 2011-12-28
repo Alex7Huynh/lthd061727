@@ -32,6 +32,7 @@ namespace CaroSocialNetwork
 
             UpdateForm();
         }
+
         private void UpdateForm()
         {
             UpdateRoomView();
