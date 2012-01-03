@@ -12,12 +12,10 @@ namespace CaroSocialNetwork.Util.Engine
         public static List<Article> SearchGoogle(String aKeyword, int aPageNumber, int aQuantity)
         {
             List<Article> articles = new List<Article>();
-            //Create search string
-            string APIKey = "AIzaSyDvysnoSg7Xlw4sKcmtdKhsRx_EaD_59TM";
-            string CSEID = "006128248623655005956:_w9w403uat0";
+            //Create search string            
             int startIndex = (aPageNumber - 1) * 10 + 1;
             string urlTemplate = "https://www.googleapis.com/customsearch/v1?key="
-                    + APIKey + "&cx=" + CSEID + "&q=" + aKeyword + "&num=" + aQuantity + "&start=" + startIndex + "&alt=json";
+                    + KeyManager.GoogleKey + "&cx=" + KeyManager.CustomSearchID + "&q=" + aKeyword + "&num=" + aQuantity + "&start=" + startIndex + "&alt=json";
             //Get JSON content
             WebClient c = new WebClient();
             string jsonString = Encoding.UTF8.GetString(c.DownloadData(urlTemplate)).Replace("\r\n", "").Trim();
@@ -36,10 +34,9 @@ namespace CaroSocialNetwork.Util.Engine
         public static List<Article> SearchBing(String aKeyword, int aPageNumber, int aQuantity)
         {
             List<Article> articles = new List<Article>();
-            //Create search string
-            string apiID = "FE383F9A948802A6D19102654EE563456120DDC6";
+            //Create search string            
             string urlTemplate = "http://api.bing.net/json.aspx?Appid="
-                    + apiID + "&query=" + aKeyword + "&web.count=" + aQuantity + "&web.offset=" + (aPageNumber - 1) * 10 + "&sources=web";
+                    + KeyManager.BingID + "&query=" + aKeyword + "&web.count=" + aQuantity + "&web.offset=" + (aPageNumber - 1) * 10 + "&sources=web";
             //Get JSON content
             WebClient c = new WebClient();
             string jsonString = Encoding.UTF8.GetString(c.DownloadData(urlTemplate)).Replace("\r\n", "").Trim();

@@ -43,7 +43,7 @@ namespace CaroSocialNetwork
                 Guid currentUserId = (Guid)currentUser.ProviderUserKey;
                 TreeNode root = new TreeNode("My Locations", "");
 
-                DataClasses1DataContext context = new DataClasses1DataContext();
+                MashDataClassesDataContext context = new MashDataClassesDataContext();
                 foreach (LocationCategory category in context.LocationCategories)
                 {
                     if (category.UserID == currentUserId)
@@ -61,7 +61,7 @@ namespace CaroSocialNetwork
             }
         }
 
-        private void LoadTreeViewLoop(TreeNode parent, LocationCategory categoryParent, DataClasses1DataContext context)
+        private void LoadTreeViewLoop(TreeNode parent, LocationCategory categoryParent, MashDataClassesDataContext context)
         {
             foreach (Location location in context.Locations)
             {
@@ -105,7 +105,7 @@ namespace CaroSocialNetwork
                 location.Longitude = lng;
                 location.Latitude = lat;
 
-                DataClasses1DataContext context = new DataClasses1DataContext();
+                MashDataClassesDataContext context = new MashDataClassesDataContext();
                 context.Locations.InsertOnSubmit(location);
                 context.SubmitChanges();
             }
