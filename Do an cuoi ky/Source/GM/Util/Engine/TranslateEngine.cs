@@ -8,10 +8,9 @@ namespace CaroSocialNetwork.Util.Engine
     public class TranslateEngine
     {
         public static string Translate(string aContent, string aSource, string aDes)
-        {
-            string apiID = "FE383F9A948802A6D19102654EE563456120DDC6";
+        {            
             string url = "http://api.microsofttranslator.com/v2/Http.svc/Translate?appId="
-                + apiID + "&text=" + aContent + "&from=" + aSource + "&to=" + aDes;
+                + KeyManager.BingID + "&text=" + aContent + "&from=" + aSource + "&to=" + aDes;
             WebClient c = new WebClient();
             string resultXML = Encoding.UTF8.GetString(c.DownloadData(url)).Replace("\r\n", "").Trim();
             XmlDocument xDoc = new XmlDocument();
