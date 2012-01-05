@@ -25,7 +25,7 @@ function handleNoGeolocation(errorFlag) {
 }
 
 //ham khoi tao ban do
-function initialize() {
+function initialize() {    
     var myOptions = {
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -86,7 +86,7 @@ function findLocation(address, flag) {
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
-            document.getElementById("DiaDiem").value = results[0].formatted_address;
+            document.getElementById("MainContent_DiaDiem").value = results[0].formatted_address;
             //document.getElementById("viDo").value = results[0].geometry.location.lat();
             //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
@@ -119,7 +119,7 @@ function findLocation(address, flag) {
 
 //ham xu ly su kien button click
 function btnDiaDiem_Click() {
-    var address = document.getElementById("DiaDiem").value;
+    var address = document.getElementById("MainContent_DiaDiem").value;
     findLocation(address, true);
 }
 
@@ -203,7 +203,7 @@ function findMyLocation(idAddress, address, note) {
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
-            document.getElementById("DiaDiem").value = results[0].formatted_address;
+            document.getElementById("MainContent_DiaDiem").value = results[0].formatted_address;
             //document.getElementById("viDo").value = results[0].geometry.location.lat();
             //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
@@ -247,7 +247,7 @@ function themDiaDiem() {
     var tenDanhMuc = $get("TenDanhMuc").value;
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
-    var cayDiaDiem = $get("CayDiaDiem");
+    var cayDiaDiem = $get("MainContent_CayDiaDiem");
     //--Tao node dia diem
     var diaDiemMoi = document.createElement('a');
     diaDiemMoi.setAttribute("id", "DDtemp");
@@ -262,7 +262,7 @@ function themDiaDiem() {
         //cay dia diem -> <span>danh muc -> <strong> -> textContent
         if (cayDiaDiem.children[i].children[0].nodeName == "STRONG"
         && cayDiaDiem.children[i].children[0].textContent == tenDanhMuc) {
-            $get("CayDiaDiem").children[i].appendChild(diaDiemMoi);
+            $get("MainContent_CayDiaDiem").children[i].appendChild(diaDiemMoi);
             myFlag = 1;
             break;
         }
@@ -278,7 +278,7 @@ function themDiaDiem() {
         danhMucMoi.appendChild(bold);
         danhMucMoi.appendChild(document.createElement('br'));
         danhMucMoi.appendChild(diaDiemMoi);
-        $get("CayDiaDiem").appendChild(danhMucMoi);
+        $get("MainContent_CayDiaDiem").appendChild(danhMucMoi);
     }
     //Them dia diem
     PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, maDanhMuc, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
@@ -290,7 +290,7 @@ function xoaDiaDiem() {
     var maDiaDiem = $get("MaDiaDiem").value;
     var tenDiaDiem = $get("TenDiaDiem").value;
     //Cap nhat treeview
-    var parent = document.getElementById("CayDiaDiem");
+    var parent = document.getElementById("MainContent_CayDiaDiem");
     var tmp = $get("DD" + maDiaDiem);
     tmp.parentNode.removeChild(tmp);
     //parent.removeChild(tmp);
