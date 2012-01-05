@@ -103,8 +103,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Util\Bingle.aspx" />
-    <Content Include="Util\BingTranslate.aspx" />
+    <Content Include="Engine\Bingle.aspx" />
+    <Content Include="Engine\BingTranslate.aspx" />
     <Content Include="Util\GMap.aspx" />
     <Content Include="Util\MapViewer.aspx" />
     <Content Include="Web.config" />
@@ -187,25 +187,25 @@
     <Compile Include="Util\Caro\Machine.cs" />
     <Compile Include="Util\Caro\Player.cs" />
     <Compile Include="Util\Caro\Room.cs" />
-    <Compile Include="Util\Bingle.aspx.cs">
+    <Compile Include="Engine\Bingle.aspx.cs">
       <DependentUpon>Bingle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Util\Bingle.aspx.designer.cs">
+    <Compile Include="Engine\Bingle.aspx.designer.cs">
       <DependentUpon>Bingle.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Util\BingTranslate.aspx.cs">
+    <Compile Include="Engine\BingTranslate.aspx.cs">
       <DependentUpon>BingTranslate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Util\BingTranslate.aspx.designer.cs">
+    <Compile Include="Engine\BingTranslate.aspx.designer.cs">
       <DependentUpon>BingTranslate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Util\Caro\UserPlayer.cs" />
-    <Compile Include="Util\Engine\Article.cs" />
-    <Compile Include="Util\Engine\KeyManager.cs" />
-    <Compile Include="Util\Engine\SearchEngine.cs" />
-    <Compile Include="Util\Engine\TranslateEngine.cs" />
+    <Compile Include="Engine\Engine\Article.cs" />
+    <Compile Include="Engine\Engine\KeyManager.cs" />
+    <Compile Include="Engine\Engine\SearchEngine.cs" />
+    <Compile Include="Engine\Engine\TranslateEngine.cs" />
     <Compile Include="Util\GMap.aspx.cs">
       <DependentUpon>GMap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

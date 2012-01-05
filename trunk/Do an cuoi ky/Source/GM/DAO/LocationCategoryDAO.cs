@@ -8,6 +8,21 @@ namespace CaroSocialNetwork.DAO
 {
     public class LocationCategoryDAO
     {
+        public static List<LocationCategory> GetAll(MembershipUser user)
+        {
+            List<LocationCategory> dsDiaDiem = new List<LocationCategory>();
+            try
+            {
+                MashDataClassesDataContext db = new MashDataClassesDataContext();
+                var dsNguoiDung = from q in db.LocationCategories
+                                  where q.UserID.ToString() == user.ProviderUserKey
+                                  select q;
+                dsDiaDiem = dsNguoiDung.ToList<LocationCategory>();
+            }
+            catch (Exception ex)
+            { return null; }
+            return dsDiaDiem;
+        }
         public static bool AddCategory(LocationCategory category)
         {
             try
