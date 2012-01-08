@@ -25,6 +25,17 @@ namespace CaroSocialNetwork
             return result;
         }
 
+        public List<Room> GetRoomList(string username)
+        {
+            List<Room> result = new List<Room>();
+            foreach (Room room in rooms)
+            {
+                if (!room.IsEmpty() && !room.IsFull() && room.HasPlayer(username))
+                    result.Add(room);
+            }
+            return result;
+        }
+
         public void CreateRoom(string username, bool playwithmachine, out int roomId)
         {
             Room room = new Room();

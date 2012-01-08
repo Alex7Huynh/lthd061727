@@ -9,6 +9,7 @@ namespace CaroSocialNetwork
 {
     public class Global : System.Web.HttpApplication
     {
+        public static RoomManager roomManager = new RoomManager();
 
         void Application_Start(object sender, EventArgs e)
         {

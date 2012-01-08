@@ -130,6 +130,16 @@ namespace CaroSocialNetwork
             return false;
         }
 
+        public bool HasPlayer(string username)
+        {
+            foreach (Player player in players)
+            {
+                if (player.Name == username)
+                    return true;
+            }
+            return false;
+        }
+
         public void AddUserPlayer(string username)
         {
             if (!IsFull())

@@ -35,8 +35,9 @@
                         <asp:MenuItem NavigateUrl="~/Util/GMap.aspx" Text="GMap"/>
                         <asp:MenuItem NavigateUrl="~/Engine/Bingle.aspx" Text="Search"/>
                         <asp:MenuItem NavigateUrl="~/Engine/BingTranslate.aspx" Text="Translate"/>
-                        <asp:MenuItem NavigateUrl="~/Util/PlayCaro.aspx" Text="Play Caro" 
-                            Value="Play Caro">
+                        <asp:MenuItem NavigateUrl="~/Util/FindRoom.aspx" Text="Find Room">
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Util/PlayCaro.aspx" Text="Play Caro">
                         </asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>

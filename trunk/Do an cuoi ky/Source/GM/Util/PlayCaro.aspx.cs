@@ -15,8 +15,6 @@ namespace CaroSocialNetwork
 {
     public partial class PlayCaro : System.Web.UI.Page
     {
-        static RoomManager roomManager = new RoomManager();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["CurrentRoom"] == null)
@@ -41,7 +39,7 @@ namespace CaroSocialNetwork
 
         private void UpdateListRooms()
         {
-            Room[] rooms = roomManager.GetRoomList().ToArray();
+            Room[] rooms = Global.roomManager.GetRoomList().ToArray();
             ddlRooms.DataTextField = "Name";
             ddlRooms.DataValueField = "Id";
             ddlRooms.DataSource = rooms;
@@ -65,7 +63,7 @@ namespace CaroSocialNetwork
             if (ddlRooms.SelectedIndex != -1)
             {
                 int roomId = int.Parse(ddlRooms.SelectedItem.Value);
-                roomManager.JoinRoom(roomId, Membership.GetUser().UserName);
+                Global.roomManager.JoinRoom(roomId, Membership.GetUser().UserName);
                 Session["CurrentRoom"] = roomId;
 
                 UpdateForm();
@@ -77,7 +75,7 @@ namespace CaroSocialNetwork
         protected void btnCreateRoomMachine_Click(object sender, EventArgs e)
         {
             int roomId;
-            roomManager.CreateRoom(Membership.GetUser().UserName, true, out roomId);
+            Global.roomManager.CreateRoom(Membership.GetUser().UserName, true, out roomId);
             Session["CurrentRoom"] = roomId;
 
             UpdateForm();
@@ -86,7 +84,7 @@ namespace CaroSocialNetwork
         protected void btnCreateRoomPlayer_Click(object sender, EventArgs e)
         {
             int roomId;
-            roomManager.CreateRoom(Membership.GetUser().UserName, false, out roomId);
+            Global.roomManager.CreateRoom(Membership.GetUser().UserName, false, out roomId);
             Session["CurrentRoom"] = roomId;
 
             UpdateForm();
@@ -95,7 +93,7 @@ namespace CaroSocialNetwork
         protected void btnLeaveTheRoom_Click(object sender, EventArgs e)
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            roomManager.LeaveRoom(roomId, Membership.GetUser().UserName);
+            Global.roomManager.LeaveRoom(roomId, Membership.GetUser().UserName);
             Session["CurrentRoom"] = -1;
 
             UpdateForm();
@@ -112,35 +110,35 @@ namespace CaroSocialNetwork
         public bool IsMyTurn()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return roomManager.IsMyTurn(roomId, Membership.GetUser().UserName);
+            return Global.roomManager.IsMyTurn(roomId, Membership.GetUser().UserName);
         }
 
         [Ajax.AjaxMethod(false)]
         public int[] GetOpponentMove()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return roomManager.GetLastMove(roomId);
+            return Global.roomManager.GetLastMove(roomId);
         }
 
         [Ajax.AjaxMethod(false)]
         public bool IsGameOver()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return roomManager.IsGameOver(roomId);
+            return Global.roomManager.IsGameOver(roomId);
         }
 
         [Ajax.AjaxMethod(false)]
         public void UserMove(int x, int y)
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            roomManager.Move(roomId, Membership.GetUser().UserName, x, y);
+            Global.roomManager.Move(roomId, Membership.GetUser().UserName, x, y);
         }
 
         [Ajax.AjaxMethod(false)]
         public bool IsWin()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return roomManager.IsWin(roomId, Membership.GetUser().UserName);
+            return Global.roomManager.IsWin(roomId, Membership.GetUser().UserName);
         }
 
         #endregion
