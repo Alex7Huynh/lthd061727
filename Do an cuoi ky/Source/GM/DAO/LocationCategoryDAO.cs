@@ -15,7 +15,7 @@ namespace CaroSocialNetwork.DAO
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
                 var dsNguoiDung = from q in db.LocationCategories
-                                  where q.UserID.ToString() == user.ProviderUserKey
+                                  where q.UserID.ToString() == user.ProviderUserKey && q.Deleted == false
                                   select q;
                 dsDiaDiem = dsNguoiDung.ToList<LocationCategory>();
             }

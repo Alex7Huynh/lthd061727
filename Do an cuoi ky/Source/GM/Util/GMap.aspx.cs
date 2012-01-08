@@ -58,7 +58,7 @@ namespace CaroSocialNetwork
         }
 
         [System.Web.Services.WebMethod]
-        public static void ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, Guid maDanhMuc)
+        public static Guid ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, Guid maDanhMuc)
         {
             Location location = new Location();
             location.Name = tenDiaDiem;
@@ -68,18 +68,28 @@ namespace CaroSocialNetwork
             location.Latitude = viDo;
             location.Longitude = kinhDo;
             LocationDAO.AddLocation(location);
+            return location.LocationID;
         }
 
         [System.Web.Services.WebMethod]
-        public static bool CapNhatDiaDiem(int maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
+        public static bool CapNhatDiaDiem(Guid maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
         {
-            return true;
+            Location location = new Location();
+            location.LocationID = maDiaDiem;
+            location.Name = tenDiaDiem;
+            location.Deleted = false;
+            location.Note = ghiChu;
+            location.Latitude = viDo;
+            location.Longitude = kinhDo;
+            return LocationDAO.UpdateLocation(location);
         }
 
         [System.Web.Services.WebMethod]
-        public static bool XoaDiaDiem(int maDiaDiem)
+        public static bool XoaDiaDiem(Guid maDiaDiem)
         {
-            return true;
+            Location location = new Location();
+            location.LocationID = maDiaDiem;
+            return LocationDAO.RemoveLocation(location);
         }
 
         protected void btnAddCategory_Click(object sender, EventArgs e)
@@ -113,6 +123,10 @@ namespace CaroSocialNetwork
 
                 for (int j = 0; j < category.Locations.Count; ++j)
                 {
+                    // Inorge location which has been deleted
+                    if (category.Locations[j].Deleted == true)
+                        continue;
+
                     Location location = category.Locations[j];
                     /*Literal l1 = new Literal();
                     l1.Text = "&nbsp&nbsp+&nbsp";

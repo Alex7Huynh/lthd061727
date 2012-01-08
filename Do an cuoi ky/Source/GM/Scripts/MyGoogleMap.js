@@ -72,7 +72,7 @@ function initialize() {
 var contenttemp = "";
 
 function OnSuccess(response) {
-    contenttemp.concat("haha");
+    contenttemp = "";
     contenttemp += "Danh mục: ";
     contenttemp += "<select id='Categories'>";
     for (var i = 0; i < response.length; i++) {
@@ -265,7 +265,8 @@ function themDiaDiem() {
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
     var danhMuc = $get("Categories");
-    var tenDanhMuc = danhMuc.options[danhMuc.selectedIndex].name;
+    var tenDanhMuc = danhMuc.options[danhMuc.selectedIndex].text;
+    var maDanhMuc = danhMuc.options[danhMuc.selectedIndex].value;
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
     var cayDiaDiem = $get("MainContent_CayDiaDiem");
@@ -288,11 +289,7 @@ function themDiaDiem() {
         }
     }
     //--Them danh muc va them dia diem
-    var maDanhMuc = 0;
     if (myFlag == 0) {
-        var e = $get("Categories");
-        var maDanhMuc = e.options[e.selectedIndex].value;
-
         var danhMucMoi = document.createElement('span');
         danhMucMoi.setAttribute("id", "DM" + maDanhMuc);
         var bold = document.createElement('strong');
@@ -315,6 +312,8 @@ function xoaDiaDiem() {
     //Cap nhat treeview
     var parent = document.getElementById("MainContent_CayDiaDiem");
     var tmp = $get("DD" + maDiaDiem);
+    if (tmp == null)
+        tmp = $get(maDiaDiem);
     tmp.parentNode.removeChild(tmp);
     //parent.removeChild(tmp);
     //Xoa dia diem
@@ -352,7 +351,7 @@ function OnCallThemDiaDiemComplete(result) {
     document.getElementById('DDtemp').setAttribute('href', tmp);
     document.getElementById('DDtemp').setAttribute('id', "DD" + result);
     //alert(result.toString());
-    //alert('Thêm thành công!');
+    alert('Thêm thành công!');
 
     //"DD"  + result ---> "DD1397204503"
     // new href ---> document.getElementById('DD1').href.replace('1', '1234')
@@ -361,7 +360,7 @@ function OnCallThemDiaDiemComplete(result) {
 
 //Hoan thanh xoa dia diem
 function OnCallXoaDiaDiemComplete() {
-    //alert('Xóa thành công!');
+    alert('Xóa thành công!');
 }
 
 //Hoan thanh cap nhat dia diem
