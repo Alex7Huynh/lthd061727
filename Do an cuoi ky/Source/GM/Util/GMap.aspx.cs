@@ -20,61 +20,40 @@ namespace CaroSocialNetwork
         {
             this.Title = "Map";
 
-            if (!IsPostBack)
-            {
-                LoadMyTreeView();
-                ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript: initialize(); ", true);
-            }
+            LoadMyTreeView();
+            ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript: initialize(); ", true);
+            LoadCategoryList();
         }
 
-        protected void TreeView1_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
+        private void LoadCategoryList()
         {
-            TreeView t = (TreeView)(sender);
-            DiaDiem.Text = t.SelectedNode.Value;
-            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + t.SelectedNode.Value + "');", true);
+            MembershipUser user = Membership.GetUser();
+            List<LocationCategory> categories = LocationCategoryDAO.GetAll(user);
+            ddlCategory.DataSource = categories;
+            ddlCategory.DataTextField = "Name";
+            ddlCategory.DataValueField = "CategoryID";
+            ddlCategory.DataBind();
         }
 
-        [System.Web.Services.WebMethod]
-        public static int ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, int maDanhMuc, string tenDanhMuc)
+        protected void btnAddCategory_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Random rand = new Random();
-                int maDiaDiem = rand.Next();
-                LocationCategory category = new LocationCategory();
-                category.Name = tenDanhMuc;
-                //category.UserID.Value = (Guid)(Membership.GetUser().ProviderUserKey);
-                //DanhMucDTO danhMuc = new DanhMucDTO(maDanhMuc, tenDanhMuc, CurrentUser);
-                //DiaDiemDTO diaDiem = new DiaDiemDTO(maDiaDiem, tenDiaDiem, viDo, kinhDo, ghiChu, danhMuc);
-                //if (DanhMucDAO.TimDanhMuc(danhMuc.TenDanhMuc, CurrentUser) == null)
-                //{
-                //    if (!DanhMucDAO.ThemDanhMuc(danhMuc))
-                //    {
-                //        //Thông báo thất bại
-                //        return -1;
-                //    }
-                //}
-                //if (DiaDiemDAO.ThemDiaDiem(diaDiem))
-                //{
-                //    //Thêm thành công                    
-                //    return maDiaDiem;
-                //}
-                //Thông báo thất bại
-                return -1;
-            }
-            catch (Exception ex) { return -1; }
+            LocationCategory category = new LocationCategory();
+            category.Name = txtCategoryName.Text;
+            category.Deleted = false;
+            category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+            LocationCategoryDAO.AddCategory(category);
         }
 
-        [System.Web.Services.WebMethod]
-        public static bool CapNhatDiaDiem(int maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
+        protected void btnAddLocation_Click(object sender, EventArgs e)
         {
-            return true;
-        }
-
-        [System.Web.Services.WebMethod]
-        public static bool XoaDiaDiem(int maDiaDiem)
-        {
-            return true;
+            Location location = new Location();
+            location.Name = txtLocationName.Text;
+            location.Deleted = false;
+            location.Note = "new location";
+            location.CategoryID = Guid.Parse(ddlCategory.SelectedItem.Value);
+            location.Latitude = double.Parse(txtLat.Text);
+            location.Longitude = double.Parse(txtLng.Text);
+            LocationDAO.AddLocation(location);
         }
 
         public void LoadMyTreeView()

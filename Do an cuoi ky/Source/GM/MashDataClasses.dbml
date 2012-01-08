@@ -2,7 +2,7 @@
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ASPNETDBConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Location" Member="Locations">
     <Type Name="Location">
-      <Column Name="LocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LocationID" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
@@ -14,7 +14,7 @@
   </Table>
   <Table Name="dbo.LocationCategory" Member="LocationCategories">
     <Type Name="LocationCategory">
-      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CategoryID" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ParentCategoryID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
