@@ -83,7 +83,6 @@ namespace CaroSocialNetwork
             //treeView.Nodes.Clear();
             List<LocationCategory> categories = LocationCategoryDAO.GetAll(user);
 
-
             for (int i = 0; i < categories.Count; ++i)
             {
                 LocationCategory category = categories[i];

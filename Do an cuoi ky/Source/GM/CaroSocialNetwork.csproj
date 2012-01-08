@@ -87,6 +87,7 @@
     <Content Include="Scripts\MyScript.js" />
     <Content Include="Styles\bingle.css" />
     <Content Include="Styles\Caro.css" />
+    <Content Include="Styles\GMap.css" />
     <Content Include="Styles\MyStyle.css" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
