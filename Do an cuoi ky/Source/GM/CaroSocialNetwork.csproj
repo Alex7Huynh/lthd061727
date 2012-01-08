@@ -95,6 +95,7 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Util\FindRoom.aspx" />
     <None Include="MashDataClasses.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>MashDataClasses.designer.cs</LastGenOutput>
@@ -219,6 +220,13 @@
     </Compile>
     <Compile Include="Util\PlayCaro.aspx.designer.cs">
       <DependentUpon>PlayCaro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Util\FindRoom.aspx.cs">
+      <DependentUpon>FindRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Util\FindRoom.aspx.designer.cs">
+      <DependentUpon>FindRoom.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
