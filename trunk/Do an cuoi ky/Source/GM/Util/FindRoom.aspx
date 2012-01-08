@@ -5,7 +5,7 @@
     <div style="width: 30%; float: left; ">
         <asp:Label ID="lblMyPlaces" runat="server" Text="My Places: "></asp:Label>
         <asp:ListBox ID="lstboxMyPlaces" runat="server" Height="331px" Width="388px" 
-            onselectedindexchanged="lstboxMyPlaces_SelectedIndexChanged">
+            AutoPostBack="True" EnableViewState="True" onselectedindexchanged="lstboxMyPlaces_SelectedIndexChanged">
         </asp:ListBox>
     </div>
     <div style="width: 30%; float: left; ">
