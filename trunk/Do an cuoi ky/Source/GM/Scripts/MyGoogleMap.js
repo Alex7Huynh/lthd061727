@@ -121,6 +121,7 @@ function findLocation(address, flag) {
 function btnDiaDiem_Click() {
     var address = document.getElementById("MainContent_DiaDiem").value;
     findLocation(address, true);
+    document.getElementById("MainContent_txtLocationName").value = address;
 }
 
 //ham xu ly su kien link click
@@ -204,8 +205,9 @@ function findMyLocation(idAddress, address, note) {
                 infowindow = new google.maps.InfoWindow();
             }
             document.getElementById("MainContent_DiaDiem").value = results[0].formatted_address;
-            //document.getElementById("viDo").value = results[0].geometry.location.lat();
-            //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
+
+            document.getElementById("MainContent_txtLat").value = results[0].geometry.location.lat();
+            document.getElementById("MainContent_txtLng").value = results[0].geometry.location.lng();
 
 
             var content = "<input id='MaDiaDiem' type=hidden value='" + idAddress + "' /><br/>";
