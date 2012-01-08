@@ -9,7 +9,7 @@ body
     margin: 0px;
     padding: 0px;
     color: #696969;
-    width: 1097px;
+    width: 1360px;
 }
 
 a:link, a:visited
@@ -92,7 +92,7 @@ first child of the left and right table columns */
 {
     width: 100%;
     background-color: #fff;
-    margin: 20px auto 0px auto;
+    margin: 0px auto 0px auto;
     border: 1px solid #496077;
 }
 

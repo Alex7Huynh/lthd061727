@@ -106,7 +106,6 @@
     <Content Include="Engine\Bingle.aspx" />
     <Content Include="Engine\BingTranslate.aspx" />
     <Content Include="Util\GMap.aspx" />
-    <Content Include="Util\MapViewer.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -212,13 +211,6 @@
     </Compile>
     <Compile Include="Util\GMap.aspx.designer.cs">
       <DependentUpon>GMap.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Util\MapViewer.aspx.cs">
-      <DependentUpon>MapViewer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Util\MapViewer.aspx.designer.cs">
-      <DependentUpon>MapViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Util\PlayCaro.aspx.cs">
       <DependentUpon>PlayCaro.aspx</DependentUpon>
