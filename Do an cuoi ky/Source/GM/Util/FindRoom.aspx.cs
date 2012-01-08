@@ -11,11 +11,12 @@ namespace CaroSocialNetwork
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        List<Location> myLocations = new List<Location>();
+        static List<Location> myLocations = new List<Location>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ListMyPlaces();
+            if (!IsPostBack)
+                ListMyPlaces();
         }
 
         private void ListMyPlaces()
