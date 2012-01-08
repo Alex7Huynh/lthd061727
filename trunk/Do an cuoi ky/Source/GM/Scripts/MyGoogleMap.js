@@ -1,6 +1,6 @@
 ﻿/// <reference path="google-maps-3-vs-1-0.js" />
 var map;
-var vietnam = new google.maps.LatLng(14.058324, 108.277199);
+//var vietnam = new google.maps.LatLng(14.058324, 108.277199);
 var initLocation;
 var browserSupportFlag;
 var geocoder;
@@ -69,11 +69,29 @@ function initialize() {
     //map.getDiv().appendChild(contextmenu);
 }
 
+var contenttemp = "";
+
+function OnSuccess(response) {
+    contenttemp.concat("haha");
+    contenttemp += "Danh mục: ";
+    contenttemp += "<select id='Categories'>";
+    for (var i = 0; i < response.length; i++) {
+        if (i == 0) {
+            contenttemp += "<option selected='selected' value='" + response[i].Id + "'>" + response[i].Name + "</option>";
+        }
+        else {
+            contenttemp += "<option value='" + response[i].Id + "'>" + response[i].Name + "</option>";
+        }
+    }
+    contenttemp += "</select><br/>";
+}
+
 //Tim dia diem
 function findLocation(address, flag) {
     if (!geocoder) {
         geocoder = new google.maps.Geocoder();
     }
+    PageMethods.GetCategories(OnSuccess);
     var geocoderRequest = { address: address };
     geocoder.geocode(geocoderRequest, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -86,14 +104,16 @@ function findLocation(address, flag) {
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
-            document.getElementById("MainContent_DiaDiem").value = results[0].formatted_address;
+            document.getElementById("MainContent_txtAddress").value = results[0].formatted_address;
             //document.getElementById("viDo").value = results[0].geometry.location.lat();
             //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
             var content = "<strong><input id='TenDiaDiem' type=text  value='" + results[0].formatted_address + "' /></strong><br/>";
             content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
             content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
-            content += "Danh mục: <input id='TenDanhMuc' type=text /><br/>";
+
+            content += contenttemp;
+
             content += "Ghi chú: <input id='GhiChu' type=text /><br/><br/><br/>";
             content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=themDiaDiem()>Thêm</a>";
 
@@ -118,10 +138,9 @@ function findLocation(address, flag) {
 }
 
 //ham xu ly su kien button click
-function btnDiaDiem_Click() {
-    var address = document.getElementById("MainContent_DiaDiem").value;
+function btnFindLocation_Click() {
+    var address = document.getElementById("MainContent_txtAddress").value;
     findLocation(address, true);
-    document.getElementById("MainContent_txtLocationName").value = address;
 }
 
 //ham xu ly su kien link click
@@ -204,10 +223,9 @@ function findMyLocation(idAddress, address, note) {
             if (!infowindow) {
                 infowindow = new google.maps.InfoWindow();
             }
-            document.getElementById("MainContent_DiaDiem").value = results[0].formatted_address;
-
-            document.getElementById("MainContent_txtLat").value = results[0].geometry.location.lat();
-            document.getElementById("MainContent_txtLng").value = results[0].geometry.location.lng();
+            document.getElementById("MainContent_txtAddress").value = results[0].formatted_address;
+            //document.getElementById("viDo").value = results[0].geometry.location.lat();
+            //document.getElementById("kinhDo").value = results[0].geometry.location.lng();
 
 
             var content = "<input id='MaDiaDiem' type=hidden value='" + idAddress + "' /><br/>";
@@ -246,7 +264,8 @@ function themDiaDiem() {
     var tenDiaDiem = $get("TenDiaDiem").value;
     var viDo = $get("ViDo").value;
     var kinhDo = $get("KinhDo").value;
-    var tenDanhMuc = $get("TenDanhMuc").value;
+    var danhMuc = $get("Categories");
+    var tenDanhMuc = danhMuc.options[danhMuc.selectedIndex].name;
     var ghiChu = $get("GhiChu").value;
     //Cap nhat treeview
     var cayDiaDiem = $get("MainContent_CayDiaDiem");
@@ -258,7 +277,6 @@ function themDiaDiem() {
     diaDiemMoi.appendChild(_text);
     diaDiemMoi.appendChild(document.createElement('br'));
     var myFlag = 0;
-    var maDanhMuc = 0;
     //--Them dia diem vao danh muc
     for (var i = 0; i < cayDiaDiem.children.length; i++) {
         //cay dia diem -> <span>danh muc -> <strong> -> textContent
@@ -270,8 +288,11 @@ function themDiaDiem() {
         }
     }
     //--Them danh muc va them dia diem
+    var maDanhMuc = 0;
     if (myFlag == 0) {
-        maDanhMuc = Math.floor(Math.random() * 11);
+        var e = $get("Categories");
+        var maDanhMuc = e.options[e.selectedIndex].value;
+
         var danhMucMoi = document.createElement('span');
         danhMucMoi.setAttribute("id", "DM" + maDanhMuc);
         var bold = document.createElement('strong');
@@ -283,7 +304,7 @@ function themDiaDiem() {
         $get("MainContent_CayDiaDiem").appendChild(danhMucMoi);
     }
     //Them dia diem
-    PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, maDanhMuc, tenDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
+    PageMethods.ThemDiaDiem(tenDiaDiem, viDo, kinhDo, ghiChu, maDanhMuc, OnCallThemDiaDiemComplete, OnFailed);
 }
 
 //Xoa dia diem

@@ -15,21 +15,12 @@
         <h1>
             DỊCH VỤ TÌM KIẾM ĐỊA ĐIỂM</h1>
         <div style="width: 100%; ">
-            <asp:TextBox ID="DiaDiem" runat="server" Width="36%"></asp:TextBox>
-            <input id="TimDiaDiem" onclick="btnDiaDiem_Click()" type="button" value="Tìm địa điểm" />
+            <asp:TextBox ID="txtAddress" runat="server" Width="36%"></asp:TextBox>
+            <input id="btnFindLocation" onclick="btnFindLocation_Click()" type="button" value="Tìm địa điểm" />
             <input id="MyLocation" onclick="btnMyLocation_Click()" type="button" value="Vị trí hiện tại" />
             <input type="button" value="Chia sẻ địa điểm" onclick="window.open('ChiaSeDiaDiem.aspx')"style="width: 122px" />
             <asp:TextBox ID="DanhMucTimKiem" runat="server" Width="84px" Text="Trường"></asp:TextBox>
             <input id="TimViTriGanNhat" onclick="timDiaDiemGanNhat()" type="button" value="Tìm vị trí gần nhất" />
-        </div>
-        <div style="width: 100%; ">
-            <asp:TextBox ID="txtLocationName" runat="server" Width="36%" Text="Location Name"></asp:TextBox>
-            <asp:TextBox ID="txtLat" runat="server" Text="Lat"></asp:TextBox>
-            <asp:TextBox ID="txtLng" runat="server" Text="Lng"></asp:TextBox>
-            <asp:DropDownList ID="ddlCategory" runat="server">
-            </asp:DropDownList>
-            <asp:Button ID="btnAddLocation" runat="server" Text="Add Location" 
-                onclick="btnAddLocation_Click" />
         </div>
         <div style="width: 100%; ">
             <asp:TextBox ID="txtCategoryName" runat="server" Width="36%" Text="Category Name"></asp:TextBox>
