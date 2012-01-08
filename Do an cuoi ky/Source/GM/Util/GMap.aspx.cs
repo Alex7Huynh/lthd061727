@@ -22,17 +22,64 @@ namespace CaroSocialNetwork
 
             LoadMyTreeView();
             ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript: initialize(); ", true);
-            LoadCategoryList();
         }
 
-        private void LoadCategoryList()
+        public class CategoryTemp
         {
-            MembershipUser user = Membership.GetUser();
-            List<LocationCategory> categories = LocationCategoryDAO.GetAll(user);
-            ddlCategory.DataSource = categories;
-            ddlCategory.DataTextField = "Name";
-            ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataBind();
+            private string _name;
+            public string Name
+            {
+                get { return _name; }
+                set { _name = value; }
+            }
+
+            private Guid _id;
+            public Guid Id
+            {
+                get { return _id; }
+                set { _id = value; }
+            }
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static List<CategoryTemp> GetCategories()
+        {
+            List<LocationCategory> lc = LocationCategoryDAO.GetAll(Membership.GetUser());
+            List<CategoryTemp> tempList = new List<CategoryTemp>();
+            foreach (LocationCategory category in lc)
+            {
+                CategoryTemp temp = new CategoryTemp();
+                temp.Name = category.Name;
+                temp.Id = category.CategoryID;
+                tempList.Add(temp);
+            }
+            return tempList;
+        }
+
+        [System.Web.Services.WebMethod]
+        public static void ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, Guid maDanhMuc)
+        {
+            Location location = new Location();
+            location.Name = tenDiaDiem;
+            location.Deleted = false;
+            location.Note = ghiChu;
+            location.CategoryID = maDanhMuc;
+            location.Latitude = viDo;
+            location.Longitude = kinhDo;
+            LocationDAO.AddLocation(location);
+        }
+
+        [System.Web.Services.WebMethod]
+        public static bool CapNhatDiaDiem(int maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
+        {
+            return true;
+        }
+
+        [System.Web.Services.WebMethod]
+        public static bool XoaDiaDiem(int maDiaDiem)
+        {
+            return true;
         }
 
         protected void btnAddCategory_Click(object sender, EventArgs e)
@@ -42,18 +89,6 @@ namespace CaroSocialNetwork
             category.Deleted = false;
             category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
             LocationCategoryDAO.AddCategory(category);
-        }
-
-        protected void btnAddLocation_Click(object sender, EventArgs e)
-        {
-            Location location = new Location();
-            location.Name = txtLocationName.Text;
-            location.Deleted = false;
-            location.Note = "new location";
-            location.CategoryID = Guid.Parse(ddlCategory.SelectedItem.Value);
-            location.Latitude = double.Parse(txtLat.Text);
-            location.Longitude = double.Parse(txtLng.Text);
-            LocationDAO.AddLocation(location);
         }
 
         public void LoadMyTreeView()
