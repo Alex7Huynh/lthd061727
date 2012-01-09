@@ -95,20 +95,20 @@ namespace CaroSocialNetwork.DAO
             { return null; }
             return location;
         }
-        public static Location FindLocation(Guid ID)
+        public static Location FindLocation(Guid id)
         {
-            Location location = new Location();
             try
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
-                var results = from q in db.Locations
-                              where location.LocationID.ToString() == ID.ToString()
-                              select q;
-                location = results.First();
+                foreach (Location location in db.Locations)
+                {
+                    if (location.LocationID == id)
+                        return location;
+                }
+                return null;
             }
             catch (Exception ex)
             { return null; }
-            return location;
         }
         public static Location FindLocation(string ID)
         {
@@ -152,7 +152,7 @@ namespace CaroSocialNetwork.DAO
 
         public static List<Location> FindNearbyLocation(Location centerlocation)
         {
-                MashDataClassesDataContext db = new MashDataClassesDataContext();
+            MashDataClassesDataContext db = new MashDataClassesDataContext();
             List<Location> returnLocations = new List<Location>();
             foreach (Location location in db.Locations)
             {
@@ -177,6 +177,23 @@ namespace CaroSocialNetwork.DAO
         public static double rad(double x)
         {
             return x * Math.PI / 180;
+        }
+
+        internal static Guid FindUser(Guid locationid)
+        {
+            MashDataClassesDataContext db = new MashDataClassesDataContext();
+            foreach (aspnet_User user in db.aspnet_Users)
+            {
+                foreach (LocationCategory category in user.LocationCategories)
+                {
+                    foreach (Location location in category.Locations)
+                    {
+                        if (location.LocationID == locationid)
+                            return user.UserId;
+                    }
+                }
+            }
+            return new Guid();
         }
     }
 }

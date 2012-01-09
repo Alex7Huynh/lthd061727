@@ -87,6 +87,7 @@
     <Content Include="RSS\RSS.aspx" />
     <Content Include="RSS\RssService.asmx" />
     <Content Include="Scripts\caro.js" />
+    <Content Include="Scripts\FindFriendScript.js" />
     <Content Include="Scripts\gears_init.js" />
     <Content Include="Scripts\gmap3.min.js" />
     <Content Include="Scripts\google-maps-3-vs-1-0-vsdoc.js" />
@@ -94,7 +95,6 @@
     <Content Include="Scripts\jquery-1.6.1.min.js" />
     <Content Include="Scripts\MapScript.js" />
     <Content Include="Scripts\MyGoogleMap.js" />
-    <Content Include="Scripts\MyScript.js" />
     <Content Include="Styles\bingle.css" />
     <Content Include="Styles\Caro.css" />
     <Content Include="Styles\GMap.css" />
@@ -105,7 +105,7 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Util\FindRoom.aspx" />
+    <Content Include="Util\FindFriend.aspx" />
     <None Include="MashDataClasses.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>MashDataClasses.designer.cs</LastGenOutput>
@@ -242,12 +242,12 @@
     <Compile Include="Util\PlayCaro.aspx.designer.cs">
       <DependentUpon>PlayCaro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Util\FindRoom.aspx.cs">
-      <DependentUpon>FindRoom.aspx</DependentUpon>
+    <Compile Include="Util\FindFriend.aspx.cs">
+      <DependentUpon>FindFriend.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Util\FindRoom.aspx.designer.cs">
-      <DependentUpon>FindRoom.aspx</DependentUpon>
+    <Compile Include="Util\FindFriend.aspx.designer.cs">
+      <DependentUpon>FindFriend.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
