@@ -7,19 +7,20 @@ namespace CaroSocialNetwork.DAO
 {
     public class LocationDAO
     {
-        public static bool AddLocation(Location location)
+        public static Guid AddLocation(Location location)
         {
             try
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
                 db.Locations.InsertOnSubmit(location);
                 db.SubmitChanges();
+                return location.LocationID;
             }
             catch (Exception ex)
             {
-                return false;
+                return new Guid("");
             }
-            return true;
+
         }
         public static bool RemoveLocation(Location location)
         {
@@ -29,10 +30,10 @@ namespace CaroSocialNetwork.DAO
                 Location newLocation = new Location();
                 newLocation = db.Locations.Single(t => t.LocationID == location.LocationID);
                 //Update
-                newLocation.Deleted = true;                
+                newLocation.Deleted = true;
                 //Submit
                 db.SubmitChanges();
-                
+
             }
             catch (Exception ex)
             {
@@ -40,7 +41,25 @@ namespace CaroSocialNetwork.DAO
             }
             return true;
         }
-        public static bool UpdateLocation(Location location)
+        public static bool RemoveLocation(string ID)
+        {
+            try
+            {
+                MashDataClassesDataContext db = new MashDataClassesDataContext();
+                Location newLocation = new Location();
+                newLocation = db.Locations.Single(t => t.LocationID == new Guid(ID));
+                //Update
+                newLocation.Deleted = true;
+                //Submit
+                db.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static Guid UpdateLocation(Location location)
         {
             try
             {
@@ -55,25 +74,51 @@ namespace CaroSocialNetwork.DAO
                 newLocation.Note = location.Note;
                 //Submit
                 db.SubmitChanges();
+                return location.LocationID;
             }
             catch (Exception ex)
-            { return false; }
-            return true;
+            { return new Guid(""); }
+
         }
-        public static Location FindLocation(string name)
+        public static Location FindLocationByName(string name)
         {
             Location location = new Location();
             try
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
-                var dsNguoiDung = from q in db.Locations
-                                  where location.Name.Contains(name)
-                                  select q;
-                location = dsNguoiDung.Single();
+                var results = from q in db.Locations
+                              where location.Name.Contains(name)
+                              select q;
+                location = results.Single();
             }
             catch (Exception ex)
             { return null; }
             return location;
+        }
+        public static Location FindLocation(Guid ID)
+        {
+            Location location = new Location();
+            try
+            {
+                MashDataClassesDataContext db = new MashDataClassesDataContext();
+                var results = from q in db.Locations
+                              where location.LocationID.ToString() == ID.ToString()
+                              select q;
+                location = results.First();
+            }
+            catch (Exception ex)
+            { return null; }
+            return location;
+        }
+        public static Location FindLocation(string ID)
+        {
+            List<Location> locations = GetAll();
+            foreach (Location l in locations)
+            {
+                if (l.LocationID.ToString() == ID)
+                    return l;
+            }
+            return null;
         }
         public static List<Location> FindLocation(LocationCategory category)
         {
@@ -81,8 +126,22 @@ namespace CaroSocialNetwork.DAO
             try
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
+                var results = from q in db.Locations
+                              where q.CategoryID.ToString() == category.CategoryID.ToString() && q.Deleted == false
+                              select q;
+                dsDiaDiem = results.ToList<Location>();
+            }
+            catch (Exception ex)
+            { return null; }
+            return dsDiaDiem;
+        }
+        public static List<Location> GetAll()
+        {
+            List<Location> dsDiaDiem = new List<Location>();
+            try
+            {
+                MashDataClassesDataContext db = new MashDataClassesDataContext();
                 var dsNguoiDung = from q in db.Locations
-                                  where q.LocationID.ToString() == category.ParentCategoryID.ToString()
                                   select q;
                 dsDiaDiem = dsNguoiDung.ToList<Location>();
             }
@@ -102,7 +161,6 @@ namespace CaroSocialNetwork.DAO
             }
             return returnLocations;
         }
-
         public static double FindDistance(Location p1, Location p2)
         {
             double R = 6371; // earth's mean radius in km
@@ -116,7 +174,6 @@ namespace CaroSocialNetwork.DAO
 
             return d;
         }
-
         public static double rad(double x)
         {
             return x * Math.PI / 180;

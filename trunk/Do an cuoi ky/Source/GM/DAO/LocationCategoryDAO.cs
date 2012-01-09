@@ -15,7 +15,7 @@ namespace CaroSocialNetwork.DAO
             {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
                 var dsNguoiDung = from q in db.LocationCategories
-                                  where q.UserID.ToString() == user.ProviderUserKey && q.Deleted == false
+                                  where q.UserID.ToString() == user.ProviderUserKey
                                   select q;
                 dsDiaDiem = dsNguoiDung.ToList<LocationCategory>();
             }
@@ -23,19 +23,20 @@ namespace CaroSocialNetwork.DAO
             { return null; }
             return dsDiaDiem;
         }
-        public static bool AddCategory(LocationCategory category)
+        public static Guid AddCategory(LocationCategory category)
         {
             try
-            {                
+            {
                 MashDataClassesDataContext db = new MashDataClassesDataContext();
                 db.LocationCategories.InsertOnSubmit(category);
                 db.SubmitChanges();
+                return category.CategoryID;
             }
             catch (Exception ex)
             {
-                return false;
+                return new Guid("");
             }
-            return true;
+
         }
         public static bool UpdateCategory(LocationCategory category)
         {

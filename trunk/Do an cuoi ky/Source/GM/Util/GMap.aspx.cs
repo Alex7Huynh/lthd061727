@@ -41,7 +41,6 @@ namespace CaroSocialNetwork
             }
         }
 
-
         [System.Web.Services.WebMethod]
         public static List<CategoryTemp> GetCategories()
         {
@@ -55,51 +54,16 @@ namespace CaroSocialNetwork
                 tempList.Add(temp);
             }
             return tempList;
-        }
+        }       
 
-        [System.Web.Services.WebMethod]
-        public static Guid ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, Guid maDanhMuc)
-        {
-            Location location = new Location();
-            location.Name = tenDiaDiem;
-            location.Deleted = false;
-            location.Note = ghiChu;
-            location.CategoryID = maDanhMuc;
-            location.Latitude = viDo;
-            location.Longitude = kinhDo;
-            LocationDAO.AddLocation(location);
-            return location.LocationID;
-        }
-
-        [System.Web.Services.WebMethod]
-        public static bool CapNhatDiaDiem(Guid maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
-        {
-            Location location = new Location();
-            location.LocationID = maDiaDiem;
-            location.Name = tenDiaDiem;
-            location.Deleted = false;
-            location.Note = ghiChu;
-            location.Latitude = viDo;
-            location.Longitude = kinhDo;
-            return LocationDAO.UpdateLocation(location);
-        }
-
-        [System.Web.Services.WebMethod]
-        public static bool XoaDiaDiem(Guid maDiaDiem)
-        {
-            Location location = new Location();
-            location.LocationID = maDiaDiem;
-            return LocationDAO.RemoveLocation(location);
-        }
-
-        protected void btnAddCategory_Click(object sender, EventArgs e)
-        {
-            LocationCategory category = new LocationCategory();
-            category.Name = txtCategoryName.Text;
-            category.Deleted = false;
-            category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-            LocationCategoryDAO.AddCategory(category);
-        }
+        //protected void btnAddCategory_Click(object sender, EventArgs e)
+        //{
+        //    LocationCategory category = new LocationCategory();
+        //    category.Name = txtCategoryName.Text;
+        //    category.Deleted = false;
+        //    category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+        //    LocationCategoryDAO.AddCategory(category);
+        //}
 
         public void LoadMyTreeView()
         {
@@ -123,23 +87,22 @@ namespace CaroSocialNetwork
 
                 for (int j = 0; j < category.Locations.Count; ++j)
                 {
-                    // Inorge location which has been deleted
-                    if (category.Locations[j].Deleted == true)
-                        continue;
-
                     Location location = category.Locations[j];
-                    /*Literal l1 = new Literal();
-                    l1.Text = "&nbsp&nbsp+&nbsp";
-                    CayDiaDiem.Controls.Add(l1);*/
+                    if (location.Deleted == false)
+                    {
+                        /*Literal l1 = new Literal();
+                        l1.Text = "&nbsp&nbsp+&nbsp";
+                        CayDiaDiem.Controls.Add(l1);*/
 
-                    HyperLink a = new HyperLink();
-                    a.ID = "DD" + location.LocationID.ToString();
-                    a.Text = "&nbsp&nbsp+&nbsp" + location.Name.ToString() + "<br/>";
-                    a.NavigateUrl = "javascript:(findMyLocation('"
-                        + location.LocationID.ToString()
-                        + "', '" + location.Name.ToString() + "', '"
-                        + location.Note.ToString() + "'))";
-                    l.Controls.Add(a);
+                        HyperLink a = new HyperLink();
+                        a.ID = "DD" + location.LocationID.ToString();
+                        a.Text = /*"&nbsp&nbsp+&nbsp" + */location.Name.ToString() + "<br/>";
+                        a.NavigateUrl = "javascript:(findMyLocation('"
+                            + location.LocationID.ToString()
+                            + "', '" + location.Name.ToString() + "', '"
+                            + location.Note.ToString() + "'))";
+                        l.Controls.Add(a);
+                    }
                     //CayDiaDiem.Controls.Add(a);
 
                     /*Literal l2 = new Literal();
@@ -152,28 +115,108 @@ namespace CaroSocialNetwork
         }
 
         [System.Web.Services.WebMethod]
-        public static string TimDiaDiemGanNhat(float viDoHienTai, float kinhDoHienTai, string danhMucTimKiem)
+        public static int ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, int maDanhMuc, string tenDanhMuc)
         {
-            return String.Empty;
+            try
+            {
+                //Thêm danh mục nếu chưa có, lấy ID của danh mục
+                LocationCategory category = LocationCategoryDAO.FindCategory(tenDanhMuc, Membership.GetUser());
+                if (category == null)
+                {
+                    category = new LocationCategory();
+                    category.Name = tenDanhMuc;
+                    category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    category.CategoryID = LocationCategoryDAO.AddCategory(category);
+                }
+                //Thêm địa điểm
+                Location location = new Location();
+                location.Name = tenDiaDiem;
+                location.Latitude = viDo;
+                location.Longitude = kinhDo;
+                location.Note = ghiChu;
+                location.CategoryID = category.CategoryID;
+                location.Deleted = false;
+                //Gán lại ID và kiểm tra
+                location.LocationID = LocationDAO.AddLocation(location);
+                if (location.LocationID.ToString() == "")
+                    return 0;
+                return 1;
+            }
+            catch (Exception ex) { return -1; }
         }
 
-        public static double FindDistance(Location p1, Location p2)
+        [System.Web.Services.WebMethod]
+        public static bool CapNhatDiaDiem(string maDiaDiem, string tenDiaDiem, float viDo, float kinhDo, string ghiChu)
         {
-            double R = 6371; // earth's mean radius in km
-            double dLat = rad(p2.Latitude.Value - p1.Latitude.Value);
-            double dLong = rad(p2.Longitude.Value - p1.Longitude.Value);
+            try
+            {
+                //LocationCategory category = new LocationCategory();
+                //category.Name = "";
+                //category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+                //category.CategoryID = LocationCategoryDAO.AddCategory(category);
 
-            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(rad(p1.Latitude.Value)) * Math.Cos(rad(p2.Latitude.Value)) * Math.Sin(dLong / 2) * Math.Sin(dLong / 2);
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double d = R * c;
+                Location location = LocationDAO.FindLocation(maDiaDiem);
+                location.Name = tenDiaDiem;
+                location.Longitude = kinhDo;
+                location.Latitude = viDo;
+                location.Note = ghiChu;
 
-            return d;
+                if (LocationDAO.UpdateLocation(location).ToString() == "")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public static double rad(double x)
+        [System.Web.Services.WebMethod]
+        public static bool XoaDiaDiem(string maDiaDiem)
         {
-            return x * Math.PI / 180;
+            try
+            {
+                if (LocationDAO.RemoveLocation(maDiaDiem))
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
+
+        [System.Web.Services.WebMethod]
+        public static string[] TimDiaDiemGanNhat(float viDoHienTai, float kinhDoHienTai, string danhMucTimKiem)
+        {
+            Location currentLocation = new Location();
+            currentLocation.Latitude = viDoHienTai;
+            currentLocation.Longitude = kinhDoHienTai;
+            LocationCategory category = LocationCategoryDAO.FindCategory(danhMucTimKiem, Membership.GetUser());
+            List<Location> dsDiaDiem = LocationDAO.FindLocation(category);
+
+            double minDistance = LocationDAO.FindDistance(currentLocation, dsDiaDiem[0]);
+            int index = 0;
+            for (int i = 0; i < dsDiaDiem.Count; ++i)
+            {
+                if (LocationDAO.FindDistance(currentLocation, dsDiaDiem[i]) < minDistance)
+                {
+                    minDistance = LocationDAO.FindDistance(currentLocation, dsDiaDiem[i]);
+                    index = i;
+                }
+            }
+            string[] result = new string[2];
+            result[0] = dsDiaDiem[index].Name;
+            result[1] = dsDiaDiem[index].Note;
+            return result;
+            //return dsDiaDiem[index].Name;
+            //return String.Empty;
+        }       
     }
 }
