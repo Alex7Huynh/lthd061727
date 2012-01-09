@@ -156,7 +156,7 @@ namespace CaroSocialNetwork.DAO
             List<Location> returnLocations = new List<Location>();
             foreach (Location location in db.Locations)
             {
-                if (FindDistance(location, centerlocation) <= 10)
+                if (FindDistance(location, centerlocation) <= 10 && location.LocationID != centerlocation.LocationID)
                     returnLocations.Add(location);
             }
             return returnLocations;
