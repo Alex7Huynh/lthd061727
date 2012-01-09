@@ -41,24 +41,24 @@
         <classShapeMoniker Id="798a66c6-c340-45d1-9976-3039db5cc017" />
       </nodes>
     </associationConnector>
-    <classShape Id="48788962-0afd-4de3-b86a-a8dc1978e32d" absoluteBounds="7.625, 2.625, 2, 1.1939925130208333">
+    <classShape Id="9f3635b5-50c9-4cd4-895d-5ba98a123841" absoluteBounds="7.5, 3.25, 2, 1.3862939453125">
       <DataClassMoniker Name="/MashDataClassesDataContext/Friend" />
       <nestedChildShapes>
-        <elementListCompartment Id="f72976e1-e5de-404d-8c32-0b220283cd7d" absoluteBounds="7.64, 3.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a1ecdc1c-a179-4122-8d4b-ce55b301de02" absoluteBounds="7.515, 3.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.875 : 4.86224659375); (8.01041416666667 : 4.86224659375 : JumpStart); (8.17708083333333 : 4.86224659375 : JumpEnd); (8.625 : 4.86224659375); (8.625 : 3.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 4.19314697265625); (7.5 : 4.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MashDataClassesDataContext/aspnet_User/aspnet_User_Friend" />
       <nodes>
         <classShapeMoniker Id="48ba1804-b1a8-4dd4-b5c7-51c84fff3265" />
-        <classShapeMoniker Id="48788962-0afd-4de3-b86a-a8dc1978e32d" />
+        <classShapeMoniker Id="9f3635b5-50c9-4cd4-895d-5ba98a123841" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.875 : 5.41512563411458); (8.0937475 : 5.41512563411458); (8.0937475 : 3.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 3.90907348632813); (7.5 : 3.90907348632813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MashDataClassesDataContext/aspnet_User/aspnet_User_Friend1" />
       <nodes>
         <classShapeMoniker Id="48ba1804-b1a8-4dd4-b5c7-51c84fff3265" />
-        <classShapeMoniker Id="48788962-0afd-4de3-b86a-a8dc1978e32d" />
+        <classShapeMoniker Id="9f3635b5-50c9-4cd4-895d-5ba98a123841" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

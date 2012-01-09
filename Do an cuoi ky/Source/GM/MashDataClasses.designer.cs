@@ -39,6 +39,9 @@ namespace CaroSocialNetwork
     partial void Insertaspnet_User(aspnet_User instance);
     partial void Updateaspnet_User(aspnet_User instance);
     partial void Deleteaspnet_User(aspnet_User instance);
+    partial void InsertFriend(Friend instance);
+    partial void UpdateFriend(Friend instance);
+    partial void DeleteFriend(Friend instance);
     #endregion
 		
 		public MashDataClassesDataContext() : 
@@ -669,6 +672,10 @@ namespace CaroSocialNetwork
 		
 		private EntitySet<LocationCategory> _LocationCategories;
 		
+		private EntitySet<Friend> _Friends;
+		
+		private EntitySet<Friend> _Friends1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -692,6 +699,8 @@ namespace CaroSocialNetwork
 		public aspnet_User()
 		{
 			this._LocationCategories = new EntitySet<LocationCategory>(new Action<LocationCategory>(this.attach_LocationCategories), new Action<LocationCategory>(this.detach_LocationCategories));
+			this._Friends = new EntitySet<Friend>(new Action<Friend>(this.attach_Friends), new Action<Friend>(this.detach_Friends));
+			this._Friends1 = new EntitySet<Friend>(new Action<Friend>(this.attach_Friends1), new Action<Friend>(this.detach_Friends1));
 			OnCreated();
 		}
 		
@@ -848,6 +857,32 @@ namespace CaroSocialNetwork
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Friend", Storage="_Friends", ThisKey="UserId", OtherKey="UserId")]
+		public EntitySet<Friend> Friends
+		{
+			get
+			{
+				return this._Friends;
+			}
+			set
+			{
+				this._Friends.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Friend1", Storage="_Friends1", ThisKey="UserId", OtherKey="FriendId")]
+		public EntitySet<Friend> Friends1
+		{
+			get
+			{
+				return this._Friends1;
+			}
+			set
+			{
+				this._Friends1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -879,18 +914,65 @@ namespace CaroSocialNetwork
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
 		}
+		
+		private void attach_Friends(Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Friends(Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Friends1(Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = this;
+		}
+		
+		private void detach_Friends1(Friend entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Friend")]
-	public partial class Friend
+	public partial class Friend : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _UserId;
 		
 		private System.Guid _FriendId;
 		
+		private System.Guid _Id;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<aspnet_User> _aspnet_User1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    partial void OnFriendIdChanging(System.Guid value);
+    partial void OnFriendIdChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    #endregion
+		
 		public Friend()
 		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._aspnet_User1 = default(EntityRef<aspnet_User>);
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
@@ -904,7 +986,15 @@ namespace CaroSocialNetwork
 			{
 				if ((this._UserId != value))
 				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
 					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
@@ -920,8 +1010,124 @@ namespace CaroSocialNetwork
 			{
 				if ((this._FriendId != value))
 				{
+					if (this._aspnet_User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFriendIdChanging(value);
+					this.SendPropertyChanging();
 					this._FriendId = value;
+					this.SendPropertyChanged("FriendId");
+					this.OnFriendIdChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Friend", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Friends.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Friends.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Friend1", Storage="_aspnet_User1", ThisKey="FriendId", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User1
+		{
+			get
+			{
+				return this._aspnet_User1.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User1.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User1.Entity = null;
+						previousValue.Friends1.Remove(this);
+					}
+					this._aspnet_User1.Entity = value;
+					if ((value != null))
+					{
+						value.Friends1.Add(this);
+						this._FriendId = value.UserId;
+					}
+					else
+					{
+						this._FriendId = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
