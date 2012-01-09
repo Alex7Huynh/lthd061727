@@ -39,6 +39,7 @@
                         </asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/Util/PlayCaro.aspx" Text="Play Caro">
                         </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/RSS/RSS.aspx" Text="RSS"/>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>
