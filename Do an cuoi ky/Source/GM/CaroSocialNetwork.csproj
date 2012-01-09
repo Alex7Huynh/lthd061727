@@ -83,6 +83,7 @@
     <Content Include="Scripts\google-maps-3-vs-1-0-vsdoc.js" />
     <Content Include="Scripts\google-maps-3-vs-1-0.js" />
     <Content Include="Scripts\jquery-1.6.1.min.js" />
+    <Content Include="Scripts\MapScript.js" />
     <Content Include="Scripts\MyGoogleMap.js" />
     <Content Include="Scripts\MyScript.js" />
     <Content Include="Styles\bingle.css" />
