@@ -35,6 +35,16 @@
       <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="aspnet_User_LocationCategory" Member="LocationCategories" ThisKey="UserId" OtherKey="UserID" Type="LocationCategory" />
+      <Association Name="aspnet_User_Friend" Member="Friends" ThisKey="UserId" OtherKey="UserId" Type="Friend" />
+      <Association Name="aspnet_User_Friend1" Member="Friends1" ThisKey="UserId" OtherKey="FriendId" Type="Friend" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Friend" Member="Friends">
+    <Type Name="Friend">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FriendId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_Friend" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="aspnet_User_Friend1" Member="aspnet_User1" ThisKey="FriendId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
