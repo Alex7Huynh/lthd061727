@@ -101,10 +101,10 @@ function OnGetNearbyLocationsSuccess(response) {
                 content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=makeFriend()>Kết Bạn</a>&nbsp&nbsp";
 
                 infoList[i].setContent(content);
-                infoList[i].open(map, marker);
+                infoList[i].open(map, nearbyLocations[i]);
 
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.open(map, nearbyLocations[i]);
+                google.maps.event.addListener(nearbyLocations[i], 'click', function () {
+                    infoList[i].open(map, nearbyLocations[i]);
                 });
             }
         });
@@ -151,7 +151,7 @@ function findMyLocation(idAddress, address, note) {
                     fillOpacity: 0.35,
                     map: map,
                     center: results[0].geometry.location,
-                    radius: 10
+                    radius: 2000/(2*3.14)
                 };
             }
 
