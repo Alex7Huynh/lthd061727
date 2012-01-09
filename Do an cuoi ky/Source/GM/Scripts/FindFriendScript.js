@@ -12,8 +12,6 @@ var clickedPixel;
 var contextmenu;
 var circleOptions;
 var nearbyCircle;
-var nearbyLocations = new Array();
-var infoList = new Array();
 
 //ham xu ly khong dinh vi duoc
 function handleNoGeolocation(errorFlag) {
@@ -73,14 +71,23 @@ function initialize() {
     //map.getDiv().appendChild(contextmenu);
 }
 
+var content;
+
 function OnGetNearbyLocationsSuccess(response) {
     for (var i = 0; i < response.length; i++) {
         if (!geocoder) {
             geocoder = new google.maps.Geocoder();
         }
         var geocoderRequest = { address: response[i].Name };
+
+        content = "<input id='MaDiaDiem' type=hidden value='" + response[i].Id + "' /><br/>";
+        content += "<input id='MaNguoiDung' type=hidden value='" + response[i].UserId + "' /><br/>";
+        content += "<strong><input id='TenDiaDiem' type=text  readonly='readonly' value='" + response[i].Name + "' /></strong><br/>";
+
         geocoder.geocode(geocoderRequest, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+                var nearbyLocations = new Array();
+                var infoList = new Array();
                 if (!nearbyLocations[i]) {
                     nearbyLocations[i] = new google.maps.Marker({ map: map });
                 }
@@ -89,10 +96,6 @@ function OnGetNearbyLocationsSuccess(response) {
                 if (!infoList[i]) {
                     infoList[i] = new google.maps.InfoWindow();
                 }
-
-                var content = "<input id='MaDiaDiem' type=hidden value='" + response[i].Id + "' /><br/>";
-                var content = "<input id='MaNguoiDung' type=hidden value='" + response[i].UserId + "' /><br/>";
-                content += "<strong><input id='TenDiaDiem' type=text  readonly='readonly' value='" + response[i].Name + "' /></strong><br/>";
                 content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
                 content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
                 content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=makeFriend()>Kết Bạn</a>&nbsp&nbsp";
