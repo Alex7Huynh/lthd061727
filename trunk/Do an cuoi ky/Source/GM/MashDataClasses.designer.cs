@@ -94,6 +94,14 @@ namespace CaroSocialNetwork
 				return this.GetTable<aspnet_User>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Friend> Friends
+		{
+			get
+			{
+				return this.GetTable<Friend>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Location")]
@@ -870,6 +878,51 @@ namespace CaroSocialNetwork
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Friend")]
+	public partial class Friend
+	{
+		
+		private System.Guid _UserId;
+		
+		private System.Guid _FriendId;
+		
+		public Friend()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FriendId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid FriendId
+		{
+			get
+			{
+				return this._FriendId;
+			}
+			set
+			{
+				if ((this._FriendId != value))
+				{
+					this._FriendId = value;
+				}
+			}
 		}
 	}
 }

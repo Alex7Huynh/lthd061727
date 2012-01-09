@@ -14,7 +14,7 @@
         <elementListCompartment Id="d122e024-38b7-4953-b407-cec1b214ae24" absoluteBounds="0.765, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.01044840494792); (3.5 : 2.01044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.01044840494792); (3.5 : 2.01044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MashDataClassesDataContext/LocationCategory/LocationCategory_Location" />
       <nodes>
         <classShapeMoniker Id="798a66c6-c340-45d1-9976-3039db5cc017" />
@@ -39,6 +39,26 @@
       <nodes>
         <classShapeMoniker Id="48ba1804-b1a8-4dd4-b5c7-51c84fff3265" />
         <classShapeMoniker Id="798a66c6-c340-45d1-9976-3039db5cc017" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="48788962-0afd-4de3-b86a-a8dc1978e32d" absoluteBounds="7.625, 2.625, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/MashDataClassesDataContext/Friend" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f72976e1-e5de-404d-8c32-0b220283cd7d" absoluteBounds="7.64, 3.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.875 : 4.86224659375); (8.01041416666667 : 4.86224659375 : JumpStart); (8.17708083333333 : 4.86224659375 : JumpEnd); (8.625 : 4.86224659375); (8.625 : 3.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MashDataClassesDataContext/aspnet_User/aspnet_User_Friend" />
+      <nodes>
+        <classShapeMoniker Id="48ba1804-b1a8-4dd4-b5c7-51c84fff3265" />
+        <classShapeMoniker Id="48788962-0afd-4de3-b86a-a8dc1978e32d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.875 : 5.41512563411458); (8.0937475 : 5.41512563411458); (8.0937475 : 3.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MashDataClassesDataContext/aspnet_User/aspnet_User_Friend1" />
+      <nodes>
+        <classShapeMoniker Id="48ba1804-b1a8-4dd4-b5c7-51c84fff3265" />
+        <classShapeMoniker Id="48788962-0afd-4de3-b86a-a8dc1978e32d" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

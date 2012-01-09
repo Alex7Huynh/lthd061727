@@ -111,6 +111,15 @@ function OnGetNearbyLocationsSuccess(response) {
     }
 }
 
+function makeFriend() {
+    var maNguoiDung = $get("MaNguoiDung").value;
+    PageMethods.MakeFriend(maNguoiDung, OnMakeFriendSuccess);
+}
+
+function OnMakeFriendSuccess() {
+    alert('Đã kết bạn thành công!');
+}
+
 
 function findMyLocation(idAddress, address, note) {
     PageMethods.GetNearbyLocations(idAddress, OnGetNearbyLocationsSuccess);

@@ -95,5 +95,12 @@ namespace CaroSocialNetwork
             }
             return tempList;
         }
+
+        [System.Web.Services.WebMethod]
+        public static void MakeFriend(Guid iduser)
+        {
+            Guid myid = (Guid)Membership.GetUser().ProviderUserKey;
+            FriendDAO.MakeFriend(myid, iduser);
+        }
     }
 }

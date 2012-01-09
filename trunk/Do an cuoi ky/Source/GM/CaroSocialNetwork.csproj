@@ -164,6 +164,7 @@
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="DAO\FeedService.cs" />
+    <Compile Include="DAO\FriendDAO.cs" />
     <Compile Include="DAO\LocationCategoryDAO.cs" />
     <Compile Include="DAO\LocationDAO.cs" />
     <Compile Include="Default.aspx.cs">
