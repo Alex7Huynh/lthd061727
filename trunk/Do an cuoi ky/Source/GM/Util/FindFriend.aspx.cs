@@ -101,13 +101,17 @@ namespace CaroSocialNetwork
             List<LocationTemp> tempList = new List<LocationTemp>();
             foreach (Location location in nbl)
             {
-                LocationTemp temp = new LocationTemp();
-                temp.Name = location.Name;
-                temp.Id = location.LocationID;
-                temp.UserId = UserDAO.FindUser(location.LocationID);
-                temp.UserName = GetUserName(temp.UserId);
-                temp.IsMyFriend = CheckMyFriend(temp.UserId);
-                tempList.Add(temp);
+                Guid userid = UserDAO.FindUser(location.LocationID);
+                if (userid != (Guid)Membership.GetUser().ProviderUserKey)
+                {
+                    LocationTemp temp = new LocationTemp();
+                    temp.Name = location.Name;
+                    temp.Id = location.LocationID;
+                    temp.UserId = userid;
+                    temp.UserName = GetUserName(temp.UserId);
+                    temp.IsMyFriend = CheckMyFriend(temp.UserId);
+                    tempList.Add(temp);
+                }
             }
             return tempList;
         }

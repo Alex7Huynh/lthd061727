@@ -77,6 +77,8 @@ function tick() {
             alert('last Move' + lastMove);
             alert('your turn');
             opponentMove(lastMove);
+
+            checkGameOver();
         }
     }
 }
@@ -85,8 +87,6 @@ function opponentMove(move) {
     if (f[move[0]][move[1]] == 0) {
         f[move[0]][move[1]] = oppSq;
         drawSquare(move[0], move[1], oppSq);
-
-        checkGameOver();
     }
 }
 
@@ -100,6 +100,13 @@ function checkGameOver() {
             alert('You win!');
         else
             alert('You loose!');
+
+        var playWithMachine = IsPlayWithMachine();
+        if (playWithMachine) {
+            var lastMove = GetOpponentMove();
+            alert('last Move' + lastMove);
+            opponentMove(lastMove);
+        }
 
         clearInterval(intervalId);
     }
