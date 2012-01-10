@@ -97,12 +97,12 @@ namespace CaroSocialNetwork
             }
         }
 
-        internal bool IsMyTurn(int roomid, string userName)
+        internal bool IsMyTurn(int roomid, Guid userid)
         {
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                return rooms[index].IsMyTurn(userName);
+                return rooms[index].IsMyTurn(userid);
             }
             return false;
         }
@@ -127,12 +127,12 @@ namespace CaroSocialNetwork
             return true;
         }
 
-        internal bool IsWin(int roomId, string username)
+        internal bool IsWin(int roomId, Guid userid)
         {
             int index = FindRoom(roomId);
             if (index >= 0 && index < rooms.Count)
             {
-                return rooms[index].IsWin(username);
+                return rooms[index].IsWin(userid);
             }
             return false;
         }

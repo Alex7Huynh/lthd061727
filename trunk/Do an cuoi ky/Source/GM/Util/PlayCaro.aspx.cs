@@ -110,7 +110,7 @@ namespace CaroSocialNetwork
         public bool IsMyTurn()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return Global.roomManager.IsMyTurn(roomId, Membership.GetUser().UserName);
+            return Global.roomManager.IsMyTurn(roomId, (Guid)Membership.GetUser().ProviderUserKey);
         }
 
         [Ajax.AjaxMethod(false)]
@@ -138,7 +138,7 @@ namespace CaroSocialNetwork
         public bool IsWin()
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            return Global.roomManager.IsWin(roomId, Membership.GetUser().UserName);
+            return Global.roomManager.IsWin(roomId, (Guid)Membership.GetUser().ProviderUserKey);
         }
 
         #endregion
