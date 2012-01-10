@@ -7,7 +7,7 @@
     <h2>
         About
     </h2>
-    <p>
-        Put content here.
-    </p>
+    <p>0812508 - Nguyễn Minh Thuận</p>
+    <p>0812517 - Võ Xuân Tiến</p>
+    <p>0812527 - Huỳnh Công Toàn</p>
 </asp:Content>
