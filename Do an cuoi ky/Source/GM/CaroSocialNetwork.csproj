@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Ajax.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
@@ -83,9 +87,11 @@
     <Content Include="images\pen.cur" />
     <Content Include="images\update.png" />
     <Content Include="Library\Ajax.dll" />
+    <Content Include="Library\HtmlAgilityPack.dll" />
     <Content Include="Library\RssToolkit.dll" />
     <Content Include="RSS\RSS.aspx" />
     <Content Include="RSS\RssService.asmx" />
+    <Content Include="RSS\SportNews.aspx" />
     <Content Include="Scripts\caro.js" />
     <Content Include="Scripts\FindFriendScript.js" />
     <Content Include="Scripts\gears_init.js" />
@@ -189,6 +195,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RSS\Article.cs" />
+    <Compile Include="RSS\HtmlAgilityPackMethod.cs" />
     <Compile Include="RSS\RSS.aspx.cs">
       <DependentUpon>RSS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -198,6 +206,13 @@
     </Compile>
     <Compile Include="RSS\RssService.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RSS\SportNews.aspx.cs">
+      <DependentUpon>SportNews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RSS\SportNews.aspx.designer.cs">
+      <DependentUpon>SportNews.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
