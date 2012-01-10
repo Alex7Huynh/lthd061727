@@ -165,12 +165,18 @@ function findMyLocation(idAddress, address, note) {
                     fillOpacity: 0.35,
                     map: map,
                     center: results[0].geometry.location,
-                    radius: 2000/(2*3.14)
+                    radius: 2000 / (2 * 3.14)
                 };
+            }
+            else {
+                circleOptions.center = results[0].geometry.location;
             }
 
             if (!nearbyCircle) {
                 nearbyCircle = new google.maps.Circle(circleOptions);
+            }
+            else {
+                nearbyCircle.setOptions(circleOptions);
             }
         }
         else {
