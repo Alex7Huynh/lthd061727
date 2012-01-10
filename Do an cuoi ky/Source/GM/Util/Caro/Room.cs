@@ -292,12 +292,12 @@ namespace CaroSocialNetwork
             return false;
         }
 
-        public bool IsMyTurn(string userName)
+        public bool IsMyTurn(Guid userid)
         {
             if (CurrentTurn == -1)
                 return false;
 
-            if (players[CurrentTurn].Name == userName)
+            if (players[CurrentTurn].Id == userid)
                 return true;
 
             return false;
@@ -313,9 +313,9 @@ namespace CaroSocialNetwork
             return GameOver;
         }
 
-        internal bool IsWin(string username)
+        internal bool IsWin(Guid userid)
         {
-            if (GameOver && players[LastTurn].Name == username)
+            if (GameOver && players[LastTurn].Id == userid)
                 return true;
             return false;
         }
