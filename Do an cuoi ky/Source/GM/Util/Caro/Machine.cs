@@ -18,6 +18,8 @@ namespace CaroSocialNetwork
             : base(ref board)
         {
             Name = "Machine";
+            Id = new Guid();
+            Sq = -1;
 
             iMax = new int[caroBoard.BoardSize * caroBoard.BoardSize];
             jMax = new int[caroBoard.BoardSize * caroBoard.BoardSize];

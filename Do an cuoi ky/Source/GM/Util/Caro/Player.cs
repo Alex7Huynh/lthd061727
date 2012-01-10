@@ -14,7 +14,13 @@ namespace CaroSocialNetwork
             set;
         }
 
-        public int Id
+        public Guid Id
+        {
+            get;
+            set;
+        }
+
+        public int Sq
         {
             get;
             set;
@@ -43,7 +49,7 @@ namespace CaroSocialNetwork
 
         public virtual void Move()
         {
-            caroBoard.F[X, Y] = Id;
+            caroBoard.F[X, Y] = Sq;
         }
         #endregion
     }
