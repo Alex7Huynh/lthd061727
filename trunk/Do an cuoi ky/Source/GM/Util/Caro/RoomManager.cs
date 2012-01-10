@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using CaroSocialNetwork.DAO;
 
 namespace CaroSocialNetwork
 {
@@ -25,22 +26,26 @@ namespace CaroSocialNetwork
             return result;
         }
 
-        public List<Room> GetRoomList(string username)
+        public List<Room> GetRoomList(Guid userid)
         {
             List<Room> result = new List<Room>();
+            List<Guid> friendIdList = FriendDAO.GetFriendIds(userid);
             foreach (Room room in rooms)
             {
-                if (!room.IsEmpty() && !room.IsFull() && room.HasPlayer(username))
-                    result.Add(room);
+                foreach (Guid friendid in friendIdList)
+                {
+                    if (!room.IsEmpty() && !room.IsFull() && room.HasPlayer(friendid))
+                        result.Add(room);
+                }
             }
             return result;
         }
 
-        public void CreateRoom(string username, bool playwithmachine, out int roomId)
+        public void CreateRoom(Guid id, string username, bool playwithmachine, out int roomId)
         {
             Room room = new Room();
             room.PlayWithMachine = playwithmachine;
-            room.AddUserPlayer(username);
+            room.AddUserPlayer(id, username);
             
             if (playwithmachine)
             {
@@ -52,12 +57,12 @@ namespace CaroSocialNetwork
             roomId = room.Id;
         }
 
-        public void JoinRoom(int roomid, string username)
+        public void JoinRoom(int roomid, Guid userid, string username)
         {
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                rooms[index].AddUserPlayer(username);
+                rooms[index].AddUserPlayer(userid, username);
             }
         }
 
@@ -69,12 +74,12 @@ namespace CaroSocialNetwork
             return -1;
         }
 
-        public void LeaveRoom(int roomid, string username)
+        public void LeaveRoom(int roomid, Guid userid)
         {
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                rooms[index].RemoveUserPlayer(username);
+                rooms[index].RemoveUserPlayer(userid);
             }
 
             if (rooms[index].IsEmpty())
@@ -83,12 +88,12 @@ namespace CaroSocialNetwork
             }
         }
 
-        public void Move(int roomid, string username, int userX, int userY)
+        public void Move(int roomid, Guid userid, int userX, int userY)
         {
             int index = FindRoom(roomid);
             if (index >= 0 && index < rooms.Count)
             {
-                rooms[index].Move(username, userX, userY);
+                rooms[index].Move(userid, userX, userY);
             }
         }
 

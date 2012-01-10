@@ -63,7 +63,7 @@ namespace CaroSocialNetwork
             if (ddlRooms.SelectedIndex != -1)
             {
                 int roomId = int.Parse(ddlRooms.SelectedItem.Value);
-                Global.roomManager.JoinRoom(roomId, Membership.GetUser().UserName);
+                Global.roomManager.JoinRoom(roomId, (Guid)Membership.GetUser().ProviderUserKey, Membership.GetUser().UserName);
                 Session["CurrentRoom"] = roomId;
 
                 UpdateForm();
@@ -75,7 +75,7 @@ namespace CaroSocialNetwork
         protected void btnCreateRoomMachine_Click(object sender, EventArgs e)
         {
             int roomId;
-            Global.roomManager.CreateRoom(Membership.GetUser().UserName, true, out roomId);
+            Global.roomManager.CreateRoom((Guid)Membership.GetUser().ProviderUserKey, Membership.GetUser().UserName, true, out roomId);
             Session["CurrentRoom"] = roomId;
 
             UpdateForm();
@@ -84,7 +84,7 @@ namespace CaroSocialNetwork
         protected void btnCreateRoomPlayer_Click(object sender, EventArgs e)
         {
             int roomId;
-            Global.roomManager.CreateRoom(Membership.GetUser().UserName, false, out roomId);
+            Global.roomManager.CreateRoom((Guid)Membership.GetUser().ProviderUserKey, Membership.GetUser().UserName, false, out roomId);
             Session["CurrentRoom"] = roomId;
 
             UpdateForm();
@@ -93,7 +93,7 @@ namespace CaroSocialNetwork
         protected void btnLeaveTheRoom_Click(object sender, EventArgs e)
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            Global.roomManager.LeaveRoom(roomId, Membership.GetUser().UserName);
+            Global.roomManager.LeaveRoom(roomId, (Guid)Membership.GetUser().ProviderUserKey);
             Session["CurrentRoom"] = -1;
 
             UpdateForm();
@@ -131,7 +131,7 @@ namespace CaroSocialNetwork
         public void UserMove(int x, int y)
         {
             int roomId = int.Parse(Session["CurrentRoom"].ToString());
-            Global.roomManager.Move(roomId, Membership.GetUser().UserName, x, y);
+            Global.roomManager.Move(roomId, (Guid)Membership.GetUser().ProviderUserKey, x, y);
         }
 
         [Ajax.AjaxMethod(false)]

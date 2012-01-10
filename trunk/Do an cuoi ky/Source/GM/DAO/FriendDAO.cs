@@ -33,5 +33,17 @@ namespace CaroSocialNetwork.DAO
             }
             return false;
         }
+
+        internal static List<Guid> GetFriendIds(Guid myid)
+        {
+            MashDataClassesDataContext db = new MashDataClassesDataContext();
+            List<Guid> idList = new List<Guid>();
+            foreach (Friend friend in db.Friends)
+            {
+                if (friend.UserId == myid)
+                    idList.Add(friend.FriendId);
+            }
+            return idList;
+        }
     }
 }

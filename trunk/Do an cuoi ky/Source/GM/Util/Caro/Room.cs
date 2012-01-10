@@ -130,22 +130,23 @@ namespace CaroSocialNetwork
             return false;
         }
 
-        public bool HasPlayer(string username)
+        public bool HasPlayer(Guid id)
         {
             foreach (Player player in players)
             {
-                if (player.Name == username)
+                if (player.Id == id)
                     return true;
             }
             return false;
         }
 
-        public void AddUserPlayer(string username)
+        public void AddUserPlayer(Guid id, string username)
         {
             if (!IsFull())
             {
                 UserPlayer player = new UserPlayer(ref caroBoard);
                 player.Name = username;
+                player.Id = id;
                 players.Add(player);
 
                 UpdateRoom();
@@ -175,11 +176,11 @@ namespace CaroSocialNetwork
             }
         }
 
-        public void RemoveUserPlayer(string username)
+        public void RemoveUserPlayer(Guid id)
         {
             foreach (Player player in players)
             {
-                if (player.Name == username)
+                if (player.Id == id)
                 {
                     players.Remove(player);
                     break;
@@ -191,13 +192,13 @@ namespace CaroSocialNetwork
             UpdateRoom();
         }
 
-        public void Move(string username, int userX, int userY)
+        public void Move(Guid id, int userX, int userY)
         {
             if (GameOver)
                 return;
             foreach (Player p in players)
             {
-                if (!(p is Machine) && p.Name == username)
+                if (!(p is Machine) && p.Id == id)
                 {
                     p.X = userX;
                     p.Y = userY;
@@ -273,13 +274,13 @@ namespace CaroSocialNetwork
                 if (PlayWithMachine)
                 {
                     if (players[i] is UserPlayer)
-                        players[i].Id = CaroBoard.USERSQ;
+                        players[i].Sq = CaroBoard.USERSQ;
                     else if (players[i] is Machine)
-                        players[i].Id = CaroBoard.MACHSQ;
+                        players[i].Sq = CaroBoard.MACHSQ;
                 }
                 else
                 {
-                    players[i].Id = i + 1;
+                    players[i].Sq = i + 1;
                 }
             }
         }
