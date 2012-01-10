@@ -17,15 +17,58 @@ namespace RSSReader
     public class RssService : System.Web.Services.WebService
     {
         [WebMethod]
-        public List<RssToolkit.Rss.RssItem> GetRSSFeed(string RSSUrl1, string RSSUrl2)
+        public List<RssToolkit.Rss.RssItem> GetRSSFeed(string RSSUrl1, string RSSUrl2, string RSSUrl3)
         {
-            RssToolkit.Rss.RssDocument rss1 = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl1));
-            RssToolkit.Rss.RssDocument rss2 = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl2));
-            foreach (RssToolkit.Rss.RssItem item in rss2.Channel.Items)
+            RssToolkit.Rss.RssDocument rss = new RssToolkit.Rss.RssDocument();
+
+            if (RSSUrl1 != "")
             {
-                rss1.Channel.Items.Add(item);
+                rss = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl1));
+                rss.Channel.Items.Clear();
+                RssToolkit.Rss.RssDocument rss1 = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl1));
+                foreach (RssToolkit.Rss.RssItem item in rss1.Channel.Items)
+                {
+                    rss.Channel.Items.Add(item);
+                }
             }
-            return rss1.Channel.Items;
+            if (RSSUrl2 != "")
+            {
+                if (RSSUrl1 == "")
+                {
+                    rss = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl2));
+                    rss.Channel.Items.Clear();
+                }
+                RssToolkit.Rss.RssDocument rss2 = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl2));
+                foreach (RssToolkit.Rss.RssItem item in rss2.Channel.Items)
+                {
+                    rss.Channel.Items.Add(item);
+                }
+            }
+            if (RSSUrl3 != "")
+            {
+                if (RSSUrl1 == "" && RSSUrl2 == "")
+                {
+                    rss = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl3));
+                    rss.Channel.Items.Clear();
+                }
+                RssToolkit.Rss.RssDocument rss3 = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl3));
+                foreach (RssToolkit.Rss.RssItem item in rss3.Channel.Items)
+                {
+                    rss.Channel.Items.Add(item);
+                }
+            }
+            rss.Channel.Items.Sort(CompareByPublishDate);
+            return rss.Channel.Items;
+        }
+
+        private static int CompareByPublishDate(RssToolkit.Rss.RssItem a, RssToolkit.Rss.RssItem b)
+        {
+            if (a.PubDateParsed > b.PubDateParsed)
+                return -1;
+            if (a.PubDateParsed < b.PubDateParsed)
+                return 1;
+
+            return 0;
         }
     }
 }
