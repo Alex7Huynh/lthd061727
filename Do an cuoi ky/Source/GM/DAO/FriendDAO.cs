@@ -22,5 +22,16 @@ namespace CaroSocialNetwork.DAO
             {
             }
         }
+
+        internal static bool CheckMyFriend(Guid myid, Guid iduser)
+        {
+            MashDataClassesDataContext db = new MashDataClassesDataContext();
+            foreach (Friend friend in db.Friends)
+            {
+                if (friend.UserId == myid && friend.FriendId == iduser)
+                    return true;
+            }
+            return false;
+        }
     }
 }

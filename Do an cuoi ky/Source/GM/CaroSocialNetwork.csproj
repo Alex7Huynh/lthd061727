@@ -167,6 +167,7 @@
     <Compile Include="DAO\FriendDAO.cs" />
     <Compile Include="DAO\LocationCategoryDAO.cs" />
     <Compile Include="DAO\LocationDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
