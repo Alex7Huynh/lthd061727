@@ -136,6 +136,16 @@ namespace CaroSocialNetwork
             }
             return false;
         }
+
+        internal bool IsPlayWithMachine(int roomId)
+        {
+            int index = FindRoom(roomId);
+            if (index >= 0 && index < rooms.Count)
+            {
+                return rooms[index].PlayWithMachine;
+            }
+            return false;
+        }
         #endregion
     }
 }
