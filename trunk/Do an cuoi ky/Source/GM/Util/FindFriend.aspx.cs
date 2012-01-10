@@ -77,6 +77,20 @@ namespace CaroSocialNetwork
                 get { return _userid; }
                 set { _userid = value; }
             }
+
+            private string _username;
+            public string UserName
+            {
+                get { return _username; }
+                set { _username = value; }
+            }
+
+            private bool _isMyFriend;
+            public bool IsMyFriend
+            {
+                get { return _isMyFriend; }
+                set { _isMyFriend = value; }
+            }
         }
 
         [System.Web.Services.WebMethod]
@@ -90,7 +104,9 @@ namespace CaroSocialNetwork
                 LocationTemp temp = new LocationTemp();
                 temp.Name = location.Name;
                 temp.Id = location.LocationID;
-                temp.UserId = LocationDAO.FindUser(location.LocationID);
+                temp.UserId = UserDAO.FindUser(location.LocationID);
+                temp.UserName = GetUserName(temp.UserId);
+                temp.IsMyFriend = CheckMyFriend(temp.UserId);
                 tempList.Add(temp);
             }
             return tempList;
@@ -101,6 +117,19 @@ namespace CaroSocialNetwork
         {
             Guid myid = (Guid)Membership.GetUser().ProviderUserKey;
             FriendDAO.MakeFriend(myid, iduser);
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetUserName(Guid iduser)
+        {
+            return UserDAO.GetUserName(iduser);
+        }
+
+        [System.Web.Services.WebMethod]
+        public static bool CheckMyFriend(Guid iduser)
+        {
+            Guid myid = (Guid)Membership.GetUser().ProviderUserKey;
+            return FriendDAO.CheckMyFriend(myid, iduser);
         }
     }
 }

@@ -178,22 +178,5 @@ namespace CaroSocialNetwork.DAO
         {
             return x * Math.PI / 180;
         }
-
-        internal static Guid FindUser(Guid locationid)
-        {
-            MashDataClassesDataContext db = new MashDataClassesDataContext();
-            foreach (aspnet_User user in db.aspnet_Users)
-            {
-                foreach (LocationCategory category in user.LocationCategories)
-                {
-                    foreach (Location location in category.Locations)
-                    {
-                        if (location.LocationID == locationid)
-                            return user.UserId;
-                    }
-                }
-            }
-            return new Guid();
-        }
     }
 }

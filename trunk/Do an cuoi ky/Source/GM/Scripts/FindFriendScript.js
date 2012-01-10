@@ -82,7 +82,8 @@ function OnGetNearbyLocationsSuccess(response) {
 
         content = "<input id='MaDiaDiem' type=hidden value='" + response[i].Id + "' /><br/>";
         content += "<input id='MaNguoiDung' type=hidden value='" + response[i].UserId + "' /><br/>";
-        content += "<strong><input id='TenDiaDiem' type=text  readonly='readonly' value='" + response[i].Name + "' /></strong><br/>";
+        content += "Tên Người Dùng: <strong><input id='TenNguoiDung' type=text  readonly='readonly' value='" + response[i].UserName + "' /></strong><br/>";
+        content += "Tên Địa Điểm<strong><input id='TenDiaDiem' type=text  readonly='readonly' value='" + response[i].Name + "' /></strong><br/>";
 
         geocoder.geocode(geocoderRequest, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -98,7 +99,6 @@ function OnGetNearbyLocationsSuccess(response) {
                 }
                 content += "Vĩ độ: <input id='ViDo' type=text readonly='readonly' value='" + results[0].geometry.location.lat() + "' /><br/>";
                 content += "Kinh độ: <input id='KinhDo' type=text readonly='readonly' value='" + results[0].geometry.location.lng() + "' /><br/>";
-                content += "<a href='javascript:void(0);' name='" + results[0].formatted_address + "' onclick=makeFriend()>Kết Bạn</a>&nbsp&nbsp";
 
                 infoList[i].setContent(content);
                 infoList[i].open(map, nearbyLocations[i]);
@@ -108,10 +108,15 @@ function OnGetNearbyLocationsSuccess(response) {
                 });
             }
         });
+
+        if (!response[i].IsMyFriend)
+            content += "<a href='javascript:void(0);' onclick=makeFriend(" + i + ")>Kết Bạn</a>&nbsp&nbsp<br/>";
+        else
+            content += "Đây Là Bạn Của Tôi!<br/>";
     }
 }
 
-function makeFriend() {
+function makeFriend(index) {
     var maNguoiDung = $get("MaNguoiDung").value;
     PageMethods.MakeFriend(maNguoiDung, OnMakeFriendSuccess);
 }
