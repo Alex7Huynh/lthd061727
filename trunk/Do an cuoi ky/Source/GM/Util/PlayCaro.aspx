@@ -18,7 +18,7 @@
         <canvas onclick="javascript: clickHandler(event);" id="board" height="600" width="600" position="relative"/>
     </div>
     <div style="width: 35%; float: right; ">
-    
+        <asp:Label ID="lblStatus" runat="server" Text="Status"></asp:Label><br/>
         <asp:MultiView id="RoomMultiView" runat="server" ActiveViewIndex=0>
             <asp:View id="NoRoomView" runat="server">
                 Join exist room or create new room...
