@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.ServiceModel.Web;
+using System.Xml;
+using System.ServiceModel.Syndication;
 
 namespace CaroSocialNetwork
 {

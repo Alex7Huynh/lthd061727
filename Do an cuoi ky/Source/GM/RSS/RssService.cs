@@ -20,7 +20,7 @@ namespace RSSReader
         public List<RssToolkit.Rss.RssItem> GetRSSFeed(string RSSUrl1, string RSSUrl2, string RSSUrl3)
         {
             RssToolkit.Rss.RssDocument rss = new RssToolkit.Rss.RssDocument();
-
+            
             if (RSSUrl1 != "")
             {
                 rss = RssToolkit.Rss.RssDocument.Load(new System.Uri(RSSUrl1));
@@ -58,6 +58,7 @@ namespace RSSReader
                 }
             }
             rss.Channel.Items.Sort(CompareByPublishDate);
+
             return rss.Channel.Items;
         }
 
