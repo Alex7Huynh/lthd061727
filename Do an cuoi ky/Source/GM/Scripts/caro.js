@@ -74,8 +74,9 @@ function tick() {
         myTurn = IsMyTurn();
         if (myTurn == true) {
             var lastMove = GetOpponentMove();
-            alert('last Move' + lastMove);
-            alert('your turn');
+            //alert('last Move' + lastMove);
+            //alert('your turn');
+            document.getElementById("MainContent_lblStatus").innerHTML = 'Last Move' + lastMove + '\r\nYour Turn';
             opponentMove(lastMove);
 
             checkGameOver();
@@ -84,29 +85,38 @@ function tick() {
 }
 
 function opponentMove(move) {
-    if (f[move[0]][move[1]] == 0) {
-        f[move[0]][move[1]] = oppSq;
-        drawSquare(move[0], move[1], oppSq);
+    if (move[0] != -1 && move[1] != -1) {
+        if (f[move[0]][move[1]] == 0) {
+            f[move[0]][move[1]] = oppSq;
+            drawSquare(move[0], move[1], oppSq);
+        }
     }
-}
+    }
 
 function checkGameOver() {
     gameOver = IsGameOver();
     if (gameOver) {
-        alert('over');
+        //alert('over');
 
         var win = IsWin();
-        if (win)
-            alert('You win!');
-        else
-            alert('You loose!');
+        //if (win)
+        //    alert('You win!');
+        //else
+        //    alert('You loose!');
 
         var playWithMachine = IsPlayWithMachine();
         if (playWithMachine) {
             var lastMove = GetOpponentMove();
-            alert('last Move' + lastMove);
+            document.getElementById("MainContent_lblStatus").innerHTML = 'Last Move' + lastMove;
             opponentMove(lastMove);
         }
+
+        document.getElementById("MainContent_lblStatus").innerHTML = 'Game Over!';
+
+        if (win)
+            document.getElementById("MainContent_lblStatus").innerHTML += '\r\nYou Win!';
+        else
+            document.getElementById("MainContent_lblStatus").innerHTML += '\r\nYou Loose!';
 
         clearInterval(intervalId);
     }
