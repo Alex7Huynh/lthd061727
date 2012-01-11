@@ -173,7 +173,11 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\FeedService.cs" />
+    <Compile Include="BUS\FeedService.cs" />
+    <Compile Include="BUS\FriendBUS.cs" />
+    <Compile Include="BUS\LocationCategoryBUS.cs" />
+    <Compile Include="BUS\LocationBUS.cs" />
+    <Compile Include="BUS\UserBUS.cs" />
     <Compile Include="DAO\FriendDAO.cs" />
     <Compile Include="DAO\LocationCategoryDAO.cs" />
     <Compile Include="DAO\LocationDAO.cs" />

@@ -1,6 +1,6 @@
 ﻿/// <reference path="google-maps-3-vs-1-0.js" />
 var map;
-var vietnam = new google.maps.LatLng(14.058324, 108.277199);
+var vietnam;
 var initLocation;
 var browserSupportFlag;
 var geocoder;
@@ -15,6 +15,7 @@ var nearbyCircle;
 
 //ham xu ly khong dinh vi duoc
 function handleNoGeolocation(errorFlag) {
+    vietnam = new google.maps.LatLng(14.058324, 108.277199);
     if (errorFlag == true) {
         alert("Dịch vụ định vị địa lý có lỗi!");
         initLocation = vietnam;

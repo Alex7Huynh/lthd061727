@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Linq;
 #endregion
 
-namespace CaroSocialNetwork.DAO
+namespace CaroSocialNetwork.BUS
 {
     // Exposing the service contract    
     [ServiceContract]

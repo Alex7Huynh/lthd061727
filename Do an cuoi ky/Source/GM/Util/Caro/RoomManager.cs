@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using CaroSocialNetwork.DAO;
+using CaroSocialNetwork.BUS;
 
 namespace CaroSocialNetwork
 {
@@ -29,7 +29,7 @@ namespace CaroSocialNetwork
         public List<Room> GetRoomList(Guid userid)
         {
             List<Room> result = new List<Room>();
-            List<Guid> friendIdList = FriendDAO.GetFriendIds(userid);
+            List<Guid> friendIdList = FriendBUS.GetFriendIds(userid);
             foreach (Room room in rooms)
             {
                 foreach (Guid friendid in friendIdList)
