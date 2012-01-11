@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
-using CaroSocialNetwork.DAO;
+using CaroSocialNetwork.BUS;
 
 namespace CaroSocialNetwork
 {
@@ -44,7 +44,7 @@ namespace CaroSocialNetwork
         [System.Web.Services.WebMethod]
         public static List<CategoryTemp> GetCategories()
         {
-            List<LocationCategory> lc = LocationCategoryDAO.GetAll(Membership.GetUser());
+            List<LocationCategory> lc = LocationCategoryBUS.GetAll(Membership.GetUser());
             List<CategoryTemp> tempList = new List<CategoryTemp>();
             foreach (LocationCategory category in lc)
             {
@@ -69,7 +69,7 @@ namespace CaroSocialNetwork
         {
             MembershipUser user = Membership.GetUser();
             //treeView.Nodes.Clear();
-            List<LocationCategory> categories = LocationCategoryDAO.GetAll(user);
+            List<LocationCategory> categories = LocationCategoryBUS.GetAll(user);
 
             for (int i = 0; i < categories.Count; ++i)
             {
@@ -120,13 +120,13 @@ namespace CaroSocialNetwork
             try
             {
                 //Thêm danh mục nếu chưa có, lấy ID của danh mục
-                LocationCategory category = LocationCategoryDAO.FindCategory(tenDanhMuc, Membership.GetUser());
+                LocationCategory category = LocationCategoryBUS.FindCategory(tenDanhMuc, Membership.GetUser());
                 if (category == null)
                 {
                     category = new LocationCategory();
                     category.Name = tenDanhMuc;
                     category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    category.CategoryID = LocationCategoryDAO.AddCategory(category);
+                    category.CategoryID = LocationCategoryBUS.AddCategory(category);
                 }
                 //Thêm địa điểm
                 Location location = new Location();
@@ -137,7 +137,7 @@ namespace CaroSocialNetwork
                 location.CategoryID = category.CategoryID;
                 location.Deleted = false;
                 //Gán lại ID và kiểm tra
-                location.LocationID = LocationDAO.AddLocation(location);
+                location.LocationID = LocationBUS.AddLocation(location);
                 if (location.LocationID.ToString() == "")
                     return "";
                 return location.LocationID.ToString();
@@ -155,13 +155,13 @@ namespace CaroSocialNetwork
                 //category.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                 //category.CategoryID = LocationCategoryDAO.AddCategory(category);
 
-                Location location = LocationDAO.FindLocation(maDiaDiem);
+                Location location = LocationBUS.FindLocation(maDiaDiem);
                 location.Name = tenDiaDiem;
                 location.Longitude = kinhDo;
                 location.Latitude = viDo;
                 location.Note = ghiChu;
 
-                if (LocationDAO.UpdateLocation(location).ToString() == "")
+                if (LocationBUS.UpdateLocation(location).ToString() == "")
                 {
                     return false;
                 }
@@ -181,7 +181,7 @@ namespace CaroSocialNetwork
         {
             try
             {
-                if (LocationDAO.RemoveLocation(maDiaDiem))
+                if (LocationBUS.RemoveLocation(maDiaDiem))
                     return true;
                 else
                     return false;
@@ -198,16 +198,16 @@ namespace CaroSocialNetwork
             Location currentLocation = new Location();
             currentLocation.Latitude = viDoHienTai;
             currentLocation.Longitude = kinhDoHienTai;
-            LocationCategory category = LocationCategoryDAO.FindCategory(danhMucTimKiem, Membership.GetUser());
-            List<Location> dsDiaDiem = LocationDAO.FindLocation(category);
+            LocationCategory category = LocationCategoryBUS.FindCategory(danhMucTimKiem, Membership.GetUser());
+            List<Location> dsDiaDiem = LocationBUS.FindLocation(category);
 
-            double minDistance = LocationDAO.FindDistance(currentLocation, dsDiaDiem[0]);
+            double minDistance = LocationBUS.FindDistance(currentLocation, dsDiaDiem[0]);
             int index = 0;
             for (int i = 0; i < dsDiaDiem.Count; ++i)
             {
-                if (LocationDAO.FindDistance(currentLocation, dsDiaDiem[i]) < minDistance)
+                if (LocationBUS.FindDistance(currentLocation, dsDiaDiem[i]) < minDistance)
                 {
-                    minDistance = LocationDAO.FindDistance(currentLocation, dsDiaDiem[i]);
+                    minDistance = LocationBUS.FindDistance(currentLocation, dsDiaDiem[i]);
                     index = i;
                 }
             }

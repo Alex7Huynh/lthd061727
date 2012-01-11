@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
-using CaroSocialNetwork.DAO;
+using CaroSocialNetwork.BUS;
 
 namespace CaroSocialNetwork
 {
@@ -22,7 +22,7 @@ namespace CaroSocialNetwork
         public void LoadMyTreeView()
         {
             MembershipUser user = Membership.GetUser();
-            List<LocationCategory> categories = LocationCategoryDAO.GetAll(user);
+            List<LocationCategory> categories = LocationCategoryBUS.GetAll(user);
 
             for (int i = 0; i < categories.Count; ++i)
             {
@@ -96,12 +96,12 @@ namespace CaroSocialNetwork
         [System.Web.Services.WebMethod]
         public static List<LocationTemp> GetNearbyLocations(Guid idAddress)
         {
-            List<Location> nbl = LocationDAO.FindNearbyLocation(LocationDAO.FindLocation(idAddress));
+            List<Location> nbl = LocationBUS.FindNearbyLocation(LocationBUS.FindLocation(idAddress));
 
             List<LocationTemp> tempList = new List<LocationTemp>();
             foreach (Location location in nbl)
             {
-                Guid userid = UserDAO.FindUser(location.LocationID);
+                Guid userid = UserBUS.FindUser(location.LocationID);
                 if (userid != (Guid)Membership.GetUser().ProviderUserKey)
                 {
                     LocationTemp temp = new LocationTemp();
@@ -120,20 +120,20 @@ namespace CaroSocialNetwork
         public static void MakeFriend(Guid iduser)
         {
             Guid myid = (Guid)Membership.GetUser().ProviderUserKey;
-            FriendDAO.MakeFriend(myid, iduser);
+            FriendBUS.MakeFriend(myid, iduser);
         }
 
         [System.Web.Services.WebMethod]
         public static string GetUserName(Guid iduser)
         {
-            return UserDAO.GetUserName(iduser);
+            return UserBUS.GetUserName(iduser);
         }
 
         [System.Web.Services.WebMethod]
         public static bool CheckMyFriend(Guid iduser)
         {
             Guid myid = (Guid)Membership.GetUser().ProviderUserKey;
-            return FriendDAO.CheckMyFriend(myid, iduser);
+            return FriendBUS.CheckMyFriend(myid, iduser);
         }
     }
 }
