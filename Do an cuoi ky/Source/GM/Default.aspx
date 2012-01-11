@@ -10,7 +10,7 @@
                 <%-- Currency Converter --%>
                 <script type="text/javascript" src="//www.gmodules.com/ig/ifr?url=http://www.pixelmedia.nl/gmodules/ucc.xml&amp;up_fromcur=USD&amp;up_tocur=VND&amp;synd=open&amp;w=320&amp;h=110&amp;title=Currency+Converter&amp;lang=en&amp;country=IN&amp;border=%23ffffff%7C1px%2C1px+solid+%2366ccff%7C1px%2C2px+solid+%2366ccff&amp;output=js"></script>
                 <%-- NYTimes.com - Top Stories --%>
-                <script type="text/javascript" src="//www.gmodules.com/ig/ifr?url=http://widgets.nytimes.com/packages/html/igoogle/topstories.xml&amp;up_headlineCount=5&amp;up_summaryCount=1&amp;synd=open&amp;w=320&amp;h=200&amp;title=NYTimes.com+-+Top+Stories&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>
+                <%--<script type="text/javascript" src="//www.gmodules.com/ig/ifr?url=http://widgets.nytimes.com/packages/html/igoogle/topstories.xml&amp;up_headlineCount=5&amp;up_summaryCount=1&amp;synd=open&amp;w=320&amp;h=200&amp;title=NYTimes.com+-+Top+Stories&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>--%>
             </td>
             <td align="center" valign="top">
                 <%-- Stock market--%>
