@@ -10,6 +10,7 @@ var latitude;
 var longitude;
 var clickedPixel;
 var contextmenu;
+var weatherIcons = [];
 
 //ham xu ly khong dinh vi duoc
 function handleNoGeolocation(errorFlag) {
@@ -24,14 +25,72 @@ function handleNoGeolocation(errorFlag) {
     }
     map.setCenter(initLocation);
 }
-
+function initializeWeather() {
+    // Adding the rain icon 
+    weatherIcons['rain'] = new google.maps.MarkerImage(
+      'images/rain.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the snow icon 
+    weatherIcons['snow'] = new google.maps.MarkerImage(
+      'images/snow.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the clouds icon 
+    weatherIcons['storm'] = new google.maps.MarkerImage(
+      'images/storm.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the sun icon 
+    weatherIcons['sun'] = new google.maps.MarkerImage(
+      'images/sun.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+}
 //ham khoi tao ban do
 function initialize() {
+    //Init
+    // Adding the rain icon 
+    weatherIcons['rain'] = new google.maps.MarkerImage(
+      '../images/rain.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the snow icon 
+    weatherIcons['snow'] = new google.maps.MarkerImage(
+      '../images/snow.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the clouds icon 
+    weatherIcons['storm'] = new google.maps.MarkerImage(
+      '../images/storm.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+    // Adding the sun icon 
+    weatherIcons['sun'] = new google.maps.MarkerImage(
+      '../images/sun.png',
+      new google.maps.Size(32, 32),
+      null,
+      new google.maps.Point(16, 16)
+    );
+
     var myOptions = {
-        zoom: 16,
+        zoom: 2,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     // Try W3C Geolocation (Preferred)
@@ -68,8 +127,49 @@ function initialize() {
     }
 
     //map.getDiv().appendChild(contextmenu);
-}
 
+    //Add weather markers to map
+    for (var i = 0; i < 100; i++) {        
+        var randomLat = 48.25 + (Math.random() - 0.5) * 44.5;
+        var randomLng = 51.00 + (Math.random() - 0.5) * 100.0;
+        randomLat = Math.round(randomLat * 10) / 10;
+        randomLng = Math.round(randomLng * 10) / 10;
+        // Creating marker
+        if (i % 4 == 0) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(randomLat, randomLng),
+                map: map,
+                icon: weatherIcons['rain']
+            });
+        }
+        if (i % 4 == 1) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(randomLat, randomLng),
+                map: map,
+                icon: weatherIcons['snow']
+            });
+        }
+        if (i % 4 == 2) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(randomLat, randomLng),
+                map: map,
+                icon: weatherIcons['sun']
+            });
+        }
+        if (i % 4 == 3) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(randomLat, randomLng),
+                map: map,
+                icon: weatherIcons['storm']
+            });
+        }
+    }
+}
+function getRandomPoint() {
+    var lat = 48.25 + (Math.random() - 0.5) * 14.5;
+    var lng = 11.00 + (Math.random() - 0.5) * 36.0;
+    return new google.maps.LatLng(Math.round(lat * 10) / 10, Math.round(lng * 10) / 10);
+}
 //Tim dia diem
 function findLocation(address, flag) {
     if (!geocoder) {

@@ -85,6 +85,10 @@
     <Content Include="images\delete.png" />
     <Content Include="images\edit.png" />
     <Content Include="images\pen.cur" />
+    <Content Include="images\rain.png" />
+    <Content Include="images\snow.png" />
+    <Content Include="images\storm.png" />
+    <Content Include="images\sun.png" />
     <Content Include="images\update.png" />
     <Content Include="Library\Ajax.dll" />
     <Content Include="Library\HtmlAgilityPack.dll" />
