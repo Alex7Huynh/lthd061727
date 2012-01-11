@@ -44,8 +44,12 @@ namespace CaroSocialNetwork.Util.Engine
             IList<JToken> results = jResults["SearchResponse"]["Web"]["Results"].Children().ToList();
             foreach (JToken result in results)
             {
-                Article article = new Article(
-                    result["Title"].ToString(), result["Url"].ToString(), result["Description"].ToString(), "Bing");
+                string title, url, description;
+                title = result["Title"] != null ? result["Title"].ToString() : "";
+                url = result["Url"] != null ? result["Url"].ToString() : "";
+                description = result["Description"] != null ? result["Description"].ToString() : "";
+
+                Article article = new Article(title, url, description, "Bing");
                 articles.Add(article);
             }
 
