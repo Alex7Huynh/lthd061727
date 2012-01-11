@@ -115,7 +115,7 @@ namespace CaroSocialNetwork
         }
 
         [System.Web.Services.WebMethod]
-        public static int ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, int maDanhMuc, string tenDanhMuc)
+        public static string ThemDiaDiem(string tenDiaDiem, float viDo, float kinhDo, string ghiChu, int maDanhMuc, string tenDanhMuc)
         {
             try
             {
@@ -139,10 +139,10 @@ namespace CaroSocialNetwork
                 //Gán lại ID và kiểm tra
                 location.LocationID = LocationDAO.AddLocation(location);
                 if (location.LocationID.ToString() == "")
-                    return 0;
-                return 1;
+                    return "";
+                return location.LocationID.ToString();
             }
-            catch (Exception ex) { return -1; }
+            catch (Exception ex) { return ""; }
         }
 
         [System.Web.Services.WebMethod]

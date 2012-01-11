@@ -88,7 +88,7 @@ function initialize() {
     );
 
     var myOptions = {
-        zoom: 2,
+        zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
