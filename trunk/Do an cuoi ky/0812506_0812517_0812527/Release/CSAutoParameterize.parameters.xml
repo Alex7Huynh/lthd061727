@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ApplicationServices-Web.config Connection String" description="ApplicationServices Connection String used in web.config by the application to access the database." defaultvalue="data source=.\SQLEXPRESS;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnetdb.mdf;User Instance=true" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\My\ Download\ Files\\SumUpApp\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationServices']/@connectionString" />
+  </parameter>
+  <parameter name="ASPNETDBConnectionString-Web.config Connection String" description="ASPNETDBConnectionString Connection String used in web.config by the application to access the database." defaultvalue="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;Connect Timeout=30;User Instance=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\My\ Download\ Files\\SumUpApp\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ASPNETDBConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="ASPNETDBConnectionString1-Web.config Connection String" description="ASPNETDBConnectionString1 Connection String used in web.config by the application to access the database." defaultvalue="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;User Instance=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\My\ Download\ Files\\SumUpApp\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ASPNETDBConnectionString1']/@connectionString" />
+  </parameter>
+</parameters>

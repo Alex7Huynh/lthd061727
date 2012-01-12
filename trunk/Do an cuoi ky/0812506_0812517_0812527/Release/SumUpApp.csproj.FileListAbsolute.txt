@@ -1,0 +1,9 @@
+E:\My Download Files\SumUpApp\bin\SumUpApp.dll
+E:\My Download Files\SumUpApp\bin\SumUpApp.pdb
+E:\My Download Files\SumUpApp\bin\Ajax.dll
+E:\My Download Files\SumUpApp\bin\HtmlAgilityPack.dll
+E:\My Download Files\SumUpApp\bin\Newtonsoft.Json.dll
+E:\My Download Files\SumUpApp\bin\RssToolkit.dll
+E:\My Download Files\SumUpApp\obj\Debug\ResolveAssemblyReference.cache
+E:\My Download Files\SumUpApp\obj\Debug\SumUpApp.dll
+E:\My Download Files\SumUpApp\obj\Debug\SumUpApp.pdb

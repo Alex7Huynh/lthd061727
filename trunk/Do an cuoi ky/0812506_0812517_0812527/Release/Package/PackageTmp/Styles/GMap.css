@@ -1,0 +1,29 @@
+﻿#mapPanel 
+{
+    width:100%;
+}
+#leftPanel 
+{
+    width:30%;
+    float: left;
+}
+#rightPanel 
+{
+    width:67%;
+    float: right;
+}
+#map {
+    width: 100%;
+    height: 550px;
+}
+#diadiempanel
+{
+	width: 100%;
+	overflow: scroll;
+	float: left;
+}
+#CayDiaDiem
+{
+	width: 100%;
+	float: left;
+}
